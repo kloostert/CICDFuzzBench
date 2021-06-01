@@ -48,7 +48,7 @@ docker build -t "$IMG_NAME" \
     --build-arg USER_ID=$(id -u $USER) \
     --build-arg GROUP_ID=$(id -g $USER) \
     $mode_flag $isan_flag $harden_flag \
-    -f "$MAGMA/docker/Dockerfile" "$MAGMA"
+    -f "$MAGMA/Dockerfile" "$MAGMA"
 set +x
 
 echo "$IMG_NAME"
