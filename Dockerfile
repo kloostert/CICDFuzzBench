@@ -62,7 +62,7 @@ RUN mkdir -p ${TARGET} && chown magma:magma ${TARGET}
 COPY --chown=magma:magma ${magma_root}/${target_path} ${TARGET}/
 RUN ${TARGET}/preinstall.sh
 USER magma:magma
-RUN ${TARGET}/fetch.sh && ${MAGMA}/apply_patches.sh
+## RUN ${TARGET}/fetch.sh && ${MAGMA}/apply_patches.sh
 
 ## Configuration parameters
 ARG isan
