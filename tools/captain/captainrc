@@ -30,7 +30,7 @@ REPEAT=1
 # [TIMEOUT]: time to run each campaign. This variable supports one-letter
 # suffixes to indicate duration (s: seconds, m: minutes, h: hours, d: days)
 # (default: 1m)
-TIMEOUT=1m
+TIMEOUT=2m
 
 # [POLL]: time (in seconds) between polls (default: 5)
 #POLL=5

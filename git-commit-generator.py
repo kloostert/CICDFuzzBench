@@ -6,8 +6,8 @@ import time
 
 import schedule
 
-REPO_LOCATION = './targets/openssl/repo/'
-PATCH_LOCATION = './targets/openssl/patches/bugs/'
+REPO_LOCATION = '../openssl/'
+PATCH_LOCATION = '../cometfuzz/targets/openssl/patches/bugs/'
 BUGS = []
 BUGS_ACTIVE = []
 
@@ -60,15 +60,29 @@ def introduce_or_fix_bug(bug_index):
             sys.exit(ret_val.returncode)
 
 
-def generate_commit():
+def fuzz_commit():
+    subprocess.run(['pwd'])
+    subprocess.run(['rm', '-rf', './tools/captain/workdir'])
+    subprocess.run(['rm', '-rf', './targets/openssl/repo'])
+    subprocess.run(['mkdir', './targets/openssl/repo'])
+    subprocess.run(['cp', '-r', '../openssl/*', './targets/openssl/repo/'])
+    subprocess.run(['cp', './targets/openssl/src/*', './targets/openssl/repo/'])
+    subprocess.run(['cd', './tools/captain/'])
+    subprocess.run(['./run.sh'])
+    subprocess.run(['cd', '../../'])
+
+
+def generate_fuzz_commit():
     bug_idx = random.randint(0, len(BUGS) - 1)
     introduce_or_fix_bug(bug_idx)
+    fuzz_commit()
 
 
 if __name__ == '__main__':
     checkout_base()
     find_patches()
-    schedule.every(1).seconds.do(generate_commit)
+    generate_fuzz_commit()
+    schedule.every(15).minutes.do(generate_fuzz_commit)
     try:
         while True:
             schedule.run_pending()

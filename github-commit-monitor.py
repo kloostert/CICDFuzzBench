@@ -6,7 +6,7 @@ import time
 import requests
 import schedule
 
-REPO_LOCATION = './targets/openssl/repo/'
+REPO_LOCATION = '../openssl/'
 GITHUB_OPENSSL_REPO_EVENTS_LINK = 'https://api.github.com/repos/openssl/openssl/events'
 
 CURRENT_COMMIT = None
