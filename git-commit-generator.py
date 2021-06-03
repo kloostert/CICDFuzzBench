@@ -61,15 +61,12 @@ def introduce_or_fix_bug(bug_index):
 
 
 def fuzz_commit():
-    subprocess.run(['pwd'])
     subprocess.run(['rm', '-rf', './tools/captain/workdir'])
     subprocess.run(['rm', '-rf', './targets/openssl/repo'])
     subprocess.run(['mkdir', './targets/openssl/repo'])
-    subprocess.run(['cp', '-r', '../openssl/*', './targets/openssl/repo/'])
-    subprocess.run(['cp', './targets/openssl/src/*', './targets/openssl/repo/'])
-    subprocess.run(['cd', './tools/captain/'])
-    subprocess.run(['./run.sh'])
-    subprocess.run(['cd', '../../'])
+    subprocess.run(['cp', '-a', '../openssl/.', './targets/openssl/repo'])
+    subprocess.run(['cp', './targets/openssl/src/abilist.txt', './targets/openssl/repo'])
+    subprocess.run(['./run.sh'], cwd='./tools/captain/')
 
 
 def generate_fuzz_commit():
