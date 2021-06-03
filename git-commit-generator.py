@@ -4,8 +4,7 @@ import subprocess
 import sys
 import time
 
-import schedule
-
+FUZZ_TIME = 600
 REPO_LOCATION = '../openssl/'
 PATCH_LOCATION = '../cometfuzz/targets/openssl/patches/bugs/'
 BUGS = []
@@ -76,13 +75,17 @@ def generate_fuzz_commit():
 
 
 if __name__ == '__main__':
-    checkout_base()
-    find_patches()
-    generate_fuzz_commit()
-    schedule.every(15).minutes.do(generate_fuzz_commit)
     try:
+        checkout_base()
+        find_patches()
         while True:
-            schedule.run_pending()
-            time.sleep(1)
+            start = time.time()
+            generate_fuzz_commit()
+            stop = time.time()
+            elapsed = int(stop - start)
+            if elapsed < FUZZ_TIME:
+                time.sleep(FUZZ_TIME - elapsed)
+            else:
+                print('INFO: The fuzzing effort went into overtime!')
     except KeyboardInterrupt:
         print(f'\nProgram was interrupted by the user.\nBUGS =\n{BUGS}\nBUGS_ACTIVE =\n{BUGS_ACTIVE}')
