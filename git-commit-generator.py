@@ -17,6 +17,8 @@ def checkout_base():
                    stderr=subprocess.DEVNULL)
     subprocess.run(['git', '-C', REPO_LOCATION, 'clean', '-df'], stdout=subprocess.DEVNULL,
                    stderr=subprocess.DEVNULL)
+    subprocess.run(['git', '-C', REPO_LOCATION, 'checkout', 'master'], stdout=subprocess.DEVNULL,
+                   stderr=subprocess.DEVNULL)
     ret_val = subprocess.run(['git', '-C', REPO_LOCATION, 'checkout', '728d03b576f360e72bbddc7e751433575430af3b'],
                              stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     print('Return value:', ret_val.returncode)

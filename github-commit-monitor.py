@@ -4,12 +4,12 @@ import sys
 import time
 
 import requests
-import schedule
 
+FUZZ_TIME = 600
 REPO_LOCATION = '../openssl/'
 GITHUB_OPENSSL_REPO_EVENTS_LINK = 'https://api.github.com/repos/openssl/openssl/events'
-
 CURRENT_COMMIT = None
+NEW_COMMIT = False
 
 
 def checkout_new_commit():
@@ -29,8 +29,9 @@ def checkout_new_commit():
 
 
 def check_for_commits():
-    global CURRENT_COMMIT
+    global CURRENT_COMMIT, NEW_COMMIT
     next_commit = None
+    NEW_COMMIT = False
     try:
         print(datetime.datetime.now())
         result = requests.get(url=GITHUB_OPENSSL_REPO_EVENTS_LINK)
@@ -44,20 +45,44 @@ def check_for_commits():
                     print(commit)
                     if CURRENT_COMMIT == commit['sha'] and next_commit is not None:
                         CURRENT_COMMIT = next_commit
-                        checkout_new_commit()
+                        NEW_COMMIT = True
                     next_commit = commit['sha']
         if CURRENT_COMMIT is None and next_commit is not None:
             CURRENT_COMMIT = next_commit
-            checkout_new_commit()
+            NEW_COMMIT = True
         print('Current commit:', CURRENT_COMMIT)
     except Exception as e:
         print('ERROR:', e)
         sys.exit(1)
 
 
-if __name__ == '__main__':
+def start_fuzzing():
+    subprocess.run(['rm', '-rf', './tools/captain/workdir'])
+    subprocess.run(['rm', '-rf', './targets/openssl/repo'])
+    subprocess.run(['mkdir', './targets/openssl/repo'])
+    subprocess.run(['cp', '-a', '../openssl/.', './targets/openssl/repo'])
+    subprocess.run(['cp', './targets/openssl/src/abilist.txt', './targets/openssl/repo'])
+    subprocess.run(['./run.sh'], cwd='./tools/captain/')
+
+
+def fuzz_new_commit():
     check_for_commits()
-    schedule.every(61).seconds.do(check_for_commits)
-    while True:
-        schedule.run_pending()
-        time.sleep(1)
+    if NEW_COMMIT:
+        print('Starting the fuzzing process!')
+        checkout_new_commit()
+        start_fuzzing()
+
+
+if __name__ == '__main__':
+    try:
+        while True:
+            start = time.time()
+            fuzz_new_commit()
+            stop = time.time()
+            elapsed = int(stop - start)
+            if elapsed < FUZZ_TIME:
+                time.sleep(FUZZ_TIME - elapsed)
+            else:
+                print('INFO: The fuzzing effort went into overtime!')
+    except KeyboardInterrupt:
+        print(f'\nProgram was interrupted by the user.')
