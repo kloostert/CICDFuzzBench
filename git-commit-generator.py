@@ -21,7 +21,6 @@ def checkout_base():
                    stderr=subprocess.DEVNULL)
     ret_val = subprocess.run(['git', '-C', REPO_LOCATION, 'checkout', '728d03b576f360e72bbddc7e751433575430af3b'],
                              stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    print('Return value:', ret_val.returncode)
     if ret_val.returncode != 0:
         print('ERROR: Checking out the base commit did not work properly...')
         sys.exit(1)
@@ -43,7 +42,6 @@ def introduce_or_fix_bug(bug_index):
         print('Including bugfix', BUGS[bug_index])
         ret_val = subprocess.run(['patch', '-p1', '-R', '-d', REPO_LOCATION, '-i', BUGS[bug_index]],
                                  stdout=subprocess.DEVNULL)
-        print('Return value:', ret_val.returncode)
         if ret_val.returncode == 0:
             BUGS_ACTIVE[bug_index] = False
         else:
@@ -53,7 +51,6 @@ def introduce_or_fix_bug(bug_index):
         print('Including bug', BUGS[bug_index])
         ret_val = subprocess.run(['patch', '-p1', '-d', REPO_LOCATION, '-i', BUGS[bug_index]],
                                  stdout=subprocess.DEVNULL)
-        print('Return value:', ret_val.returncode)
         if ret_val.returncode == 0:
             BUGS_ACTIVE[bug_index] = True
         else:
@@ -62,12 +59,18 @@ def introduce_or_fix_bug(bug_index):
 
 
 def fuzz_commit():
-    subprocess.run(['rm', '-rf', './tools/captain/workdir'])
-    subprocess.run(['rm', '-rf', './targets/openssl/repo'])
+    print('Starting the fuzzing process!')
+    subprocess.run(['rm', '-rf', './tools/captain/workdir', './targets/openssl/repo', './tools/captain/results.json'])
     subprocess.run(['mkdir', './targets/openssl/repo'])
     subprocess.run(['cp', '-a', '../openssl/.', './targets/openssl/repo'])
     subprocess.run(['cp', './targets/openssl/src/abilist.txt', './targets/openssl/repo'])
     subprocess.run(['./run.sh'], cwd='./tools/captain/')
+    subprocess.run(['python3.8', 'gather_results.py', 'workdir/', 'results.json'], cwd='./tools/captain/')
+    subprocess.run(['python3.8', 'gather_detected.py'], cwd='./tools/captain/')
+    new_result_index = int(max(os.listdir('/srv/results'))) + 1
+    subprocess.run(['mkdir', f'/srv/results/{new_result_index}'])
+    subprocess.run(
+        ['cp', './tools/captain/results.json', './tools/captain/final.json', f'/srv/results/{new_result_index}'])
 
 
 def generate_fuzz_commit():
@@ -77,6 +80,7 @@ def generate_fuzz_commit():
 
 
 if __name__ == '__main__':
+    random.seed(1)  # for reproducibility
     try:
         checkout_base()
         find_patches()
@@ -86,8 +90,9 @@ if __name__ == '__main__':
             stop = time.time()
             elapsed = int(stop - start)
             if elapsed < FUZZ_TIME:
+                print(f'Sleeping for {FUZZ_TIME - elapsed}s...')
                 time.sleep(FUZZ_TIME - elapsed)
             else:
-                print('INFO: The fuzzing effort went into overtime!')
+                print(f'INFO: The fuzzing effort went into overtime ({elapsed}s)!')
     except KeyboardInterrupt:
         print(f'\nProgram was interrupted by the user.\nBUGS =\n{BUGS}\nBUGS_ACTIVE =\n{BUGS_ACTIVE}')
