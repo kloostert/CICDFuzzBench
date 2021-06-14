@@ -6,10 +6,10 @@ import time
 import requests
 
 FUZZ_TIME = 600
+POLL_TIME = 61
 REPO_LOCATION = '../openssl/'
 GITHUB_OPENSSL_REPO_EVENTS_LINK = 'https://api.github.com/repos/openssl/openssl/events'
 CURRENT_COMMIT = None
-NEW_COMMIT = False
 
 
 def checkout_new_commit():
@@ -28,10 +28,9 @@ def checkout_new_commit():
         sys.exit(1)
 
 
-def check_for_commits():
-    global CURRENT_COMMIT, NEW_COMMIT
-    next_commit = None
-    NEW_COMMIT = False
+def find_new_commit():
+    global CURRENT_COMMIT
+    new_commit = False
     try:
         print(datetime.datetime.now())
         result = requests.get(url=GITHUB_OPENSSL_REPO_EVENTS_LINK)
@@ -43,14 +42,13 @@ def check_for_commits():
             if event['type'] == 'PushEvent':
                 for commit in event['payload']['commits']:
                     print(commit)
-                    if CURRENT_COMMIT == commit['sha'] and next_commit is not None:
-                        CURRENT_COMMIT = next_commit
-                        NEW_COMMIT = True
-                    next_commit = commit['sha']
-        if CURRENT_COMMIT is None and next_commit is not None:
-            CURRENT_COMMIT = next_commit
-            NEW_COMMIT = True
+                    if CURRENT_COMMIT != commit['sha']:
+                        CURRENT_COMMIT = commit['sha']
+                        new_commit = True
+                    break
+                break
         print('Current commit:', CURRENT_COMMIT)
+        return new_commit
     except Exception as e:
         print('ERROR:', e)
         sys.exit(1)
@@ -66,23 +64,29 @@ def start_fuzzing():
 
 
 def fuzz_new_commit():
-    check_for_commits()
-    if NEW_COMMIT:
+    if find_new_commit():
         print('Starting the fuzzing process!')
         checkout_new_commit()
         start_fuzzing()
+        return True
+    return False
 
 
 if __name__ == '__main__':
     try:
         while True:
             start = time.time()
-            fuzz_new_commit()
+            fuzzed = fuzz_new_commit()
             stop = time.time()
             elapsed = int(stop - start)
-            if elapsed < FUZZ_TIME:
-                time.sleep(FUZZ_TIME - elapsed)
+            if fuzzed:
+                if elapsed < FUZZ_TIME:
+                    print(f'Sleeping for {FUZZ_TIME - elapsed}s...')
+                    time.sleep(FUZZ_TIME - elapsed)
+                else:
+                    print('INFO: The fuzzing effort went into overtime!')
             else:
-                print('INFO: The fuzzing effort went into overtime!')
+                print(f'Sleeping for {POLL_TIME - elapsed}s...')
+                time.sleep(POLL_TIME - elapsed)
     except KeyboardInterrupt:
         print(f'\nProgram was interrupted by the user.')
