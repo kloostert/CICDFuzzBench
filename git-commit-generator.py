@@ -60,12 +60,14 @@ def introduce_or_fix_bug(bug_index):
 
 def fuzz_commit():
     print('Starting the fuzzing process!')
-    subprocess.run(['rm', '-rf', './tools/captain/workdir', './targets/openssl/repo', './tools/captain/results.json'])
+    subprocess.run(['rm', '-rf', './tools/captain/workdir', './targets/openssl/repo', './tools/captain/results.json',
+                    './tools/captain/final.json'])
     subprocess.run(['mkdir', './targets/openssl/repo'])
     subprocess.run(['cp', '-a', '../openssl/.', './targets/openssl/repo'])
     subprocess.run(['cp', './targets/openssl/src/abilist.txt', './targets/openssl/repo'])
     subprocess.run(['./run.sh'], cwd='./tools/captain/')
-    subprocess.run(['python3.8', 'gather_results.py', 'workdir/', 'results.json'], cwd='./tools/captain/')
+    subprocess.run(['python3.8', 'gather_results.py', 'workdir/', 'results.json'], cwd='./tools/captain/',
+                   stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     subprocess.run(['python3.8', 'gather_detected.py'], cwd='./tools/captain/')
     new_result_index = int(max(os.listdir('/srv/results'))) + 1
     subprocess.run(['mkdir', f'/srv/results/{new_result_index}'])
@@ -80,7 +82,7 @@ def generate_fuzz_commit():
 
 
 if __name__ == '__main__':
-    random.seed(1)  # for reproducibility
+    random.seed(14)  # for reproducibility
     try:
         checkout_base()
         find_patches()
