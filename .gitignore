@@ -1,2 +1,3 @@
 targets/openssl/repo/
 tools/captain/workdir*/
+tools/captain/*.json

@@ -1,92 +1,75 @@
-import datetime
 import subprocess
-import sys
 import time
 
-import requests
-
 FUZZ_TIME = 600
-POLL_TIME = 61
+POLL_TIME = 60
 REPO_LOCATION = '../openssl/'
-GITHUB_OPENSSL_REPO_EVENTS_LINK = 'https://api.github.com/repos/openssl/openssl/events'
 CURRENT_COMMIT = None
 
 
-def checkout_new_commit():
-    subprocess.run(['git', '-C', REPO_LOCATION, 'reset', '--hard'], stdout=subprocess.DEVNULL,
-                   stderr=subprocess.DEVNULL)
-    subprocess.run(['git', '-C', REPO_LOCATION, 'clean', '-df'], stdout=subprocess.DEVNULL,
-                   stderr=subprocess.DEVNULL)
-    subprocess.run(['git', '-C', REPO_LOCATION, 'checkout', 'master'], stdout=subprocess.DEVNULL,
-                   stderr=subprocess.DEVNULL)
-    subprocess.run(['git', '-C', REPO_LOCATION, 'pull'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    ret_val = subprocess.run(['git', '-C', REPO_LOCATION, 'checkout', CURRENT_COMMIT],
-                             stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    print('Return value:', ret_val.returncode)
-    if ret_val.returncode != 0:
-        print(f'ERROR: Checking out {CURRENT_COMMIT} did not work properly...')
-        sys.exit(1)
+def run_cmd_disable_output(command_array, **kwargs):
+    return subprocess.run(command_array, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, **kwargs)
 
 
-def find_new_commit():
+def run_cmd_enable_output(command_array, **kwargs):
+    return subprocess.run(command_array, **kwargs)
+
+
+def run_cmd_capture_output(command_array, **kwargs):
+    return subprocess.run(command_array, capture_output=True, text=True, **kwargs)
+
+
+def get_stdout(result):
+    return result.stdout.strip('\n"')
+
+
+def init_repo():
     global CURRENT_COMMIT
-    new_commit = False
-    try:
-        print(datetime.datetime.now())
-        result = requests.get(url=GITHUB_OPENSSL_REPO_EVENTS_LINK)
-        if result.headers['X-RateLimit-Remaining'] == '0':
-            print('ERROR: We have exceeded the rate limit for this API (max 60/hour).')
-            sys.exit(1)
-        events = result.json()
-        for event in events:
-            if event['type'] == 'PushEvent':
-                for commit in event['payload']['commits']:
-                    print(commit)
-                    if CURRENT_COMMIT != commit['sha']:
-                        CURRENT_COMMIT = commit['sha']
-                        new_commit = True
-                    break
-                break
-        print('Current commit:', CURRENT_COMMIT)
-        return new_commit
-    except Exception as e:
-        print('ERROR:', e)
-        sys.exit(1)
+    run_cmd_disable_output(['git', '-C', REPO_LOCATION, 'reset', '--hard'])
+    run_cmd_disable_output(['git', '-C', REPO_LOCATION, 'clean', '-df'])
+    run_cmd_disable_output(['git', '-C', REPO_LOCATION, 'checkout', 'master'])
+    run_cmd_disable_output(['git', '-C', REPO_LOCATION, 'pull'])
+    CURRENT_COMMIT = get_stdout(run_cmd_capture_output(['git', '-C', REPO_LOCATION, 'log', '-1', '--format="%H"']))
+    print(f'INFO: The current commit is {CURRENT_COMMIT}.')
 
 
-def start_fuzzing():
-    subprocess.run(['rm', '-rf', './tools/captain/workdir'])
-    subprocess.run(['rm', '-rf', './targets/openssl/repo'])
-    subprocess.run(['mkdir', './targets/openssl/repo'])
-    subprocess.run(['cp', '-a', '../openssl/.', './targets/openssl/repo'])
-    subprocess.run(['cp', './targets/openssl/src/abilist.txt', './targets/openssl/repo'])
-    subprocess.run(['./run.sh'], cwd='./tools/captain/')
+def fuzz_current_commit():
+    run_cmd_enable_output(['rm', '-rf', './tools/captain/workdir'])
+    run_cmd_enable_output(['rm', '-rf', './targets/openssl/repo'])
+    run_cmd_enable_output(['mkdir', './targets/openssl/repo'])
+    run_cmd_enable_output(['cp', '-a', '../openssl/.', './targets/openssl/repo'])
+    run_cmd_enable_output(['cp', './targets/openssl/src/abilist.txt', './targets/openssl/repo'])
+    run_cmd_enable_output(['./run.sh'], cwd='./tools/captain/')
 
 
-def fuzz_new_commit():
-    if find_new_commit():
-        print('Starting the fuzzing process!')
-        checkout_new_commit()
-        start_fuzzing()
+def check_for_new_commits():
+    global CURRENT_COMMIT
+    run_cmd_disable_output(['git', '-C', REPO_LOCATION, 'pull'])
+    most_recent_commit = get_stdout(run_cmd_capture_output(['git', '-C', REPO_LOCATION, 'log', '-1', '--format="%H"']))
+    if most_recent_commit != CURRENT_COMMIT:
+        print(f'INFO: Starting the fuzzing process for new commit {most_recent_commit}!')
+        fuzz_current_commit()
+        CURRENT_COMMIT = most_recent_commit
         return True
     return False
 
 
 if __name__ == '__main__':
     try:
+        init_repo()
         while True:
             start = time.time()
-            fuzzed = fuzz_new_commit()
+            new = check_for_new_commits()
             stop = time.time()
             elapsed = int(stop - start)
-            if fuzzed:
+            if new:
                 if elapsed < FUZZ_TIME:
-                    print(f'Sleeping for {FUZZ_TIME - elapsed}s...')
+                    print(f'INFO: Sleeping for {FUZZ_TIME - elapsed}s...')
                     time.sleep(FUZZ_TIME - elapsed)
                 else:
-                    print('INFO: The fuzzing effort went into overtime!')
+                    print(f'INFO: The fuzzing effort went into overtime ({elapsed}s)!')
             else:
-                print(f'Sleeping for {POLL_TIME - elapsed}s...')
+                print(f'INFO: Sleeping for {POLL_TIME - elapsed}s...')
                 time.sleep(POLL_TIME - elapsed)
     except KeyboardInterrupt:
-        print(f'\nProgram was interrupted by the user.')
+        print(f'\nINFO: Program was interrupted by the user.')

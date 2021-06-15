@@ -69,10 +69,10 @@ def fuzz_commit():
     subprocess.run(['python3.8', 'gather_results.py', 'workdir/', 'results.json'], cwd='./tools/captain/',
                    stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     subprocess.run(['python3.8', 'gather_detected.py'], cwd='./tools/captain/')
-    new_result_index = int(max(os.listdir('/srv/results'))) + 1
-    subprocess.run(['mkdir', f'/srv/results/{new_result_index}'])
-    subprocess.run(
-        ['cp', './tools/captain/results.json', './tools/captain/final.json', f'/srv/results/{new_result_index}'])
+    new_result_index = int(max(os.listdir('/srv/results/artificial'))) + 1
+    subprocess.run(['mkdir', f'/srv/results/artificial/{new_result_index}'])
+    subprocess.run(['cp', './tools/captain/results.json', './tools/captain/final.json',
+                    f'/srv/results/artificial/{new_result_index}'])
 
 
 def generate_fuzz_commit():
