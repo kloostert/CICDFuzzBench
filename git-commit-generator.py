@@ -11,19 +11,28 @@ BUGS = []
 BUGS_ACTIVE = []
 
 
+def log_info(entry):
+    print(f'INFO: {entry}')
+
+
+def log_error(entry):
+    print(f'ERROR: {entry}')
+
+
+def run_cmd_disable_output(command_array, **kwargs):
+    return subprocess.run(command_array, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, **kwargs)
+
+
+def run_cmd_enable_output(command_array, **kwargs):
+    return subprocess.run(command_array, **kwargs)
+
+
 def checkout_base():
-    print('Checking out 728d03b576f360e72bbddc7e751433575430af3b')
-    subprocess.run(['git', '-C', REPO_LOCATION, 'reset', '--hard'], stdout=subprocess.DEVNULL,
-                   stderr=subprocess.DEVNULL)
-    subprocess.run(['git', '-C', REPO_LOCATION, 'clean', '-df'], stdout=subprocess.DEVNULL,
-                   stderr=subprocess.DEVNULL)
-    subprocess.run(['git', '-C', REPO_LOCATION, 'checkout', 'master'], stdout=subprocess.DEVNULL,
-                   stderr=subprocess.DEVNULL)
-    ret_val = subprocess.run(['git', '-C', REPO_LOCATION, 'checkout', '728d03b576f360e72bbddc7e751433575430af3b'],
-                             stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    if ret_val.returncode != 0:
-        print('ERROR: Checking out the base commit did not work properly...')
-        sys.exit(1)
+    log_info('Checking out the base commit 728d03b576f360e72bbddc7e751433575430af3b.')
+    run_cmd_disable_output(['git', '-C', REPO_LOCATION, 'reset', '--hard'])
+    run_cmd_disable_output(['git', '-C', REPO_LOCATION, 'clean', '-df'])
+    run_cmd_disable_output(['git', '-C', REPO_LOCATION, 'checkout', 'master'])
+    run_cmd_disable_output(['git', '-C', REPO_LOCATION, 'checkout', '728d03b576f360e72bbddc7e751433575430af3b'])
 
 
 def find_patches():
@@ -33,52 +42,61 @@ def find_patches():
                 BUGS.append(os.path.join(PATCH_LOCATION, file))
                 BUGS_ACTIVE.append(False)
     except Exception as e:
-        print('ERROR:', e)
+        log_error('The patches were not found!')
+        log_error(e)
         sys.exit(1)
 
 
 def introduce_or_fix_bug(bug_index):
     if BUGS_ACTIVE[bug_index]:
-        print('Including bugfix', BUGS[bug_index])
-        ret_val = subprocess.run(['patch', '-p1', '-R', '-d', REPO_LOCATION, '-i', BUGS[bug_index]],
-                                 stdout=subprocess.DEVNULL)
-        if ret_val.returncode == 0:
+        log_info(f'Including bugfix {BUGS[bug_index]}.')
+        code = run_cmd_disable_output(['patch', '-p1', '-R', '-d', REPO_LOCATION, '-i', BUGS[bug_index]]).returncode
+        if code == 0:
             BUGS_ACTIVE[bug_index] = False
         else:
-            print(f'ERROR: Bug {BUGS[bug_index]} is active yet it could not be patched...')
-            sys.exit(ret_val.returncode)
+            log_error(f'Bug {BUGS[bug_index]} is active yet it could not be patched...')
+            sys.exit(code)
     else:
-        print('Including bug', BUGS[bug_index])
-        ret_val = subprocess.run(['patch', '-p1', '-d', REPO_LOCATION, '-i', BUGS[bug_index]],
-                                 stdout=subprocess.DEVNULL)
-        if ret_val.returncode == 0:
+        log_info(f'Including bugfix {BUGS[bug_index]}.')
+        code = run_cmd_disable_output(['patch', '-p1', '-d', REPO_LOCATION, '-i', BUGS[bug_index]]).returncode
+        if code == 0:
             BUGS_ACTIVE[bug_index] = True
         else:
-            print(f'ERROR: Bug {BUGS[bug_index]} is inactive yet it could not be included...')
-            sys.exit(ret_val.returncode)
+            log_error(f'Bug {BUGS[bug_index]} is inactive yet it could not be included...')
+            sys.exit(code)
 
 
 def fuzz_commit():
-    print('Starting the fuzzing process!')
-    subprocess.run(['rm', '-rf', './tools/captain/workdir', './targets/openssl/repo', './tools/captain/results.json',
-                    './tools/captain/final.json'])
-    subprocess.run(['mkdir', './targets/openssl/repo'])
-    subprocess.run(['cp', '-a', '../openssl/.', './targets/openssl/repo'])
-    subprocess.run(['cp', './targets/openssl/src/abilist.txt', './targets/openssl/repo'])
-    subprocess.run(['./run.sh'], cwd='./tools/captain/')
-    subprocess.run(['python3.8', 'gather_results.py', 'workdir/', 'results.json'], cwd='./tools/captain/',
-                   stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    subprocess.run(['python3.8', 'gather_detected.py'], cwd='./tools/captain/')
+    log_info('Starting the fuzzing process!')
+    run_cmd_enable_output(['rm', '-rf', './tools/captain/workdir', './targets/openssl/repo'])
+    run_cmd_enable_output(['rm', '-rf', './tools/captain/results.json', './tools/captain/final.json'])
+    run_cmd_enable_output(['mkdir', './targets/openssl/repo'])
+    run_cmd_enable_output(['cp', '-a', '../openssl/.', './targets/openssl/repo'])
+    run_cmd_enable_output(['cp', './targets/openssl/src/abilist.txt', './targets/openssl/repo'])
+    run_cmd_enable_output(['./run.sh'], cwd='./tools/captain/')
+    run_cmd_disable_output(['python3.8', 'gather_results.py', 'workdir/', 'results.json'], cwd='./tools/captain/')
+    run_cmd_enable_output(['python3.8', 'gather_detected.py'], cwd='./tools/captain/')
     new_result_index = int(max(os.listdir('/srv/results/artificial'))) + 1
-    subprocess.run(['mkdir', f'/srv/results/artificial/{new_result_index}'])
-    subprocess.run(['cp', './tools/captain/results.json', './tools/captain/final.json',
-                    f'/srv/results/artificial/{new_result_index}'])
+    run_cmd_enable_output(['mkdir', f'/srv/results/artificial/{new_result_index}'])
+    run_cmd_enable_output(['cp', './tools/captain/results.json', './tools/captain/final.json',
+                           f'/srv/results/artificial/{new_result_index}'])
 
 
 def generate_fuzz_commit():
     bug_idx = random.randint(0, len(BUGS) - 1)
     introduce_or_fix_bug(bug_idx)
     fuzz_commit()
+
+
+def print_bug_status():
+    active = 0
+    for i in range(len(BUGS)):
+        if BUGS_ACTIVE[i]:
+            log_info(f'{BUGS[i][-12:-6]} ACTIVE')
+            active += 1
+        else:
+            log_info(f'{BUGS[i][-12:-6]} INACTIVE')
+    log_info(f'Active bugs: {active}\tInactive bugs: {len(BUGS) - active}\tTotal bugs: {len(BUGS)}')
 
 
 if __name__ == '__main__':
@@ -92,9 +110,10 @@ if __name__ == '__main__':
             stop = time.time()
             elapsed = int(stop - start)
             if elapsed < FUZZ_TIME:
-                print(f'Sleeping for {FUZZ_TIME - elapsed}s...')
+                log_info(f'Sleeping for {FUZZ_TIME - elapsed}s...')
                 time.sleep(FUZZ_TIME - elapsed)
             else:
-                print(f'INFO: The fuzzing effort went into overtime ({elapsed}s)!')
+                log_info(f'The fuzzing effort went into overtime ({elapsed}s)!')
     except KeyboardInterrupt:
-        print(f'\nProgram was interrupted by the user.\nBUGS =\n{BUGS}\nBUGS_ACTIVE =\n{BUGS_ACTIVE}')
+        print(f'\nProgram was interrupted by the user.')
+        print_bug_status()

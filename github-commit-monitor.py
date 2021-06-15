@@ -7,6 +7,10 @@ REPO_LOCATION = '../openssl/'
 CURRENT_COMMIT = None
 
 
+def log_info(entry):
+    print(f'INFO: {entry}')
+
+
 def run_cmd_disable_output(command_array, **kwargs):
     return subprocess.run(command_array, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, **kwargs)
 
@@ -30,7 +34,7 @@ def init_repo():
     run_cmd_disable_output(['git', '-C', REPO_LOCATION, 'checkout', 'master'])
     run_cmd_disable_output(['git', '-C', REPO_LOCATION, 'pull'])
     CURRENT_COMMIT = get_stdout(run_cmd_capture_output(['git', '-C', REPO_LOCATION, 'log', '-1', '--format="%H"']))
-    print(f'INFO: The current commit is {CURRENT_COMMIT}.')
+    log_info(f'The current commit is {CURRENT_COMMIT}.')
 
 
 def fuzz_current_commit():
@@ -47,7 +51,7 @@ def check_for_new_commits():
     run_cmd_disable_output(['git', '-C', REPO_LOCATION, 'pull'])
     most_recent_commit = get_stdout(run_cmd_capture_output(['git', '-C', REPO_LOCATION, 'log', '-1', '--format="%H"']))
     if most_recent_commit != CURRENT_COMMIT:
-        print(f'INFO: Starting the fuzzing process for new commit {most_recent_commit}!')
+        log_info(f'Starting the fuzzing process for new commit {most_recent_commit}!')
         fuzz_current_commit()
         CURRENT_COMMIT = most_recent_commit
         return True
@@ -64,12 +68,12 @@ if __name__ == '__main__':
             elapsed = int(stop - start)
             if new:
                 if elapsed < FUZZ_TIME:
-                    print(f'INFO: Sleeping for {FUZZ_TIME - elapsed}s...')
+                    log_info(f'Sleeping for {FUZZ_TIME - elapsed}s...')
                     time.sleep(FUZZ_TIME - elapsed)
                 else:
-                    print(f'INFO: The fuzzing effort went into overtime ({elapsed}s)!')
+                    log_info(f'The fuzzing effort went into overtime ({elapsed}s)!')
             else:
-                print(f'INFO: Sleeping for {POLL_TIME - elapsed}s...')
+                log_info(f'Sleeping for {POLL_TIME - elapsed}s...')
                 time.sleep(POLL_TIME - elapsed)
     except KeyboardInterrupt:
         print(f'\nINFO: Program was interrupted by the user.')
