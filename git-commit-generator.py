@@ -2,7 +2,7 @@ import os
 import random
 import subprocess
 import sys
-import time
+# import time
 
 FUZZ_TIME = 600
 REPO_LOCATION = '../openssl/'
@@ -57,7 +57,7 @@ def introduce_or_fix_bug(bug_index):
             log_error(f'Bug {BUGS[bug_index]} is active yet it could not be patched...')
             sys.exit(code)
     else:
-        log_info(f'Including bugfix {BUGS[bug_index]}.')
+        log_info(f'Including bug {BUGS[bug_index]}.')
         code = run_cmd_disable_output(['patch', '-p1', '-d', REPO_LOCATION, '-i', BUGS[bug_index]]).returncode
         if code == 0:
             BUGS_ACTIVE[bug_index] = True
@@ -79,7 +79,21 @@ def fuzz_commit():
     new_result_index = int(max(os.listdir('/srv/results/artificial'))) + 1
     run_cmd_enable_output(['mkdir', f'/srv/results/artificial/{new_result_index}'])
     run_cmd_enable_output(['cp', './tools/captain/results.json', './tools/captain/final.json',
+                           './tools/captain/captainrc', './targets/openssl/configrc',
                            f'/srv/results/artificial/{new_result_index}'])
+    save_bug_status(new_result_index)
+
+
+def save_bug_status(result_index):
+    with open(f'/srv/results/artificial/{result_index}/bug_status.txt', 'w') as f:
+        active = 0
+        for i in range(len(BUGS)):
+            if BUGS_ACTIVE[i]:
+                f.write(f'{BUGS[i][-12:-6]} ACTIVE\n')
+                active += 1
+            else:
+                f.write(f'{BUGS[i][-12:-6]} INACTIVE\n')
+        f.write(f'Active bugs: {active}\tInactive bugs: {len(BUGS) - active}\tTotal bugs: {len(BUGS)}\n')
 
 
 def generate_fuzz_commit():
@@ -104,16 +118,17 @@ if __name__ == '__main__':
     try:
         checkout_base()
         find_patches()
-        while True:
-            start = time.time()
-            generate_fuzz_commit()
-            stop = time.time()
-            elapsed = int(stop - start)
-            if elapsed < FUZZ_TIME:
-                log_info(f'Sleeping for {FUZZ_TIME - elapsed}s...')
-                time.sleep(FUZZ_TIME - elapsed)
-            else:
-                log_info(f'The fuzzing effort went into overtime ({elapsed}s)!')
+        generate_fuzz_commit()
+        # while True:
+        #     start = time.time()
+        #     generate_fuzz_commit()
+        #     stop = time.time()
+        #     elapsed = int(stop - start)
+        #     if elapsed < FUZZ_TIME:
+        #         log_info(f'Sleeping for {FUZZ_TIME - elapsed}s...')
+        #         time.sleep(FUZZ_TIME - elapsed)
+        #     else:
+        #         log_info(f'The fuzzing effort went into overtime ({elapsed}s)!')
     except KeyboardInterrupt:
         print(f'\nProgram was interrupted by the user.')
         print_bug_status()
