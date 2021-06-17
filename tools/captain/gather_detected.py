@@ -21,7 +21,7 @@ if __name__ == '__main__':
                 detected[fuzzer].append(bug)
 
     results = {'reached': {}, 'triggered': {}, 'detected': detected}
-    with open('./results.json') as infile:
+    with open('./benchd_results') as infile:
         bench = load(infile)['results']
         for fuzzer in bench:
             for program in bench[fuzzer]:
@@ -34,5 +34,5 @@ if __name__ == '__main__':
                                 if bug not in results[metric][fuzzer]:
                                     results[metric][fuzzer].append(bug)
 
-    with open('./final.json', 'w+') as outfile:
+    with open('./final_results', 'w+') as outfile:
         dump(results, outfile, indent=4)

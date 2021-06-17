@@ -1,3 +1,5 @@
 targets/openssl/repo/
 tools/captain/workdir*/
-tools/captain/*.json
+tools/captain/benchd_results
+tools/captain/final_results
+tools/captain/coverage_results

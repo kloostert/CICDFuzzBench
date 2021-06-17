@@ -241,7 +241,8 @@ def main():
         sys.stdout.buffer.write(data)
     else:
         with open(args.outfile, "wb") as f:
-            f.write(data)
+            #f.write(data)
+            json.dump(output, f, indent=4)
 
 if __name__ == '__main__':
     main()

@@ -2,6 +2,7 @@ import os
 import random
 import subprocess
 import sys
+
 # import time
 
 FUZZ_TIME = 600
@@ -69,23 +70,26 @@ def introduce_or_fix_bug(bug_index):
 def fuzz_commit():
     log_info('Starting the fuzzing process!')
     run_cmd_enable_output(['rm', '-rf', './tools/captain/workdir', './targets/openssl/repo'])
-    run_cmd_enable_output(['rm', '-rf', './tools/captain/results.json', './tools/captain/final.json'])
+    run_cmd_enable_output(['rm', '-rf', './tools/captain/benchd_results', './tools/captain/final_results'])
     run_cmd_enable_output(['mkdir', './targets/openssl/repo'])
     run_cmd_enable_output(['cp', '-a', '../openssl/.', './targets/openssl/repo'])
     run_cmd_enable_output(['cp', './targets/openssl/src/abilist.txt', './targets/openssl/repo'])
     run_cmd_enable_output(['./run.sh'], cwd='./tools/captain/')
-    run_cmd_disable_output(['python3.8', 'gather_results.py', 'workdir/', 'results.json'], cwd='./tools/captain/')
+    run_cmd_disable_output(['python3.8', 'gather_results.py', 'workdir/', 'benchd_results'], cwd='./tools/captain/')
     run_cmd_enable_output(['python3.8', 'gather_detected.py'], cwd='./tools/captain/')
     new_result_index = int(max(os.listdir('/srv/results/artificial'))) + 1
     run_cmd_enable_output(['mkdir', f'/srv/results/artificial/{new_result_index}'])
-    run_cmd_enable_output(['cp', './tools/captain/results.json', './tools/captain/final.json',
-                           './tools/captain/captainrc', './targets/openssl/configrc',
+    run_cmd_enable_output(['cp', './tools/captain/benchd_results', './tools/captain/final_results',
                            f'/srv/results/artificial/{new_result_index}'])
+    run_cmd_enable_output(
+        ['cp', './tools/captain/captainrc', f'/srv/results/artificial/{new_result_index}/fuzzer_settings'])
+    run_cmd_enable_output(
+        ['cp', './targets/openssl/configrc', f'/srv/results/artificial/{new_result_index}/fuzzed_targets'])
     save_bug_status(new_result_index)
 
 
 def save_bug_status(result_index):
-    with open(f'/srv/results/artificial/{result_index}/bug_status.txt', 'w') as f:
+    with open(f'/srv/results/artificial/{result_index}/bug_status', 'w') as f:
         active = 0
         for i in range(len(BUGS)):
             if BUGS_ACTIVE[i]:
