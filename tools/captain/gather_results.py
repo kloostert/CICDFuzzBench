@@ -240,7 +240,7 @@ def main():
     if args.outfile == "-":
         sys.stdout.buffer.write(data)
     else:
-        with open(args.outfile, "wb") as f:
+        with open(args.outfile, "w+") as f:
             #f.write(data)
             json.dump(output, f, indent=4)
 
