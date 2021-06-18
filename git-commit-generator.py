@@ -2,6 +2,7 @@ import os
 import random
 import subprocess
 import sys
+from json import dump
 
 # import time
 
@@ -89,15 +90,19 @@ def fuzz_commit():
 
 
 def save_bug_status(result_index):
+    bug_status = {'number_of': [], 'active': [], 'inactive': []}
+    active = 0
+    for i in range(len(BUGS)):
+        if BUGS_ACTIVE[i]:
+            bug_status['active'].append(BUGS[i][-12:-6])
+            active += 1
+        else:
+            bug_status['inactive'].append(BUGS[i][-12:-6])
+    bug_status['number_of'].append({'active_bugs': active})
+    bug_status['number_of'].append({'inactive_bugs': len(BUGS) - active})
+    bug_status['number_of'].append({'total_bugs': len(BUGS)})
     with open(f'/srv/results/artificial/{result_index}/bug_status', 'w') as f:
-        active = 0
-        for i in range(len(BUGS)):
-            if BUGS_ACTIVE[i]:
-                f.write(f'{BUGS[i][-12:-6]} ACTIVE\n')
-                active += 1
-            else:
-                f.write(f'{BUGS[i][-12:-6]} INACTIVE\n')
-        f.write(f'Active bugs: {active}\tInactive bugs: {len(BUGS) - active}\tTotal bugs: {len(BUGS)}\n')
+        dump(bug_status, f, indent=4)
 
 
 def generate_fuzz_commit():
