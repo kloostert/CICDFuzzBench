@@ -91,7 +91,7 @@ def fuzz_commit():
 
 
 def save_bug_status(result_index):
-    bug_status = {'number_of': [], 'active': [], 'inactive': []}
+    bug_status = {'active': [], 'inactive': []}
     active = 0
     for i in range(len(BUGS)):
         if BUGS_ACTIVE[i]:
@@ -99,9 +99,9 @@ def save_bug_status(result_index):
             active += 1
         else:
             bug_status['inactive'].append(BUGS[i][-12:-6])
-    bug_status['number_of'].append({'active_bugs': active})
-    bug_status['number_of'].append({'inactive_bugs': len(BUGS) - active})
-    bug_status['number_of'].append({'total_bugs': len(BUGS)})
+    bug_status['nr_active_bugs'] = active
+    bug_status['nr_inactive_bugs'] = len(BUGS) - active
+    bug_status['nr_total_bugs'] = len(BUGS)
     with open(f'/srv/results/artificial/{result_index}/bug_status', 'w') as f:
         dump(bug_status, f, indent=4)
 
