@@ -90,6 +90,7 @@ def fuzz_commit():
     run_cmd_enable_output(
         ['cp', './targets/openssl/configrc', f'/srv/results/artificial/{new_result_index}/fuzzed_targets'])
     save_bug_status(new_result_index)
+    save_coverage_statistics(new_result_index)
     log_info(f'The results of this fuzzing campaign were stored in /srv/results/artificial/{new_result_index}/.')
 
 
@@ -107,6 +108,41 @@ def save_bug_status(result_index):
     bug_status['nr_total_bugs'] = len(BUGS)
     with open(f'/srv/results/artificial/{result_index}/bug_status', 'w') as f:
         dump(bug_status, f, indent=4)
+
+
+def save_coverage_statistics(result_index):
+    logfiles = []
+    stats = {'libfuzzer': {}, 'honggfuzz': {}, 'aflplusplus': {}}
+    try:
+        for filename in os.listdir('./tools/captain/workdir/log/'):
+            if 'container.log' in filename:
+                logfiles.append(os.path.join('./tools/captain/workdir/log/', filename))
+    except Exception as e:
+        print(e)
+
+    for logfile in logfiles:
+        with open(logfile, 'r') as log:
+            target = logfile.split('_')
+            subtarget = f'{target[1]}-{target[2]}'
+            if target[0].endswith('libfuzzer'):
+                statistics = []
+                for line in log:
+                    if 'oom/timeout/crash:' in line:
+                        statistics.append(line)
+                start = statistics[0].split()
+                stop = statistics[-1].split()
+                stats['libfuzzer'][subtarget] = {}
+                stats['libfuzzer'][subtarget]['start'] = {'coverage': start[2], 'features': start[4],
+                                                          'corpus': start[6], 'exec/s': start[8], 'time': start[12]}
+                stats['libfuzzer'][subtarget]['stop'] = {'coverage': stop[2], 'features': stop[4],
+                                                         'corpus': stop[6], 'exec/s': stop[8], 'time': stop[12]}
+            elif target[0].endswith('honggfuzz'):
+                stop = log.readlines()[-3].split()
+                stats['honggfuzz'][subtarget] = {'coverage_percent': stop[9].split(':')[1],
+                                                 'guard_nb': stop[8].split(':')[1], 'new_units': stop[6].split(':')[1],
+                                                 'exec/s': stop[3].split(':')[1], 'time': stop[2].split(':')[1]}
+    with open(f'/srv/results/artificial/{result_index}/coverage_results', 'w') as f:
+        dump(stats, f, indent=4)
 
 
 def generate_fuzz_commit():
