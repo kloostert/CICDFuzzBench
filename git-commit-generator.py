@@ -76,6 +76,8 @@ def fuzz_commit():
     run_cmd_enable_output(['cp', '-a', '../openssl/.', './targets/openssl/repo'])
     run_cmd_enable_output(['cp', './targets/openssl/src/abilist.txt', './targets/openssl/repo'])
     run_cmd_enable_output(['./run.sh'], cwd='./tools/captain/')
+    log_info('The fuzzing process has finished.')
+    log_info('Gathering results...')
     run_cmd_disable_output(['python3.8', 'gather_results.py', 'workdir/', 'benchd_results'], cwd='./tools/captain/')
     run_cmd_enable_output(['python3.8', 'gather_detected.py'], cwd='./tools/captain/')
     new_result_index = int(max(os.listdir('/srv/results/artificial'))) + 1
@@ -88,6 +90,7 @@ def fuzz_commit():
     run_cmd_enable_output(
         ['cp', './targets/openssl/configrc', f'/srv/results/artificial/{new_result_index}/fuzzed_targets'])
     save_bug_status(new_result_index)
+    log_info(f'The results of this fuzzing campaign were stored in /srv/results/artificial/{new_result_index}/.')
 
 
 def save_bug_status(result_index):
