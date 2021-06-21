@@ -79,6 +79,7 @@ def fuzz_commit():
     run_cmd_disable_output(['python3.8', 'gather_results.py', 'workdir/', 'benchd_results'], cwd='./tools/captain/')
     run_cmd_enable_output(['python3.8', 'gather_detected.py'], cwd='./tools/captain/')
     new_result_index = int(max(os.listdir('/srv/results/artificial'))) + 1
+    new_result_index = f'{new_result_index:04d}'
     run_cmd_enable_output(['mkdir', f'/srv/results/artificial/{new_result_index}'])
     run_cmd_enable_output(['cp', './tools/captain/benchd_results', './tools/captain/final_results',
                            f'/srv/results/artificial/{new_result_index}'])
