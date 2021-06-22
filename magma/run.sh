@@ -75,6 +75,11 @@ if [ -f "$SHARED/log/current" ]; then
     cat "$SHARED/log/current"
 fi
 
+if [ -f "$FUZZER/repo/afl-showmap" ]; then
+    export AFL_MAP_SIZE=256000
+    "$FUZZER/repo/afl-showmap" -C -i "$SHARED/findings" -o /dev/null -- "$OUT/afl/$PROGRAM" $ARGS 2>&1
+fi
+
 echo "Campaign terminated at $(date '+%F %R')"
 
 kill $(jobs -p)
