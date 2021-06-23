@@ -3,3 +3,5 @@ tools/captain/workdir*/
 tools/captain/benchd_results
 tools/captain/final_results
 tools/captain/coverage_results
+out
+err
