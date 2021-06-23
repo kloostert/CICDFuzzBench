@@ -91,6 +91,7 @@ def fuzz_commit():
         ['cp', './targets/openssl/configrc', f'/srv/results/artificial/{new_result_index}/fuzzed_targets'])
     save_bug_status(new_result_index)
     save_coverage_statistics(new_result_index)
+    save_nr_crashes(new_result_index)
     log_info(f'The results of this fuzzing campaign were stored in /srv/results/artificial/{new_result_index}/.')
 
 
@@ -148,6 +149,38 @@ def save_coverage_statistics(result_index):
                                                    'inputs': stop[14]}
     with open(f'/srv/results/artificial/{result_index}/coverage_results', 'w') as f:
         dump(stats, f, indent=4)
+
+
+def save_nr_crashes(result_index):
+    crashes = {'libfuzzer': {}, 'honggfuzz': {}, 'aflplusplus': {}}
+    try:
+        for dirname in os.listdir('./tools/captain/workdir/ar/aflplusplus/openssl/'):
+            nr_crashes = len(
+                os.listdir(f'./tools/captain/workdir/ar/aflplusplus/openssl/{dirname}/0/findings/crashes/'))
+            if nr_crashes > 0:
+                nr_crashes -= 1
+            crashes['aflplusplus'][f'openssl-{dirname}'] = nr_crashes
+    except Exception as e:
+        log_error(e)
+
+    try:
+        for dirname in os.listdir('./tools/captain/workdir/ar/libfuzzer/openssl/'):
+            nr_crashes = len(os.listdir(f'./tools/captain/workdir/ar/libfuzzer/openssl/{dirname}/0/findings/'))
+            crashes['libfuzzer'][f'openssl-{dirname}'] = nr_crashes
+    except Exception as e:
+        log_error(e)
+
+    try:
+        for dirname in os.listdir('./tools/captain/workdir/ar/honggfuzz/openssl/'):
+            nr_crashes = len(os.listdir(f'./tools/captain/workdir/ar/honggfuzz/openssl/{dirname}/0/findings/'))
+            if nr_crashes > 0:
+                nr_crashes -= 1
+            crashes['honggfuzz'][f'openssl-{dirname}'] = nr_crashes
+    except Exception as e:
+        log_error(e)
+
+    with open(f'/srv/results/artificial/{result_index}/nr_crashes', 'w') as f:
+        dump(crashes, f, indent=4)
 
 
 def generate_fuzz_commit():
