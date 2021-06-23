@@ -118,7 +118,7 @@ def save_coverage_statistics(result_index):
             if 'container.log' in filename:
                 logfiles.append(os.path.join('./tools/captain/workdir/log/', filename))
     except Exception as e:
-        print(e)
+        log_error(e)
 
     for logfile in logfiles:
         with open(logfile, 'r') as log:
@@ -141,6 +141,11 @@ def save_coverage_statistics(result_index):
                 stats['honggfuzz'][subtarget] = {'coverage_percent': stop[9].split(':')[1],
                                                  'guard_nb': stop[8].split(':')[1], 'new_units': stop[6].split(':')[1],
                                                  'exec/s': stop[3].split(':')[1], 'time': stop[2].split(':')[1]}
+            elif target[0].endswith('aflplusplus'):
+                stop = log.readlines()[-2].split()
+                stats['aflplusplus'][subtarget] = {'coverage_percent': stop[12].split('%')[0][1:],
+                                                   'covered_edges': stop[4], 'total_edges': stop[10],
+                                                   'inputs': stop[14]}
     with open(f'/srv/results/artificial/{result_index}/coverage_results', 'w') as f:
         dump(stats, f, indent=4)
 
