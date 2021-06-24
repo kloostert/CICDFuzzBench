@@ -97,3 +97,38 @@ def save_nr_crashes(result_index, experiment_type):
 
     with open(f'/srv/results/{experiment_type}/{result_index}/nr_crashes', 'w') as f:
         json.dump(crashes, f, indent=4)
+
+
+def configure_settings(result_index):
+    timeout = '5m'
+    fuzzers = '(aflplusplus honggfuzz libfuzzer)'
+    targets = '(asn1parse bignum server client x509)'
+    settings = {}
+
+    with open('./tools/captain/captainrc', 'r') as file:
+        data = file.readlines()
+    for idx in range(len(data)):
+        if '#' not in data[idx]:
+            if 'TIMEOUT=' in data[idx]:
+                data[idx] = f'TIMEOUT={timeout}\n'
+            if 'FUZZERS=' in data[idx]:
+                data[idx] = f'FUZZERS={fuzzers}\n'
+            if len(data[idx]) > 1:
+                setting = data[idx].split('=')
+                settings[setting[0]] = setting[1][:-1]
+    with open('./tools/captain/captainrc', 'w') as file:
+        file.writelines(data)
+
+    with open('./targets/openssl/configrc', 'r') as file:
+        data = file.readlines()
+    for idx in range(len(data)):
+        if 'PROGRAMS=' in data[idx]:
+            data[idx] = f'PROGRAMS={targets}\n'
+        if len(data[idx]) > 1:
+            setting = data[idx].split('=')
+            settings[setting[0]] = setting[1][:-1]
+    with open('./targets/openssl/configrc', 'w') as file:
+        file.writelines(data)
+
+    with open(f'/srv/results/artificial/{result_index}/settings', 'w') as f:
+        json.dump(settings, f, indent=4)

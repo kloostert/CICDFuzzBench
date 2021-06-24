@@ -55,6 +55,10 @@ def introduce_or_fix_bug(bug_index):
 
 def fuzz_commit():
     c.log_info('Starting the fuzzing process!')
+    new_result_index = int(max(os.listdir('/srv/results/artificial'))) + 1
+    new_result_index = f'{new_result_index:04d}'
+    c.run_cmd_enable_output(['mkdir', f'/srv/results/artificial/{new_result_index}'])
+    c.configure_settings(new_result_index)
     c.run_cmd_enable_output(['rm', '-rf', './tools/captain/workdir', './targets/openssl/repo'])
     c.run_cmd_enable_output(['rm', '-rf', './tools/captain/benchd_results', './tools/captain/final_results'])
     c.run_cmd_enable_output(['mkdir', './targets/openssl/repo'])
@@ -65,15 +69,8 @@ def fuzz_commit():
     c.log_info('Gathering results...')
     c.run_cmd_disable_output(['python3.8', 'gather_results.py', 'workdir/', 'benchd_results'], cwd='./tools/captain/')
     c.run_cmd_enable_output(['python3.8', 'gather_detected.py'], cwd='./tools/captain/')
-    new_result_index = int(max(os.listdir('/srv/results/artificial'))) + 1
-    new_result_index = f'{new_result_index:04d}'
-    c.run_cmd_enable_output(['mkdir', f'/srv/results/artificial/{new_result_index}'])
     c.run_cmd_enable_output(['cp', './tools/captain/benchd_results', './tools/captain/final_results',
                              f'/srv/results/artificial/{new_result_index}'])
-    c.run_cmd_enable_output(
-        ['cp', './tools/captain/captainrc', f'/srv/results/artificial/{new_result_index}/fuzzer_settings'])
-    c.run_cmd_enable_output(
-        ['cp', './targets/openssl/configrc', f'/srv/results/artificial/{new_result_index}/fuzzed_targets'])
     save_bug_status(new_result_index)
     c.save_coverage_statistics(new_result_index, 'artificial')
     c.save_nr_crashes(new_result_index, 'artificial')
