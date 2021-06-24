@@ -1,7 +1,8 @@
 import os
-import time
 
 import common as c
+
+# import time
 
 FUZZ_TIME = 600
 POLL_TIME = 60
@@ -15,7 +16,7 @@ def init_repo():
     c.run_cmd_disable_output(['git', '-C', REPO_LOCATION, 'clean', '-df'])
     c.run_cmd_disable_output(['git', '-C', REPO_LOCATION, 'checkout', 'master'])
     c.run_cmd_disable_output(['git', '-C', REPO_LOCATION, 'pull'])
-    CURRENT_COMMIT = c.get_stdout(c.run_cmd_capture_output(['git', '-C', REPO_LOCATION, 'log', '-1', '--format="%H"']))
+    # CURRENT_COMMIT = c.get_stdout(c.run_cmd_capture_output(['git', '-C', REPO_LOCATION, 'log', '-1', '--format="%H"']))
     c.log_info(f'The current commit is {CURRENT_COMMIT}.')
 
 
@@ -56,19 +57,20 @@ def check_for_new_commits():
 if __name__ == '__main__':
     try:
         init_repo()
-        while True:
-            start = time.time()
-            new = check_for_new_commits()
-            stop = time.time()
-            elapsed = int(stop - start)
-            if new:
-                if elapsed < FUZZ_TIME:
-                    c.log_info(f'Fuzzing took {elapsed}s. Sleeping for {FUZZ_TIME - elapsed}s...')
-                    time.sleep(FUZZ_TIME - elapsed)
-                else:
-                    c.log_info(f'The fuzzing effort went into overtime ({elapsed}s)!')
-            else:
-                c.log_info(f'No new commits found. Sleeping for {POLL_TIME - elapsed}s...')
-                time.sleep(POLL_TIME - elapsed)
+        check_for_new_commits()
+        # while True:
+        #     start = time.time()
+        #     new = check_for_new_commits()
+        #     stop = time.time()
+        #     elapsed = int(stop - start)
+        #     if new:
+        #         if elapsed < FUZZ_TIME:
+        #             c.log_info(f'Fuzzing took {elapsed}s. Sleeping for {FUZZ_TIME - elapsed}s...')
+        #             time.sleep(FUZZ_TIME - elapsed)
+        #         else:
+        #             c.log_info(f'The fuzzing effort went into overtime ({elapsed}s)!')
+        #     else:
+        #         c.log_info(f'No new commits found. Sleeping for {POLL_TIME - elapsed}s...')
+        #         time.sleep(POLL_TIME - elapsed)
     except KeyboardInterrupt:
         print(f'\nINFO: Program was interrupted by the user.')
