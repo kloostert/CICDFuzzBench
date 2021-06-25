@@ -56,7 +56,7 @@ NO_ARCHIVE=1
 # CANARY_MODE=3
 
 # [ISAN]: if set, build the benchmark with ISAN/fatal canaries (default: unset)
-ISAN=1
+#ISAN=1
 
 # [HARDEN]: if set, build the benchmark with hardened canaries (default: unset)
 # HARDEN=1

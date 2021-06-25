@@ -58,7 +58,7 @@ def fuzz_commit():
     new_result_index = int(max(os.listdir('/srv/results/artificial'))) + 1
     new_result_index = f'{new_result_index:04d}'
     c.run_cmd_enable_output(['mkdir', f'/srv/results/artificial/{new_result_index}'])
-    c.configure_settings(new_result_index)
+    c.configure_settings(new_result_index, timeout='5m')
     c.run_cmd_enable_output(['rm', '-rf', './tools/captain/workdir', './targets/openssl/repo'])
     c.run_cmd_enable_output(['rm', '-rf', './tools/captain/benchd_results', './tools/captain/final_results'])
     c.run_cmd_enable_output(['mkdir', './targets/openssl/repo'])
@@ -94,8 +94,10 @@ def save_bug_status(result_index):
 
 
 def generate_fuzz_commit():
-    bug_idx = random.randint(0, len(BUGS) - 1)
-    introduce_or_fix_bug(bug_idx)
+    # bug_idx = random.randint(0, len(BUGS) - 1)
+    # introduce_or_fix_bug(bug_idx)
+    for idx in range(len(BUGS)):
+        introduce_or_fix_bug(idx)
     fuzz_commit()
 
 

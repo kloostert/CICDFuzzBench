@@ -2,6 +2,10 @@ import json
 import os
 import subprocess
 
+DEFAULT_TIMEOUT = '10m'
+DEFAULT_FUZZERS = '(aflplusplus honggfuzz libfuzzer)'
+DEFAULT_TARGETS = '(asn1parse bignum server client x509)'
+
 
 def log_info(entry):
     print(f'INFO: {entry}')
@@ -99,10 +103,7 @@ def save_nr_crashes(result_index, experiment_type):
         json.dump(crashes, f, indent=4)
 
 
-def configure_settings(result_index):
-    timeout = '5m'
-    fuzzers = '(aflplusplus honggfuzz libfuzzer)'
-    targets = '(asn1parse bignum server client x509)'
+def configure_settings(result_index, timeout=DEFAULT_TIMEOUT, fuzzers=DEFAULT_FUZZERS, targets=DEFAULT_TARGETS):
     settings = {}
 
     with open('./tools/captain/captainrc', 'r') as file:
