@@ -133,3 +133,19 @@ def configure_settings(result_index, timeout=DEFAULT_TIMEOUT, fuzzers=DEFAULT_FU
 
     with open(f'/srv/results/artificial/{result_index}/settings', 'w') as f:
         json.dump(settings, f, indent=4)
+
+
+def save_new_corpus():
+    try:
+        for dirname in os.listdir('./tools/captain/workdir/ar/libfuzzer/openssl/'):
+            run_cmd_enable_output(['cp', '-a', f'./tools/captain/workdir/ar/libfuzzer/openssl/{dirname}/0/corpus/.',
+                                   f'/srv/openssl-corpus/{dirname}/'])
+        for dirname in os.listdir('./tools/captain/workdir/ar/honggfuzz/openssl/'):
+            run_cmd_enable_output(['cp', '-a', f'./tools/captain/workdir/ar/honggfuzz/openssl/{dirname}/0/output/.',
+                                   f'/srv/openssl-corpus/{dirname}/'])
+        for dirname in os.listdir('./tools/captain/workdir/ar/aflplusplus/openssl/'):
+            run_cmd_enable_output(
+                ['cp', '-a', f'./tools/captain/workdir/ar/aflplusplus/openssl/{dirname}/0/findings/queue/.',
+                 f'/srv/openssl-corpus/{dirname}/'])
+    except Exception as e:
+        log_error(e)

@@ -74,6 +74,7 @@ def fuzz_commit():
     save_bug_status(new_result_index)
     c.save_coverage_statistics(new_result_index, 'artificial')
     c.save_nr_crashes(new_result_index, 'artificial')
+    c.save_new_corpus()
     c.log_info(f'The results of this fuzzing campaign were stored in /srv/results/artificial/{new_result_index}/.')
 
 

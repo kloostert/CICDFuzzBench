@@ -80,6 +80,11 @@ if [ -f "$FUZZER/repo/afl-showmap" ]; then
     "$FUZZER/repo/afl-showmap" -C -i "$SHARED/findings" -o /dev/null -- "$OUT/afl/$PROGRAM" $ARGS 2>&1
 fi
 
+if [ -d "$FUZZER/repo/llvm" ]; then
+    mkdir "$SHARED/corpus"
+    cp -a "$TARGET/corpus/$PROGRAM/." "$SHARED/corpus"
+fi
+
 echo "Campaign terminated at $(date '+%F %R')"
 
 kill $(jobs -p)
