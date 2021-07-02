@@ -1,5 +1,5 @@
 targets/openssl/repo/
-targets/openssl/corpus/*
+targets/openssl/corpus/
 tools/captain/workdir*/
 tools/captain/benchd_results
 tools/captain/final_results

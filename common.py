@@ -137,12 +137,24 @@ def configure_settings(result_index, timeout=DEFAULT_TIMEOUT, fuzzers=DEFAULT_FU
 
 def save_new_corpus():
     try:
+        for dirname in os.listdir('./targets/openssl/corpus/'):
+            run_cmd_enable_output(['rm', '-rf', f'./targets/openssl/corpus/{dirname}'])
+            run_cmd_enable_output(['mkdir', f'./targets/openssl/corpus/{dirname}'])
+    except Exception as e:
+        log_error(e)
+    try:
         for dirname in os.listdir('./tools/captain/workdir/ar/libfuzzer/openssl/'):
             run_cmd_enable_output(['cp', '-a', f'./tools/captain/workdir/ar/libfuzzer/openssl/{dirname}/0/corpus/.',
                                    f'./targets/openssl/corpus/{dirname}/'])
+    except Exception as e:
+        log_error(e)
+    try:
         for dirname in os.listdir('./tools/captain/workdir/ar/honggfuzz/openssl/'):
             run_cmd_enable_output(['cp', '-a', f'./tools/captain/workdir/ar/honggfuzz/openssl/{dirname}/0/output/.',
                                    f'./targets/openssl/corpus/{dirname}/'])
+    except Exception as e:
+        log_error(e)
+    try:
         for dirname in os.listdir('./tools/captain/workdir/ar/aflplusplus/openssl/'):
             run_cmd_enable_output(
                 ['cp', '-a', f'./tools/captain/workdir/ar/aflplusplus/openssl/{dirname}/0/findings/queue/.',
