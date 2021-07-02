@@ -45,17 +45,18 @@ fi
 
 # corpus minimization before launching the fuzzer
 echo "Minimizing corpus..."
-echo -n "client:" && ls "$TARGET/corpus/$PROGRAM" | wc -l
 mkdir "min-corpus"
 mv "$TARGET/corpus/$PROGRAM" "min-corpus"
 mkdir "$TARGET/corpus/$PROGRAM"
-echo -n "min-corpus:" && ls "min-corpus/$PROGRAM" | wc -l
-echo -n "client:" && ls "$TARGET/corpus/$PROGRAM" | wc -l
+echo -n "Seed corpus size: " && ls "min-corpus/$PROGRAM" | wc -l
 if [ -f "$FUZZER/repo/afl-cmin" ]; then
     export AFL_MAP_SIZE=256000
     "$FUZZER/repo/afl-cmin" -o "$TARGET/corpus/$PROGRAM" -i "min-corpus/$PROGRAM" -- "$OUT/afl/$PROGRAM" $ARGS 2>&1
 fi
-echo -n "client:" && ls "$TARGET/corpus/$PROGRAM" | wc -l
+if [ -d "$FUZZER/repo/llvm" ]; then
+    "$OUT/$PROGRAM" -merge=1 "$TARGET/corpus/$PROGRAM" "min-corpus/$PROGRAM"
+fi
+echo -n "Minimized corpus size: " && ls "$TARGET/corpus/$PROGRAM" | wc -l
 echo "Corpus minimized."
 
 # launch the fuzzer in parallel with the monitor
