@@ -56,6 +56,10 @@ fi
 if [ -d "$FUZZER/repo/llvm" ]; then
     "$OUT/$PROGRAM" -merge=1 "$TARGET/corpus/$PROGRAM" "min-corpus/$PROGRAM"
 fi
+if [ -f "$FUZZER/repo/honggfuzz" ]; then
+    ARGS="${ARGS/@@/___FILE___}"
+    "$FUZZER/repo/honggfuzz" --output "$TARGET/corpus/$PROGRAM" --input "min-corpus/$PROGRAM" --minimize -- "$OUT/$PROGRAM" $ARGS 2>&1
+fi
 echo -n "Minimized corpus size: " && ls "$TARGET/corpus/$PROGRAM" | wc -l
 echo "Corpus minimized."
 
