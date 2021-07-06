@@ -42,31 +42,34 @@ def save_coverage_statistics(result_index, experiment_type):
         log_error(e)
 
     for logfile in logfiles:
-        with open(logfile, 'r') as log:
-            target = logfile.split('_')
-            subtarget = f'{target[1]}-{target[2]}'
-            if target[0].endswith('libfuzzer'):
-                statistics = []
-                for line in log:
-                    if 'oom/timeout/crash:' in line:
-                        statistics.append(line)
-                start = statistics[0].split()
-                stop = statistics[-1].split()
-                stats['libfuzzer'][subtarget] = {}
-                stats['libfuzzer'][subtarget]['start'] = {'coverage': start[2], 'features': start[4],
-                                                          'corpus': start[6], 'exec/s': start[8], 'time': start[12]}
-                stats['libfuzzer'][subtarget]['stop'] = {'coverage': stop[2], 'features': stop[4],
-                                                         'corpus': stop[6], 'exec/s': stop[8], 'time': stop[12]}
-            elif target[0].endswith('honggfuzz'):
-                stop = log.readlines()[-3].split()
-                stats['honggfuzz'][subtarget] = {'coverage_percent': stop[9].split(':')[1],
-                                                 'guard_nb': stop[8].split(':')[1], 'new_units': stop[6].split(':')[1],
-                                                 'exec/s': stop[3].split(':')[1], 'time': stop[2].split(':')[1]}
-            elif target[0].endswith('aflplusplus'):
-                stop = log.readlines()[-2].split()
-                stats['aflplusplus'][subtarget] = {'coverage_percent': stop[12].split('%')[0][1:],
-                                                   'covered_edges': stop[4], 'total_edges': stop[10],
-                                                   'inputs': stop[14]}
+        try:
+            with open(logfile, 'r') as log:
+                target = logfile.split('_')
+                subtarget = f'{target[1]}-{target[2]}'
+                if target[0].endswith('libfuzzer'):
+                    statistics = []
+                    for line in log:
+                        if 'oom/timeout/crash:' in line:
+                            statistics.append(line)
+                    start = statistics[0].split()
+                    stop = statistics[-1].split()
+                    stats['libfuzzer'][subtarget] = {}
+                    stats['libfuzzer'][subtarget]['start'] = {'coverage': start[2], 'features': start[4],
+                                                              'corpus': start[6], 'exec/s': start[8], 'time': start[12]}
+                    stats['libfuzzer'][subtarget]['stop'] = {'coverage': stop[2], 'features': stop[4],
+                                                             'corpus': stop[6], 'exec/s': stop[8], 'time': stop[12]}
+                elif target[0].endswith('honggfuzz'):
+                    stop = log.readlines()[-3].split()
+                    stats['honggfuzz'][subtarget] = {'coverage_percent': stop[9].split(':')[1],
+                                                     'guard_nb': stop[8].split(':')[1], 'new_units': stop[6].split(':')[1],
+                                                     'exec/s': stop[3].split(':')[1], 'time': stop[2].split(':')[1]}
+                elif target[0].endswith('aflplusplus'):
+                    stop = log.readlines()[-2].split()
+                    stats['aflplusplus'][subtarget] = {'coverage_percent': stop[12].split('%')[0][1:],
+                                                       'covered_edges': stop[4], 'total_edges': stop[10],
+                                                       'inputs': stop[14]}
+        except Exception as e:
+            log_error(e)
     with open(f'/srv/results/{experiment_type}/{result_index}/coverage_results', 'w') as f:
         json.dump(stats, f, indent=4)
 

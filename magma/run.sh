@@ -48,7 +48,7 @@ echo "Minimizing corpus..."
 mkdir "min-corpus"
 mv "$TARGET/corpus/$PROGRAM" "min-corpus"
 mkdir "$TARGET/corpus/$PROGRAM"
-echo -n "Seed corpus size: " && ls "min-corpus/$PROGRAM" | wc -l
+echo -ne "\nSeed corpus size: " && ls "min-corpus/$PROGRAM" | wc -l && echo -e "\n"
 if [ -f "$FUZZER/repo/afl-cmin" ]; then
     export AFL_MAP_SIZE=256000
     "$FUZZER/repo/afl-cmin" -o "$TARGET/corpus/$PROGRAM" -i "min-corpus/$PROGRAM" -- "$OUT/afl/$PROGRAM" $ARGS 2>&1
@@ -58,9 +58,9 @@ if [ -d "$FUZZER/repo/llvm" ]; then
 fi
 if [ -f "$FUZZER/repo/honggfuzz" ]; then
     ARGS="${ARGS/@@/___FILE___}"
-    "$FUZZER/repo/honggfuzz" --output "$TARGET/corpus/$PROGRAM" --input "min-corpus/$PROGRAM" --minimize -- "$OUT/$PROGRAM" $ARGS 2>&1
+    "$FUZZER/repo/honggfuzz" --output "$TARGET/corpus/$PROGRAM" --input "min-corpus/$PROGRAM" --quiet --minimize -- "$OUT/$PROGRAM" $ARGS 2>&1
 fi
-echo -n "Minimized corpus size: " && ls "$TARGET/corpus/$PROGRAM" | wc -l
+echo -ne "\nMinimized corpus size: " && ls "$TARGET/corpus/$PROGRAM" | wc -l && echo -e "\n"
 echo "Corpus minimized."
 
 # launch the fuzzer in parallel with the monitor
@@ -96,12 +96,18 @@ fi
 
 if [ -f "$FUZZER/repo/afl-showmap" ]; then
     export AFL_MAP_SIZE=256000
+    echo -ne "\nFinal corpus size: " && ls "$SHARED/findings/queue" | wc -l && echo -e "\n"
     "$FUZZER/repo/afl-showmap" -C -i "$SHARED/findings" -o /dev/null -- "$OUT/afl/$PROGRAM" $ARGS 2>&1
 fi
 
 if [ -d "$FUZZER/repo/llvm" ]; then
+    echo -ne "\nFinal corpus size: " && ls "$TARGET/corpus/$PROGRAM" | wc -l && echo -e "\n"
     mkdir "$SHARED/corpus"
     cp -a "$TARGET/corpus/$PROGRAM/." "$SHARED/corpus"
+fi
+
+if [ -f "$FUZZER/repo/honggfuzz" ]; then
+    echo -ne "\nFinal corpus size: " && ls "$SHARED/output" | wc -l && echo -e "\n"
 fi
 
 echo "Campaign terminated at $(date '+%F %R')"
