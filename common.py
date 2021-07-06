@@ -124,7 +124,8 @@ def save_nr_crashes(result_index, experiment_type):
         json.dump(crashes, f, indent=4)
 
 
-def configure_settings(result_index, timeout=DEFAULT_TIMEOUT, fuzzers=DEFAULT_FUZZERS, targets=DEFAULT_TARGETS):
+def configure_settings(result_index, experiment_type, timeout=DEFAULT_TIMEOUT, fuzzers=DEFAULT_FUZZERS,
+                       targets=DEFAULT_TARGETS):
     settings = {}
 
     with open('./tools/captain/captainrc', 'r') as file:
@@ -152,7 +153,7 @@ def configure_settings(result_index, timeout=DEFAULT_TIMEOUT, fuzzers=DEFAULT_FU
     with open('./targets/openssl/configrc', 'w') as file:
         file.writelines(data)
 
-    with open(f'/srv/results/artificial/{result_index}/settings', 'w') as f:
+    with open(f'/srv/results/{experiment_type}/{result_index}/settings', 'w') as f:
         json.dump(settings, f, indent=4)
 
 
@@ -185,6 +186,7 @@ def save_new_corpus():
 
 
 def initialize_seed_corpus():
+    log_info('Initializing seed corpus...')
     run_cmd_enable_output(['rm', '-rf', './targets/openssl/corpus'])
     if run_cmd_enable_output(['cp', '-r', '../magma/targets/openssl/corpus', './targets/openssl/']).returncode != 0:
         log_error('Seed corpus initialization failed!')

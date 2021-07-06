@@ -18,6 +18,9 @@
 # set default max log size to 1 MiB
 LOGSIZE=${LOGSIZE:-$[1 << 20]}
 
+# show the size in bytes of the fuzz target
+echo -ne "\nFuzz target size: " && du -b "$OUT/$PROGRAM"
+
 export MONITOR="$SHARED/monitor"
 mkdir -p "$MONITOR"
 

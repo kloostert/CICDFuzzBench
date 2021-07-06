@@ -24,7 +24,7 @@ def fuzz_current_commit():
     new_result_index = int(max(os.listdir('/srv/results/real'))) + 1
     new_result_index = f'{new_result_index:04d}'
     c.run_cmd_enable_output(['mkdir', f'/srv/results/real/{new_result_index}'])
-    c.configure_settings(new_result_index, timeout='10m')
+    c.configure_settings(new_result_index, 'real', timeout='10m')
     c.run_cmd_enable_output(['rm', '-rf', './tools/captain/workdir', './targets/openssl/repo'])
     c.run_cmd_enable_output(['mkdir', './targets/openssl/repo'])
     c.run_cmd_enable_output(['cp', '-a', f'{REPO_LOCATION}.', './targets/openssl/repo'])
