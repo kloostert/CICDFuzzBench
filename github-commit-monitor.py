@@ -25,16 +25,16 @@ def fuzz_current_commit():
     new_result_index = f'{new_result_index:04d}'
     c.run_cmd_enable_output(['mkdir', f'/srv/results/real/{new_result_index}'])
     c.configure_settings(new_result_index, timeout='10m')
-    c.run_cmd_enable_output(['rm', '-rf', './tools/captain/workdir'])
-    c.run_cmd_enable_output(['rm', '-rf', './targets/openssl/repo'])
+    c.run_cmd_enable_output(['rm', '-rf', './tools/captain/workdir', './targets/openssl/repo'])
     c.run_cmd_enable_output(['mkdir', './targets/openssl/repo'])
-    c.run_cmd_enable_output(['cp', '-a', '../openssl/.', './targets/openssl/repo'])
+    c.run_cmd_enable_output(['cp', '-a', f'{REPO_LOCATION}.', './targets/openssl/repo'])
     c.run_cmd_enable_output(['cp', './targets/openssl/src/abilist.txt', './targets/openssl/repo'])
     c.run_cmd_enable_output(['./run.sh'], cwd='./tools/captain/')
     c.log_info('The fuzzing process has finished.')
     c.log_info('Gathering results...')
     c.save_coverage_statistics(new_result_index, 'real')
     c.save_nr_crashes(new_result_index, 'real')
+    c.save_new_corpus()
     c.log_info(f'The results of this fuzzing campaign were stored in /srv/results/real/{new_result_index}/.')
 
 
@@ -54,6 +54,7 @@ def check_for_new_commits():
 if __name__ == '__main__':
     try:
         init_repo()
+        c.initialize_seed_corpus()
         check_for_new_commits()
         # while True:
         #     start = time.time()

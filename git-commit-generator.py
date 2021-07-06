@@ -62,7 +62,7 @@ def fuzz_commit():
     c.run_cmd_enable_output(['rm', '-rf', './tools/captain/workdir', './targets/openssl/repo'])
     c.run_cmd_enable_output(['rm', '-rf', './tools/captain/benchd_results', './tools/captain/final_results'])
     c.run_cmd_enable_output(['mkdir', './targets/openssl/repo'])
-    c.run_cmd_enable_output(['cp', '-a', '../openssl/.', './targets/openssl/repo'])
+    c.run_cmd_enable_output(['cp', '-a', f'{REPO_LOCATION}.', './targets/openssl/repo'])
     c.run_cmd_enable_output(['cp', './targets/openssl/src/abilist.txt', './targets/openssl/repo'])
     c.run_cmd_enable_output(['./run.sh'], cwd='./tools/captain/')
     c.log_info('The fuzzing process has finished.')
@@ -118,6 +118,7 @@ if __name__ == '__main__':
     try:
         checkout_base()
         find_patches()
+        c.initialize_seed_corpus()
         generate_fuzz_commit()
         # while True:
         #     start = time.time()

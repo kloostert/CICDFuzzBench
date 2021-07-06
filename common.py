@@ -1,6 +1,7 @@
 import json
 import os
 import subprocess
+import sys
 
 DEFAULT_TIMEOUT = '10m'
 DEFAULT_FUZZERS = '(aflplusplus honggfuzz libfuzzer)'
@@ -181,3 +182,10 @@ def save_new_corpus():
                  f'./targets/openssl/corpus/{dirname}/'])
     except Exception as e:
         log_error(e)
+
+
+def initialize_seed_corpus():
+    run_cmd_enable_output(['rm', '-rf', './targets/openssl/corpus'])
+    if run_cmd_enable_output(['cp', '-r', '../magma/targets/openssl/corpus', './targets/openssl/']).returncode != 0:
+        log_error('Seed corpus initialization failed!')
+        sys.exit(1)
