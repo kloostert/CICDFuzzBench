@@ -46,28 +46,45 @@ def save_coverage_statistics(result_index, experiment_type):
             with open(logfile, 'r') as log:
                 target = logfile.split('_')
                 subtarget = f'{target[1]}-{target[2]}'
+                temp = []
+                stat = []
                 if target[0].endswith('libfuzzer'):
-                    statistics = []
                     for line in log:
+                        if ' corpus size: ' in line:
+                            temp.append(line.split(':')[1].strip())
                         if 'oom/timeout/crash:' in line:
-                            statistics.append(line)
-                    start = statistics[0].split()
-                    stop = statistics[-1].split()
+                            stat.append(line)
+                    start = stat[0].split()
+                    stop = stat[-1].split()
                     stats['libfuzzer'][subtarget] = {}
                     stats['libfuzzer'][subtarget]['start'] = {'coverage': start[2], 'features': start[4],
                                                               'corpus': start[6], 'exec/s': start[8], 'time': start[12]}
                     stats['libfuzzer'][subtarget]['stop'] = {'coverage': stop[2], 'features': stop[4],
                                                              'corpus': stop[6], 'exec/s': stop[8], 'time': stop[12]}
+                    stats['libfuzzer'][subtarget]['corpus'] = {'start': temp[0], 'min': temp[1], 'stop': temp[2]}
                 elif target[0].endswith('honggfuzz'):
-                    stop = log.readlines()[-3].split()
+                    for line in log:
+                        if ' corpus size: ' in line:
+                            temp.append(line.split(':')[1].strip())
+                        if 'Summary iterations:' in line:
+                            stat.append(line)
+                    stop = stat[0].split()
                     stats['honggfuzz'][subtarget] = {'coverage_percent': stop[9].split(':')[1],
-                                                     'guard_nb': stop[8].split(':')[1], 'new_units': stop[6].split(':')[1],
-                                                     'exec/s': stop[3].split(':')[1], 'time': stop[2].split(':')[1]}
+                                                     'guard_nb': stop[8].split(':')[1],
+                                                     'new_units': stop[6].split(':')[1],
+                                                     'exec/s': stop[3].split(':')[1], 'time': stop[2].split(':')[1],
+                                                     'start_corp': temp[0], 'min_corp': temp[1], 'stop_corp': temp[2]}
                 elif target[0].endswith('aflplusplus'):
-                    stop = log.readlines()[-2].split()
+                    for line in log:
+                        if ' corpus size: ' in line:
+                            temp.append(line.split(':')[1].strip())
+                        if 'A coverage of ' in line:
+                            stat.append(line)
+                    stop = stat[0].split()
                     stats['aflplusplus'][subtarget] = {'coverage_percent': stop[12].split('%')[0][1:],
                                                        'covered_edges': stop[4], 'total_edges': stop[10],
-                                                       'inputs': stop[14]}
+                                                       'inputs': stop[14],
+                                                       'start_corp': temp[0], 'min_corp': temp[1], 'stop_corp': temp[2]}
         except Exception as e:
             log_error(e)
     with open(f'/srv/results/{experiment_type}/{result_index}/coverage_results', 'w') as f:
