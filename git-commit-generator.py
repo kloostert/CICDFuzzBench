@@ -2,12 +2,11 @@ import json
 import os
 import random
 import sys
+import time
 
 import common as c
 
-# import time
-
-FUZZ_TIME = 600
+COMMIT_INTERVAL = 60 * 30  # every half hour
 REPO_LOCATION = '../openssl/'
 PATCH_LOCATION = '../cometfuzz/targets/openssl/patches/bugs/'
 BUGS = []
@@ -95,10 +94,10 @@ def save_bug_status(result_index):
 
 
 def generate_fuzz_commit():
-    # bug_idx = random.randint(0, len(BUGS) - 1)
-    # introduce_or_fix_bug(bug_idx)
-    for idx in range(len(BUGS)):
-        introduce_or_fix_bug(idx)
+    bug_idx = random.randint(0, len(BUGS) - 1)
+    introduce_or_fix_bug(bug_idx)
+    # for idx in range(len(BUGS)):
+    #     introduce_or_fix_bug(idx)
     fuzz_commit()
 
 
@@ -119,17 +118,17 @@ if __name__ == '__main__':
         checkout_base()
         find_patches()
         c.initialize_seed_corpus()
-        generate_fuzz_commit()
-        # while True:
-        #     start = time.time()
-        #     generate_fuzz_commit()
-        #     stop = time.time()
-        #     elapsed = int(stop - start)
-        #     if elapsed < FUZZ_TIME:
-        #         log_info(f'Sleeping for {FUZZ_TIME - elapsed}s...')
-        #         time.sleep(FUZZ_TIME - elapsed)
-        #     else:
-        #         log_info(f'The fuzzing effort went into overtime ({elapsed}s)!')
+        # generate_fuzz_commit()
+        while True:
+            start = time.time()
+            generate_fuzz_commit()
+            stop = time.time()
+            elapsed = int(stop - start)
+            if elapsed < COMMIT_INTERVAL:
+                c.log_info(f'Sleeping for {COMMIT_INTERVAL - elapsed}s...')
+                time.sleep(COMMIT_INTERVAL - elapsed)
+            else:
+                c.log_info(f'The fuzzing effort went into overtime ({elapsed}s)!')
     except KeyboardInterrupt:
         print(f'\nProgram was interrupted by the user.')
         print_bug_status()
