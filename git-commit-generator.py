@@ -96,8 +96,6 @@ def save_bug_status(result_index):
 def generate_fuzz_commit():
     bug_idx = random.randint(0, len(BUGS) - 1)
     introduce_or_fix_bug(bug_idx)
-    # for idx in range(len(BUGS)):
-    #     introduce_or_fix_bug(idx)
     fuzz_commit()
 
 
@@ -118,7 +116,6 @@ if __name__ == '__main__':
         checkout_base()
         find_patches()
         c.initialize_seed_corpus()
-        # generate_fuzz_commit()
         while True:
             start = time.time()
             generate_fuzz_commit()

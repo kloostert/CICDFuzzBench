@@ -1,3 +1,4 @@
+import datetime
 import json
 import os
 import subprocess
@@ -9,11 +10,11 @@ DEFAULT_TARGETS = '(asn1parse bignum server client x509)'
 
 
 def log_info(entry):
-    print(f'INFO: {entry}')
+    print(f'[{datetime.datetime.now().strftime("%Y-%m-%d %H:%M")}] (INFO) {entry}')
 
 
 def log_error(entry):
-    print(f'ERROR: {entry}')
+    print(f'[{datetime.datetime.now().strftime("%Y-%m-%d %H:%M")}] (ERROR) {entry}')
 
 
 def run_cmd_disable_output(command_array, **kwargs):
@@ -125,7 +126,7 @@ def save_nr_crashes(result_index, experiment_type):
 
 
 def configure_settings(result_index, experiment_type, timeout=DEFAULT_TIMEOUT, fuzzers=DEFAULT_FUZZERS,
-                       targets=DEFAULT_TARGETS):
+                       targets=DEFAULT_TARGETS, commit=None):
     settings = {}
 
     with open('./tools/captain/captainrc', 'r') as file:
@@ -152,6 +153,9 @@ def configure_settings(result_index, experiment_type, timeout=DEFAULT_TIMEOUT, f
             settings[setting[0]] = setting[1][:-1]
     with open('./targets/openssl/configrc', 'w') as file:
         file.writelines(data)
+
+    if commit:
+        settings['commit'] = commit
 
     with open(f'/srv/results/{experiment_type}/{result_index}/settings', 'w') as f:
         json.dump(settings, f, indent=4)
