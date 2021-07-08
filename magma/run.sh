@@ -19,7 +19,12 @@
 LOGSIZE=${LOGSIZE:-$[1 << 20]}
 
 # show the size in bytes of the fuzz target
-echo -ne "\nFuzz target size: " && du -b "$OUT/$PROGRAM"
+if [ -f "$FUZZER/repo/afl-cmin" ]; then
+    echo -ne "\nFuzz target size: " && du -b "$OUT/afl/$PROGRAM"
+fi
+if [ ! -f "$FUZZER/repo/afl-cmin" ]; then
+    echo -ne "\nFuzz target size: " && du -b "$OUT/$PROGRAM"
+fi
 
 export MONITOR="$SHARED/monitor"
 mkdir -p "$MONITOR"
