@@ -6,7 +6,6 @@ import time
 
 import common as c
 
-COMMIT_INTERVAL = 60 * 30  # every half hour
 REPO_LOCATION = '../openssl/'
 PATCH_LOCATION = '../cometfuzz/targets/openssl/patches/bugs/'
 BUGS = []
@@ -21,7 +20,7 @@ def checkout_base():
     c.run_cmd_disable_output(['git', '-C', REPO_LOCATION, 'checkout', '728d03b576f360e72bbddc7e751433575430af3b'])
 
 
-def find_patches():
+def find_and_apply_patches():
     try:
         for file in os.listdir(PATCH_LOCATION):
             if file.endswith('.patch'):
@@ -31,6 +30,9 @@ def find_patches():
         c.log_error('The patches were not found!')
         c.log_error(e)
         sys.exit(1)
+
+    for idx in range(len(BUGS)):
+        introduce_or_fix_bug(idx)
 
 
 def introduce_or_fix_bug(bug_index):
@@ -99,33 +101,16 @@ def generate_fuzz_commit():
     fuzz_commit()
 
 
-def print_bug_status():
-    active = 0
-    for i in range(len(BUGS)):
-        if BUGS_ACTIVE[i]:
-            c.log_info(f'{BUGS[i][-12:-6]} ACTIVE')
-            active += 1
-        else:
-            c.log_info(f'{BUGS[i][-12:-6]} INACTIVE')
-    c.log_info(f'Active bugs: {active}\tInactive bugs: {len(BUGS) - active}\tTotal bugs: {len(BUGS)}')
-
-
 if __name__ == '__main__':
     random.seed(14)  # for reproducibility
     try:
         checkout_base()
-        find_patches()
+        find_and_apply_patches()
         c.initialize_seed_corpus()
         while True:
             start = time.time()
             generate_fuzz_commit()
             stop = time.time()
-            elapsed = int(stop - start)
-            if elapsed < COMMIT_INTERVAL:
-                c.log_info(f'Sleeping for {COMMIT_INTERVAL - elapsed}s...')
-                time.sleep(COMMIT_INTERVAL - elapsed)
-            else:
-                c.log_info(f'The fuzzing effort went into overtime ({elapsed}s)!')
+            c.log_info(f'The fuzzing effort took {int(stop - start)}s.')
     except KeyboardInterrupt:
         print(f'\nProgram was interrupted by the user.')
-        print_bug_status()
