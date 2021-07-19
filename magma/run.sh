@@ -18,12 +18,12 @@
 # set default max log size to 1 MiB
 LOGSIZE=${LOGSIZE:-$[1 << 20]}
 
-# show the size in bytes of the fuzz target
+# calculate the sha256sum of the executables
 if [ -f "$FUZZER/repo/afl-cmin" ]; then
-    echo -ne "\nFuzz target size: " && du -b "$OUT/afl/$PROGRAM"
+    echo -ne "\nFuzz target sha256: " && sha256sum "$OUT/afl/$PROGRAM"
 fi
 if [ ! -f "$FUZZER/repo/afl-cmin" ]; then
-    echo -ne "\nFuzz target size: " && du -b "$OUT/$PROGRAM"
+    echo -ne "\nFuzz target sha256: " && sha256sum "$OUT/$PROGRAM"
 fi
 
 export MONITOR="$SHARED/monitor"
