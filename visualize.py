@@ -110,9 +110,10 @@ def bugs_found(start_dir, stop_dir):
 
 
 def nr_crashes(start_dir, stop_dir):
-    plot_data = {}
+    plot_data = {'overall': []}
     for i in range(start_dir, stop_dir + 1):
         target_crashes = {}
+        total_crashes = 0
         with open(f'/srv/results/artificial/{i:04d}/nr_crashes', 'r') as file:
             crashes = json.load(file)
             for fuzzer in crashes:
@@ -125,6 +126,8 @@ def nr_crashes(start_dir, stop_dir):
             if target not in plot_data:
                 plot_data[target] = []
             plot_data[target].append(target_crashes[target])
+            total_crashes += target_crashes[target]
+        plot_data['overall'].append(total_crashes)
 
     df = pd.DataFrame.from_dict(plot_data, dtype=float)
     fig = px.line(df, title=f'Number of crashes per fuzz target for all fuzzers over time')
@@ -134,6 +137,8 @@ def nr_crashes(start_dir, stop_dir):
 
 
 if __name__ == '__main__':
-    coverage_results(226, 306)
-    bugs_found(226, 306)
-    nr_crashes(226, 306)
+    start = 226
+    stop = 306
+    coverage_results(start, stop)
+    bugs_found(start, stop)
+    nr_crashes(start, stop)
