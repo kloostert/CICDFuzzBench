@@ -33,43 +33,45 @@ mkdir -p "$MONITOR"
 cd "$SHARED"
 
 # prune the seed corpus for any fault-triggering test-cases
-for seed in "$TARGET/corpus/$PROGRAM"/*; do
-    out="$("$MAGMA"/runonce.sh "$seed")"
-    code=$?
-
-    if [ $code -ne 0 ]; then
-        echo "$seed: $out"
-        rm "$seed"
-    fi
-done
+#for seed in "$TARGET/corpus/$PROGRAM"/*; do
+#    out="$("$MAGMA"/runonce.sh "$seed")"
+#    code=$?
+#
+#    if [ $code -ne 0 ]; then
+#        echo "$seed: $out"
+#        rm "$seed"
+#    fi
+#done
 
 shopt -s nullglob
 seeds=("$1"/*)
 shopt -u nullglob
-if [ ${#seeds[@]} -eq 0 ]; then
-    echo "No seeds remaining! Campaign will not be launched."
-    exit 1
-fi
+#if [ ${#seeds[@]} -eq 0 ]; then
+#    echo "No seeds remaining! Campaign will not be launched."
+#    exit 1
+#fi
 
-# corpus minimization before launching the fuzzer
-echo "Minimizing corpus..."
-mkdir "min-corpus"
-mv "$TARGET/corpus/$PROGRAM" "min-corpus"
-mkdir "$TARGET/corpus/$PROGRAM"
-echo -ne "\nSeed corpus size: " && ls "min-corpus/$PROGRAM" | wc -l && echo -e "\n"
-if [ -f "$FUZZER/repo/afl-cmin" ]; then
-    export AFL_MAP_SIZE=256000
-    "$FUZZER/repo/afl-cmin" -o "$TARGET/corpus/$PROGRAM" -i "min-corpus/$PROGRAM" -- "$OUT/afl/$PROGRAM" $ARGS 2>&1
+# If #seeds>1 do corpus minimization before launching the fuzzer
+if [ ${#seeds[@]} -gt 1 ]; then
+    echo "Minimizing corpus..."
+    mkdir "min-corpus"
+    mv "$TARGET/corpus/$PROGRAM" "min-corpus"
+    mkdir "$TARGET/corpus/$PROGRAM"
+    echo -ne "\nSeed corpus size: " && ls "min-corpus/$PROGRAM" | wc -l && echo -e "\n"
+    if [ -f "$FUZZER/repo/afl-cmin" ]; then
+        export AFL_MAP_SIZE=256000
+        "$FUZZER/repo/afl-cmin" -o "$TARGET/corpus/$PROGRAM" -i "min-corpus/$PROGRAM" -- "$OUT/afl/$PROGRAM" $ARGS 2>&1
+    fi
+    if [ -d "$FUZZER/repo/llvm" ]; then
+        "$OUT/$PROGRAM" -merge=1 "$TARGET/corpus/$PROGRAM" "min-corpus/$PROGRAM"
+    fi
+    if [ -f "$FUZZER/repo/honggfuzz" ]; then
+        ARGS="${ARGS/@@/___FILE___}"
+        "$FUZZER/repo/honggfuzz" --output "$TARGET/corpus/$PROGRAM" --input "min-corpus/$PROGRAM" --quiet --minimize -- "$OUT/$PROGRAM" $ARGS 2>&1
+    fi
+    echo -ne "\nMinimized corpus size: " && ls "$TARGET/corpus/$PROGRAM" | wc -l && echo -e "\n"
+    echo "Corpus minimized."
 fi
-if [ -d "$FUZZER/repo/llvm" ]; then
-    "$OUT/$PROGRAM" -merge=1 "$TARGET/corpus/$PROGRAM" "min-corpus/$PROGRAM"
-fi
-if [ -f "$FUZZER/repo/honggfuzz" ]; then
-    ARGS="${ARGS/@@/___FILE___}"
-    "$FUZZER/repo/honggfuzz" --output "$TARGET/corpus/$PROGRAM" --input "min-corpus/$PROGRAM" --quiet --minimize -- "$OUT/$PROGRAM" $ARGS 2>&1
-fi
-echo -ne "\nMinimized corpus size: " && ls "$TARGET/corpus/$PROGRAM" | wc -l && echo -e "\n"
-echo "Corpus minimized."
 
 # launch the fuzzer in parallel with the monitor
 rm -f "$MONITOR/tmp"*

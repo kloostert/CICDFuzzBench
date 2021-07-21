@@ -2,6 +2,7 @@ import json
 import os
 import random
 import sys
+import time
 
 import common as c
 
@@ -106,12 +107,12 @@ if __name__ == '__main__':
         checkout_base()
         find_and_apply_patches()
         c.empty_seed_corpus()
-        fuzz_commit()
         # c.initialize_seed_corpus()
-        # while True:
-        #     start = time.time()
-        #     generate_fuzz_commit()
-        #     stop = time.time()
-        #     c.log_info(f'The fuzzing effort took {int(stop - start)}s.')
+        while True:
+            start = time.time()
+            fuzz_commit()
+            # generate_fuzz_commit()
+            stop = time.time()
+            c.log_info(f'The fuzzing effort took {int(stop - start)}s.')
     except KeyboardInterrupt:
         print(f'\nProgram was interrupted by the user.')
