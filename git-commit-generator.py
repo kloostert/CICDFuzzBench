@@ -2,7 +2,6 @@ import json
 import os
 import random
 import sys
-import time
 
 import common as c
 
@@ -59,7 +58,7 @@ def fuzz_commit():
     new_result_index = int(max(os.listdir('/srv/results/artificial'))) + 1
     new_result_index = f'{new_result_index:04d}'
     c.run_cmd_enable_output(['mkdir', f'/srv/results/artificial/{new_result_index}'])
-    c.configure_settings(new_result_index, 'artificial')
+    c.configure_settings(new_result_index, 'artificial', timeout='1m')
     c.run_cmd_enable_output(['rm', '-rf', './tools/captain/workdir', './targets/openssl/repo'])
     c.run_cmd_enable_output(['rm', '-rf', './tools/captain/benchd_results', './tools/captain/final_results'])
     c.run_cmd_enable_output(['mkdir', './targets/openssl/repo'])
@@ -106,11 +105,13 @@ if __name__ == '__main__':
     try:
         checkout_base()
         find_and_apply_patches()
-        c.initialize_seed_corpus()
-        while True:
-            start = time.time()
-            generate_fuzz_commit()
-            stop = time.time()
-            c.log_info(f'The fuzzing effort took {int(stop - start)}s.')
+        c.empty_seed_corpus()
+        fuzz_commit()
+        # c.initialize_seed_corpus()
+        # while True:
+        #     start = time.time()
+        #     generate_fuzz_commit()
+        #     stop = time.time()
+        #     c.log_info(f'The fuzzing effort took {int(stop - start)}s.')
     except KeyboardInterrupt:
         print(f'\nProgram was interrupted by the user.')

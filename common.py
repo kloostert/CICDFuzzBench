@@ -155,7 +155,7 @@ def configure_settings(result_index, experiment_type, timeout=DEFAULT_TIMEOUT, f
         file.writelines(data)
 
     if commit:
-        settings['commit'] = commit
+        settings['COMMIT'] = commit
 
     with open(f'/srv/results/{experiment_type}/{result_index}/settings', 'w') as f:
         json.dump(settings, f, indent=4)
@@ -195,3 +195,13 @@ def initialize_seed_corpus():
     if run_cmd_enable_output(['cp', '-r', '../magma/targets/openssl/corpus', './targets/openssl/']).returncode != 0:
         log_error('Seed corpus initialization failed!')
         sys.exit(1)
+
+
+def empty_seed_corpus():
+    log_info('Initializing empty seed corpus...')
+    run_cmd_enable_output(['rm', '-rf', './targets/openssl/corpus'])
+    run_cmd_enable_output(['mkdir', './targets/openssl/corpus'])
+    run_cmd_enable_output(['mkdir', 'asn1', 'asn1parse', 'bignum', 'client', 'server', 'x509'],
+                          cwd='./targets/openssl/corpus/')
+    run_cmd_enable_output(['touch', 'asn1/0', 'asn1parse/0', 'bignum/0', 'client/0', 'server/0', 'x509/0'],
+                          cwd='./targets/openssl/corpus/')
