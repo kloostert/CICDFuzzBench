@@ -52,6 +52,8 @@ def save_coverage_statistics(result_index, experiment_type):
                 stat = []
                 if target[0].endswith('libfuzzer'):
                     for line in log:
+                        if 'Fuzz target sha256: ' in line:
+                            lib_sha = line.split()[3]
                         if ' corpus size: ' in line:
                             temp.append(line.split(':')[1].strip())
                         if 'oom/timeout/crash:' in line:
@@ -64,8 +66,11 @@ def save_coverage_statistics(result_index, experiment_type):
                     stats['libfuzzer'][subtarget]['stop'] = {'coverage': stop[2], 'features': stop[4],
                                                              'corpus': stop[6], 'exec/s': stop[8], 'time': stop[12]}
                     stats['libfuzzer'][subtarget]['corpus'] = {'start': temp[0], 'min': temp[1], 'stop': temp[2]}
+                    stats['libfuzzer'][subtarget]['sha'] = lib_sha
                 elif target[0].endswith('honggfuzz'):
                     for line in log:
+                        if 'Fuzz target sha256: ' in line:
+                            hongg_sha = line.split()[3]
                         if ' corpus size: ' in line:
                             temp.append(line.split(':')[1].strip())
                         if 'Summary iterations:' in line:
@@ -75,9 +80,12 @@ def save_coverage_statistics(result_index, experiment_type):
                                                      'guard_nb': stop[8].split(':')[1],
                                                      'new_units': stop[6].split(':')[1],
                                                      'exec/s': stop[3].split(':')[1], 'time': stop[2].split(':')[1],
-                                                     'start_corp': temp[0], 'min_corp': temp[1], 'stop_corp': temp[2]}
+                                                     'start_corp': temp[0], 'min_corp': temp[1], 'stop_corp': temp[2],
+                                                     'sha': hongg_sha}
                 elif target[0].endswith('aflplusplus'):
                     for line in log:
+                        if 'Fuzz target sha256: ' in line:
+                            afl_sha = line.split()[3]
                         if ' corpus size: ' in line:
                             temp.append(line.split(':')[1].strip())
                         if 'A coverage of ' in line:
@@ -86,7 +94,8 @@ def save_coverage_statistics(result_index, experiment_type):
                     stats['aflplusplus'][subtarget] = {'coverage_percent': stop[12].split('%')[0][1:],
                                                        'covered_edges': stop[4], 'total_edges': stop[10],
                                                        'inputs': stop[14],
-                                                       'start_corp': temp[0], 'min_corp': temp[1], 'stop_corp': temp[2]}
+                                                       'start_corp': temp[0], 'min_corp': temp[1], 'stop_corp': temp[2],
+                                                       'sha': afl_sha}
         except Exception as e:
             log_error(e)
     with open(f'/srv/results/{experiment_type}/{result_index}/coverage_results', 'w') as f:
@@ -203,5 +212,5 @@ def empty_seed_corpus():
     run_cmd_enable_output(['mkdir', './targets/openssl/corpus'])
     run_cmd_enable_output(['mkdir', 'asn1', 'asn1parse', 'bignum', 'client', 'server', 'x509'],
                           cwd='./targets/openssl/corpus/')
-    run_cmd_enable_output(['touch', 'asn1/0', 'asn1parse/0', 'bignum/0', 'client/0', 'server/0', 'x509/0'],
-                          cwd='./targets/openssl/corpus/')
+    # run_cmd_enable_output(['touch', 'asn1/0', 'asn1parse/0', 'bignum/0', 'client/0', 'server/0', 'x509/0'],
+    #                       cwd='./targets/openssl/corpus/')

@@ -42,17 +42,20 @@ cd "$SHARED"
 #        rm "$seed"
 #    fi
 #done
-
-shopt -s nullglob
-seeds=("$1"/*)
-shopt -u nullglob
+#
+#shopt -s nullglob
+#seeds=("$1"/*)
+#shopt -u nullglob
 #if [ ${#seeds[@]} -eq 0 ]; then
 #    echo "No seeds remaining! Campaign will not be launched."
 #    exit 1
 #fi
 
-# If #seeds>1 do corpus minimization before launching the fuzzer
-if [ ${#seeds[@]} -gt 1 ]; then
+# corpus minimization before launching the fuzzer
+shopt -s nullglob
+seeds=("$TARGET/corpus/$PROGRAM"/*)
+shopt -u nullglob
+if [ ${#seeds[@]} -gt 0 ]; then
     echo "Minimizing corpus..."
     mkdir "min-corpus"
     mv "$TARGET/corpus/$PROGRAM" "min-corpus"
