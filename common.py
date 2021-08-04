@@ -4,6 +4,7 @@ import os
 import subprocess
 import sys
 
+TARGET = 'openssl'
 DEFAULT_TIMEOUT = '10m'
 DEFAULT_FUZZERS = '(aflplusplus honggfuzz libfuzzer)'
 DEFAULT_TARGETS = '(asn1parse bignum server client x509)'
@@ -105,28 +106,28 @@ def save_coverage_statistics(result_index, experiment_type):
 def save_nr_crashes(result_index, experiment_type):
     crashes = {'libfuzzer': {}, 'honggfuzz': {}, 'aflplusplus': {}}
     try:
-        for dirname in os.listdir('./tools/captain/workdir/ar/aflplusplus/openssl/'):
+        for dirname in os.listdir(f'./tools/captain/workdir/ar/aflplusplus/{TARGET}/'):
             nr_crashes = len(
-                os.listdir(f'./tools/captain/workdir/ar/aflplusplus/openssl/{dirname}/0/findings/crashes/'))
+                os.listdir(f'./tools/captain/workdir/ar/aflplusplus/{TARGET}/{dirname}/0/findings/crashes/'))
             if nr_crashes > 0:
                 nr_crashes -= 1
-            crashes['aflplusplus'][f'openssl-{dirname}'] = nr_crashes
+            crashes['aflplusplus'][f'{TARGET}-{dirname}'] = nr_crashes
     except Exception as e:
         log_error(e)
 
     try:
-        for dirname in os.listdir('./tools/captain/workdir/ar/libfuzzer/openssl/'):
-            nr_crashes = len(os.listdir(f'./tools/captain/workdir/ar/libfuzzer/openssl/{dirname}/0/findings/'))
-            crashes['libfuzzer'][f'openssl-{dirname}'] = nr_crashes
+        for dirname in os.listdir(f'./tools/captain/workdir/ar/libfuzzer/{TARGET}/'):
+            nr_crashes = len(os.listdir(f'./tools/captain/workdir/ar/libfuzzer/{TARGET}/{dirname}/0/findings/'))
+            crashes['libfuzzer'][f'{TARGET}-{dirname}'] = nr_crashes
     except Exception as e:
         log_error(e)
 
     try:
-        for dirname in os.listdir('./tools/captain/workdir/ar/honggfuzz/openssl/'):
-            nr_crashes = len(os.listdir(f'./tools/captain/workdir/ar/honggfuzz/openssl/{dirname}/0/findings/'))
+        for dirname in os.listdir(f'./tools/captain/workdir/ar/honggfuzz/{TARGET}/'):
+            nr_crashes = len(os.listdir(f'./tools/captain/workdir/ar/honggfuzz/{TARGET}/{dirname}/0/findings/'))
             if nr_crashes > 0:
                 nr_crashes -= 1
-            crashes['honggfuzz'][f'openssl-{dirname}'] = nr_crashes
+            crashes['honggfuzz'][f'{TARGET}-{dirname}'] = nr_crashes
     except Exception as e:
         log_error(e)
 
@@ -152,7 +153,7 @@ def configure_settings(result_index, experiment_type, timeout=DEFAULT_TIMEOUT, f
     with open('./tools/captain/captainrc', 'w') as file:
         file.writelines(data)
 
-    with open('./targets/openssl/configrc', 'r') as file:
+    with open(f'./targets/{TARGET}/configrc', 'r') as file:
         data = file.readlines()
     for idx in range(len(data)):
         if 'PROGRAMS=' in data[idx]:
@@ -160,7 +161,7 @@ def configure_settings(result_index, experiment_type, timeout=DEFAULT_TIMEOUT, f
         if len(data[idx]) > 1:
             setting = data[idx].split('=')
             settings[setting[0]] = setting[1][:-1]
-    with open('./targets/openssl/configrc', 'w') as file:
+    with open(f'./targets/{TARGET}/configrc', 'w') as file:
         file.writelines(data)
 
     if commit:
@@ -172,45 +173,45 @@ def configure_settings(result_index, experiment_type, timeout=DEFAULT_TIMEOUT, f
 
 def save_new_corpus():
     try:
-        for dirname in os.listdir('./targets/openssl/corpus/'):
-            run_cmd_enable_output(['rm', '-rf', f'./targets/openssl/corpus/{dirname}'])
-            run_cmd_enable_output(['mkdir', f'./targets/openssl/corpus/{dirname}'])
+        for dirname in os.listdir(f'./targets/{TARGET}/corpus/'):
+            run_cmd_enable_output(['rm', '-rf', f'./targets/{TARGET}/corpus/{dirname}'])
+            run_cmd_enable_output(['mkdir', f'./targets/{TARGET}/corpus/{dirname}'])
     except Exception as e:
         log_error(e)
     try:
-        for dirname in os.listdir('./tools/captain/workdir/ar/libfuzzer/openssl/'):
-            run_cmd_enable_output(['cp', '-a', f'./tools/captain/workdir/ar/libfuzzer/openssl/{dirname}/0/corpus/.',
-                                   f'./targets/openssl/corpus/{dirname}/'])
+        for dirname in os.listdir(f'./tools/captain/workdir/ar/libfuzzer/{TARGET}/'):
+            run_cmd_enable_output(['cp', '-a', f'./tools/captain/workdir/ar/libfuzzer/{TARGET}/{dirname}/0/corpus/.',
+                                   f'./targets/{TARGET}/corpus/{dirname}/'])
     except Exception as e:
         log_error(e)
     try:
-        for dirname in os.listdir('./tools/captain/workdir/ar/honggfuzz/openssl/'):
-            run_cmd_enable_output(['cp', '-a', f'./tools/captain/workdir/ar/honggfuzz/openssl/{dirname}/0/output/.',
-                                   f'./targets/openssl/corpus/{dirname}/'])
+        for dirname in os.listdir(f'./tools/captain/workdir/ar/honggfuzz/{TARGET}/'):
+            run_cmd_enable_output(['cp', '-a', f'./tools/captain/workdir/ar/honggfuzz/{TARGET}/{dirname}/0/output/.',
+                                   f'./targets/{TARGET}/corpus/{dirname}/'])
     except Exception as e:
         log_error(e)
     try:
-        for dirname in os.listdir('./tools/captain/workdir/ar/aflplusplus/openssl/'):
+        for dirname in os.listdir(f'./tools/captain/workdir/ar/aflplusplus/{TARGET}/'):
             run_cmd_enable_output(
-                ['cp', '-a', f'./tools/captain/workdir/ar/aflplusplus/openssl/{dirname}/0/findings/queue/.',
-                 f'./targets/openssl/corpus/{dirname}/'])
+                ['cp', '-a', f'./tools/captain/workdir/ar/aflplusplus/{TARGET}/{dirname}/0/findings/queue/.',
+                 f'./targets/{TARGET}/corpus/{dirname}/'])
     except Exception as e:
         log_error(e)
 
 
 def initialize_seed_corpus():
     log_info('Initializing seed corpus...')
-    run_cmd_enable_output(['rm', '-rf', './targets/openssl/corpus'])
-    if run_cmd_enable_output(['cp', '-r', '../magma/targets/openssl/corpus', './targets/openssl/']).returncode != 0:
+    run_cmd_enable_output(['rm', '-rf', f'./targets/{TARGET}/corpus'])
+    if run_cmd_enable_output(['cp', '-r', f'../magma/targets/{TARGET}/corpus', f'./targets/{TARGET}/']).returncode != 0:
         log_error('Seed corpus initialization failed!')
         sys.exit(1)
 
 
 def empty_seed_corpus():
     log_info('Initializing empty seed corpus...')
-    run_cmd_enable_output(['rm', '-rf', './targets/openssl/corpus'])
-    run_cmd_enable_output(['mkdir', './targets/openssl/corpus'])
+    run_cmd_enable_output(['rm', '-rf', f'./targets/{TARGET}/corpus'])
+    run_cmd_enable_output(['mkdir', f'./targets/{TARGET}/corpus'])
     run_cmd_enable_output(['mkdir', 'asn1', 'asn1parse', 'bignum', 'client', 'server', 'x509'],
-                          cwd='./targets/openssl/corpus/')
+                          cwd=f'./targets/{TARGET}/corpus/')
     # run_cmd_enable_output(['touch', 'asn1/0', 'asn1parse/0', 'bignum/0', 'client/0', 'server/0', 'x509/0'],
-    #                       cwd='./targets/openssl/corpus/')
+    #                       cwd=f'./targets/{TARGET}/corpus/')

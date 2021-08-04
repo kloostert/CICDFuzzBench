@@ -6,8 +6,8 @@ import time
 
 import common as c
 
-REPO_LOCATION = '../openssl/'
-PATCH_LOCATION = '../cometfuzz/targets/openssl/patches/bugs/'
+REPO_LOCATION = f'../{c.TARGET}/'
+PATCH_LOCATION = f'../cometfuzz/targets/{c.TARGET}/patches/bugs/'
 BUGS = []
 BUGS_ACTIVE = []
 
@@ -60,11 +60,11 @@ def fuzz_commit():
     new_result_index = f'{new_result_index:04d}'
     c.run_cmd_enable_output(['mkdir', f'/srv/results/artificial/{new_result_index}'])
     c.configure_settings(new_result_index, 'artificial', timeout='1m')
-    c.run_cmd_enable_output(['rm', '-rf', './tools/captain/workdir', './targets/openssl/repo'])
+    c.run_cmd_enable_output(['rm', '-rf', './tools/captain/workdir', f'./targets/{c.TARGET}/repo'])
     c.run_cmd_enable_output(['rm', '-rf', './tools/captain/benchd_results', './tools/captain/final_results'])
-    c.run_cmd_enable_output(['mkdir', './targets/openssl/repo'])
-    c.run_cmd_enable_output(['cp', '-a', f'{REPO_LOCATION}.', './targets/openssl/repo'])
-    c.run_cmd_enable_output(['cp', './targets/openssl/src/abilist.txt', './targets/openssl/repo'])
+    c.run_cmd_enable_output(['mkdir', f'./targets/{c.TARGET}/repo'])
+    c.run_cmd_enable_output(['cp', '-a', f'{REPO_LOCATION}.', f'./targets/{c.TARGET}/repo'])
+    c.run_cmd_enable_output(['cp', f'./targets/{c.TARGET}/src/abilist.txt', f'./targets/{c.TARGET}/repo'])
     c.run_cmd_enable_output(['./run.sh'], cwd='./tools/captain/')
     c.log_info('The fuzzing process has finished.')
     c.log_info('Gathering results...')
