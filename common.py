@@ -103,6 +103,42 @@ def save_coverage_statistics(result_index, experiment_type):
         json.dump(stats, f, indent=4)
 
 
+def save_sha(result_index, experiment_type):
+    logfiles = []
+    stats = {'libfuzzer': {}, 'honggfuzz': {}, 'aflplusplus': {}}
+    try:
+        for filename in os.listdir('./tools/captain/workdir/log/'):
+            if 'container.log' in filename:
+                logfiles.append(os.path.join('./tools/captain/workdir/log/', filename))
+    except Exception as e:
+        log_error(e)
+
+    for logfile in logfiles:
+        try:
+            with open(logfile, 'r') as log:
+                target = logfile.split('_')
+                subtarget = f'{target[1]}-{target[2]}'
+                if target[0].endswith('libfuzzer'):
+                    for line in log:
+                        if 'Fuzz target sha256: ' in line:
+                            lib_sha = line.split()[3]
+                    stats['libfuzzer'][subtarget] = lib_sha
+                elif target[0].endswith('honggfuzz'):
+                    for line in log:
+                        if 'Fuzz target sha256: ' in line:
+                            hongg_sha = line.split()[3]
+                    stats['honggfuzz'][subtarget] = hongg_sha
+                elif target[0].endswith('aflplusplus'):
+                    for line in log:
+                        if 'Fuzz target sha256: ' in line:
+                            afl_sha = line.split()[3]
+                    stats['aflplusplus'][subtarget] = afl_sha
+        except Exception as e:
+            log_error(e)
+    with open(f'/srv/results/{experiment_type}/{result_index}/sha', 'w') as f:
+        json.dump(stats, f, indent=4)
+
+
 def save_nr_crashes(result_index, experiment_type):
     crashes = {'libfuzzer': {}, 'honggfuzz': {}, 'aflplusplus': {}}
     try:
