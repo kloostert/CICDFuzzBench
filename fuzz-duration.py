@@ -1,6 +1,5 @@
 import json
 import os
-import random
 import sys
 import time
 
@@ -10,6 +9,8 @@ REPO_LOCATION = f'../{c.TARGET}/'
 PATCH_LOCATION = f'../cometfuzz/targets/{c.TARGET}/patches/bugs/'
 BUGS = []
 BUGS_ACTIVE = []
+DURATIONS = ['1m', '5m', '10m', '15m', '20m', '30m', '1h', '8h']
+ITERATIONS = 5
 
 
 def checkout_base():
@@ -54,12 +55,12 @@ def introduce_or_fix_bug(bug_index):
             sys.exit(code)
 
 
-def fuzz_commit():
+def fuzz_commit(timeout):
     c.log_info('Starting the fuzzing process!')
     new_result_index = int(max(os.listdir('/srv/results/artificial'))) + 1
     new_result_index = f'{new_result_index:04d}'
     c.run_cmd_enable_output(['mkdir', f'/srv/results/artificial/{new_result_index}'])
-    c.configure_settings(new_result_index, 'artificial', timeout='1m')
+    c.configure_settings(new_result_index, 'artificial', timeout=timeout)
     c.run_cmd_enable_output(['rm', '-rf', './tools/captain/workdir', f'./targets/{c.TARGET}/repo'])
     c.run_cmd_enable_output(['rm', '-rf', './tools/captain/benchd_results', './tools/captain/final_results'])
     c.run_cmd_enable_output(['mkdir', f'./targets/{c.TARGET}/repo'])
@@ -95,24 +96,20 @@ def save_bug_status(result_index):
         json.dump(bug_status, f, indent=4)
 
 
-def generate_fuzz_commit():
-    bug_idx = random.randint(0, len(BUGS) - 1)
-    introduce_or_fix_bug(bug_idx)
-    fuzz_commit()
-
-
 if __name__ == '__main__':
-    random.seed(14)  # for reproducibility
     try:
         checkout_base()
         find_and_apply_patches()
-        c.empty_seed_corpus()
-        # c.initialize_seed_corpus()
-        while True:
-            start = time.time()
-            fuzz_commit()
-            # generate_fuzz_commit()
-            stop = time.time()
-            c.log_info(f'The fuzzing effort took {int(stop - start)}s.')
+        for duration in DURATIONS:
+            c.log_info(f'Starting the run with a duration of {duration}.')
+            # c.empty_seed_corpus()
+            c.initialize_seed_corpus()
+            for i in range(ITERATIONS):
+                c.log_info(f'Starting iteration {i + 1} of {ITERATIONS} for the duration of {duration}.')
+                start = time.time()
+                fuzz_commit(duration)
+                stop = time.time()
+                c.log_info(
+                    f'Iteration {i + 1} of {ITERATIONS} for the duration of {duration} took {int(stop - start)}s.')
     except KeyboardInterrupt:
         print(f'\nProgram was interrupted by the user.')

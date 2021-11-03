@@ -249,5 +249,9 @@ def empty_seed_corpus():
     run_cmd_enable_output(['mkdir', f'./targets/{TARGET}/corpus'])
     run_cmd_enable_output(['mkdir', 'asn1', 'asn1parse', 'bignum', 'client', 'server', 'x509'],
                           cwd=f'./targets/{TARGET}/corpus/')
-    # run_cmd_enable_output(['touch', 'asn1/0', 'asn1parse/0', 'bignum/0', 'client/0', 'server/0', 'x509/0'],
-    #                       cwd=f'./targets/{TARGET}/corpus/')
+    run_cmd_enable_output(['cp', 'zero', 'corpus/asn1/0'], cwd=f'./targets/{TARGET}')
+    run_cmd_enable_output(['cp', 'zero', 'corpus/asn1parse/0'], cwd=f'./targets/{TARGET}')
+    run_cmd_enable_output(['cp', 'zero', 'corpus/bignum/0'], cwd=f'./targets/{TARGET}')
+    run_cmd_enable_output(['cp', 'zero', 'corpus/client/0'], cwd=f'./targets/{TARGET}')
+    run_cmd_enable_output(['cp', 'zero', 'corpus/server/0'], cwd=f'./targets/{TARGET}')
+    run_cmd_enable_output(['cp', 'zero', 'corpus/x509/0'], cwd=f'./targets/{TARGET}')

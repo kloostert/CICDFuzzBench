@@ -12,7 +12,7 @@ def init_repo():
     c.run_cmd_disable_output(['git', '-C', REPO_LOCATION, 'clean', '-df'])
     c.run_cmd_disable_output(['git', '-C', REPO_LOCATION, 'checkout', 'master'])
     c.run_cmd_disable_output(['git', '-C', REPO_LOCATION, 'pull'])
-    c.run_cmd_disable_output(['git', '-C', REPO_LOCATION, 'checkout', "842d61b5177bb57b7de374a3f25adc9e07e269d8"])
+    c.run_cmd_disable_output(['git', '-C', REPO_LOCATION, 'checkout', '54c0480dac6c25f262d537048503a660aaa4b568'])
     CURRENT_COMMIT = c.get_stdout(c.run_cmd_capture_output(['git', '-C', REPO_LOCATION, 'log', '-1', '--format="%H"']))
     c.log_info(f'The current commit is {CURRENT_COMMIT}.')
 
