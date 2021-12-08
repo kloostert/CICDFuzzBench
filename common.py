@@ -8,6 +8,16 @@ TARGET = 'openssl'
 DEFAULT_TIMEOUT = '10m'
 DEFAULT_FUZZERS = '(aflplusplus honggfuzz libfuzzer)'
 DEFAULT_TARGETS = '(asn1parse bignum server client x509)'
+BASE_COMMITS = {'libpng':       'a37d4836519517bdce6cb9d956092321eca3e73b',
+                'libsndfile':   '86c9f9eb7022d186ad4d0689487e7d4f04ce2b29',
+                'libtiff':      'c145a6c14978f73bb484c955eb9f84203efcb12e',  # additional fetch step!
+                'libxml2':      'ec6e3efb06d7b15cf5a2328fabd3845acea4c815',
+                'lua':          'dbdc74dc5502c2e05e1c1e2ac894943f418c8431',
+                'openssl':      '3bd5319b5d0df9ecf05c8baba2c401ad8e3ba130',  # additional fetch step! different base!
+                'php':          'bc39abe8c3c492e29bc5d60ca58442040bbf063b',  # additional fetch step!
+                'poppler':      '1d23101ccebe14261c6afc024ea14f29d209e760',  # additional fetch step!
+                'sqlite3':      '0000000000000000000000000000000000000000'   # no git!
+                }
 
 
 def log_info(entry):
@@ -99,7 +109,7 @@ def save_coverage_statistics(result_index, experiment_type):
                                                        'sha': afl_sha}
         except Exception as e:
             log_error(e)
-    with open(f'/srv/results/{experiment_type}/{result_index}/coverage_results', 'w') as f:
+    with open(f'/srv/results/{TARGET}/{experiment_type}/{result_index}/coverage_results', 'w') as f:
         json.dump(stats, f, indent=4)
 
 
@@ -167,7 +177,7 @@ def save_nr_crashes(result_index, experiment_type):
     except Exception as e:
         log_error(e)
 
-    with open(f'/srv/results/{experiment_type}/{result_index}/nr_crashes', 'w') as f:
+    with open(f'/srv/results/{TARGET}/{experiment_type}/{result_index}/nr_crashes', 'w') as f:
         json.dump(crashes, f, indent=4)
 
 
@@ -203,7 +213,7 @@ def configure_settings(result_index, experiment_type, timeout=DEFAULT_TIMEOUT, f
     if commit:
         settings['COMMIT'] = commit
 
-    with open(f'/srv/results/{experiment_type}/{result_index}/settings', 'w') as f:
+    with open(f'/srv/results/{TARGET}/{experiment_type}/{result_index}/settings', 'w') as f:
         json.dump(settings, f, indent=4)
 
 
