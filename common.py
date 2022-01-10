@@ -4,10 +4,11 @@ import os
 import subprocess
 import sys
 
-TARGET = 'openssl'
+TARGET = 'libxml2'
+EXPERIMENT_TYPE = 'artificial'
 DEFAULT_TIMEOUT = '10m'
 DEFAULT_FUZZERS = '(aflplusplus honggfuzz libfuzzer)'
-DEFAULT_TARGETS = '(asn1parse bignum server client x509)'
+DEFAULT_TARGETS = '(libxml2_xml_read_memory_fuzzer xmllint)'  # '(asn1parse bignum server client x509)'
 BASE_COMMITS = {'libpng':       'a37d4836519517bdce6cb9d956092321eca3e73b',
                 'libsndfile':   '86c9f9eb7022d186ad4d0689487e7d4f04ce2b29',
                 'libtiff':      'c145a6c14978f73bb484c955eb9f84203efcb12e',  # additional fetch step!
@@ -109,7 +110,7 @@ def save_coverage_statistics(result_index, experiment_type):
                                                        'sha': afl_sha}
         except Exception as e:
             log_error(e)
-    with open(f'/srv/results/{TARGET}/{experiment_type}/{result_index}/coverage_results', 'w') as f:
+    with open(f'~/results/{TARGET}/{experiment_type}/{result_index}/coverage_results', 'w') as f:
         json.dump(stats, f, indent=4)
 
 
@@ -145,7 +146,7 @@ def save_sha(result_index, experiment_type):
                     stats['aflplusplus'][subtarget] = afl_sha
         except Exception as e:
             log_error(e)
-    with open(f'/srv/results/{experiment_type}/{result_index}/sha', 'w') as f:
+    with open(f'~/results/{experiment_type}/{result_index}/sha', 'w') as f:
         json.dump(stats, f, indent=4)
 
 
@@ -177,7 +178,7 @@ def save_nr_crashes(result_index, experiment_type):
     except Exception as e:
         log_error(e)
 
-    with open(f'/srv/results/{TARGET}/{experiment_type}/{result_index}/nr_crashes', 'w') as f:
+    with open(f'~/results/{TARGET}/{experiment_type}/{result_index}/nr_crashes', 'w') as f:
         json.dump(crashes, f, indent=4)
 
 
@@ -213,7 +214,7 @@ def configure_settings(result_index, experiment_type, timeout=DEFAULT_TIMEOUT, f
     if commit:
         settings['COMMIT'] = commit
 
-    with open(f'/srv/results/{TARGET}/{experiment_type}/{result_index}/settings', 'w') as f:
+    with open(f'~/results/{TARGET}/{experiment_type}/{result_index}/settings', 'w') as f:
         json.dump(settings, f, indent=4)
 
 
@@ -248,7 +249,7 @@ def save_new_corpus():
 def initialize_seed_corpus():
     log_info('Initializing seed corpus...')
     run_cmd_enable_output(['rm', '-rf', f'./targets/{TARGET}/corpus'])
-    if run_cmd_enable_output(['cp', '-r', f'../magma/targets/{TARGET}/corpus', f'./targets/{TARGET}/']).returncode != 0:
+    if run_cmd_enable_output(['cp', '-r', f'~/magma/targets/{TARGET}/corpus', f'./targets/{TARGET}/']).returncode != 0:
         log_error('Seed corpus initialization failed!')
         sys.exit(1)
 

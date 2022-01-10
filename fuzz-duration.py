@@ -5,12 +5,12 @@ import time
 
 import common as c
 
-REPO_LOCATION = f'../{c.TARGET}/'
-SETUP_LOCATION = f'../cometfuzz/targets/{c.TARGET}/patches/setup/'
-PATCH_LOCATION = f'../cometfuzz/targets/{c.TARGET}/patches/bugs/'
+REPO_LOCATION = f'~/{c.TARGET}/'
+SETUP_LOCATION = f'~/CometFuzz/targets/{c.TARGET}/patches/setup/'
+PATCH_LOCATION = f'~/CometFuzz/targets/{c.TARGET}/patches/bugs/'
 BUGS = []
 BUGS_ACTIVE = []
-DURATIONS = ['1m', '5m', '10m', '15m', '20m', '30m', '1h', '8h']
+DURATIONS = ['1m']  #, '5m', '10m', '15m', '20m', '30m', '45m', '60m']
 ITERATIONS = 5
 
 
@@ -73,29 +73,29 @@ def introduce_or_fix_bug(bug_index):
 
 def fuzz_commit(timeout):
     c.log_info('Starting the fuzzing process!')
-    new_result_index = int(max(os.listdir(f'/srv/results/{c.TARGET}/artificial'))) + 1
+    new_result_index = int(max(os.listdir(f'~/results/{c.TARGET}/{c.EXPERIMENT_TYPE}'))) + 1
     new_result_index = f'{new_result_index:04d}'
-    c.run_cmd_enable_output(['mkdir', f'/srv/results/{c.TARGET}/artificial/{new_result_index}'])
-    c.configure_settings(new_result_index, 'artificial', timeout=timeout)
+    c.run_cmd_enable_output(['mkdir', f'~/results/{c.TARGET}/{c.EXPERIMENT_TYPE}/{new_result_index}'])
+    c.configure_settings(new_result_index, c.EXPERIMENT_TYPE, timeout=timeout)
     c.run_cmd_enable_output(['rm', '-rf', './tools/captain/workdir', f'./targets/{c.TARGET}/repo'])
     c.run_cmd_enable_output(['rm', '-rf', './tools/captain/benchd_results', './tools/captain/final_results'])
     c.run_cmd_enable_output(['mkdir', f'./targets/{c.TARGET}/repo'])
     c.run_cmd_enable_output(['cp', '-a', f'{REPO_LOCATION}.', f'./targets/{c.TARGET}/repo'])
-    c.run_cmd_enable_output(
-        ['cp', f'./targets/{c.TARGET}/src/abilist.txt', f'./targets/{c.TARGET}/repo'])  # openssl specific!
+    # c.run_cmd_enable_output(
+        # ['cp', f'./targets/{c.TARGET}/src/abilist.txt', f'./targets/{c.TARGET}/repo'])  # openssl specific!
     c.run_cmd_enable_output(['./run.sh'], cwd='./tools/captain/')
     c.log_info('The fuzzing process has finished.')
     c.log_info('Gathering results...')
     c.run_cmd_disable_output(['python3.8', 'gather_results.py', 'workdir/', 'benchd_results'], cwd='./tools/captain/')
     c.run_cmd_enable_output(['python3.8', 'gather_detected.py'], cwd='./tools/captain/')
     c.run_cmd_enable_output(['cp', './tools/captain/benchd_results', './tools/captain/final_results',
-                             f'/srv/results/{c.TARGET}/artificial/{new_result_index}'])
+                             f'~/results/{c.TARGET}/{c.EXPERIMENT_TYPE}/{new_result_index}'])
     save_bug_status(new_result_index)
-    c.save_coverage_statistics(new_result_index, 'artificial')
-    c.save_nr_crashes(new_result_index, 'artificial')
+    c.save_coverage_statistics(new_result_index, c.EXPERIMENT_TYPE)
+    c.save_nr_crashes(new_result_index, c.EXPERIMENT_TYPE)
     c.save_new_corpus()
     c.log_info(
-        f'The results of this fuzzing campaign were stored in /srv/results/{c.TARGET}/artificial/{new_result_index}/.')
+        f'The results of this fuzzing campaign were stored in ~/results/{c.TARGET}/{c.EXPERIMENT_TYPE}/{new_result_index}/.')
 
 
 def save_bug_status(result_index):
@@ -110,7 +110,7 @@ def save_bug_status(result_index):
     bug_status['nr_active_bugs'] = active
     bug_status['nr_inactive_bugs'] = len(BUGS) - active
     bug_status['nr_total_bugs'] = len(BUGS)
-    with open(f'/srv/results/{c.TARGET}/artificial/{result_index}/bug_status', 'w') as f:
+    with open(f'~/results/{c.TARGET}/{c.EXPERIMENT_TYPE}/{result_index}/bug_status', 'w') as f:
         json.dump(bug_status, f, indent=4)
 
 
