@@ -76,7 +76,9 @@ FUZZERS=(aflplusplus honggfuzz libfuzzer)
 # [fuzzer_TARGETS]: an array of target names (from magma/targets/*) to fuzz with
 # `fuzzer`. The `fuzzer` prefix is a fuzzer listed in the FUZZERS array
 # (default: all targets)
-# afl_TARGETS=(libpng libtiff libxml2)
+aflplusplus_TARGETS=(libxml2)
+honggfuzz_TARGETS=(libxml2)
+libfuzzer_TARGETS=(libxml2)
 
 # [fuzzer_target_PROGRAMS]: an array of program names (from
 # magma/targets/target/configrc) to use as execution drivers when fuzzing the
