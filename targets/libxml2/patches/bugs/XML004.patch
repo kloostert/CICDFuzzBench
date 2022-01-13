@@ -12,7 +12,7 @@
          }
 +#endif
 +#ifdef MAGMA_ENABLE_CANARIES
-+        MAGMA_LOG("%MAGMA_BUG%", MAGMA_AND(state->how != GZIP, \
++        MAGMA_LOG("XML004", MAGMA_AND(state->how != GZIP, \
 +            MAGMA_AND(ret != LZMA_OK, ret != LZMA_STREAM_END)));
 +#endif
      } while (strm->avail_out && ret != LZMA_STREAM_END);

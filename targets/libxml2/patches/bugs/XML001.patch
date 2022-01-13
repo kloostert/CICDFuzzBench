@@ -34,7 +34,7 @@ index b1cfede..9a52cd8 100644
 +        }
 +#endif
 +#ifdef MAGMA_ENABLE_CANARIES
-+        MAGMA_LOG("%MAGMA_BUG%", (size - len - xmlStrlen(content->prefix)) < (xmlStrlen(content->name) + 10));
++        MAGMA_LOG("XML001", (size - len - xmlStrlen(content->prefix)) < (xmlStrlen(content->name) + 10));
 +#endif
  	    if (content->name != NULL)
  		strcat(buf, (char *) content->name);

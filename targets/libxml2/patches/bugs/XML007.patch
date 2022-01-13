@@ -6,7 +6,7 @@
  	    avail = (ptrdiff_t)xmlBufUse(in->buf->buffer) -
                      (in->cur - in->base);
 +#ifdef MAGMA_ENABLE_CANARIES
-+    MAGMA_LOG("%MAGMA_BUG%", avail != (in->end - in->cur));
++    MAGMA_LOG("XML007", avail != (in->end - in->cur));
 +#endif
  	if ((avail == 0) && (terminate)) {
  	    htmlAutoCloseOnEnd(ctxt);

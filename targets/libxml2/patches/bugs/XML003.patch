@@ -17,7 +17,7 @@ index 04aa717..579a9a7 100644
 +#endif
  
 +#ifdef MAGMA_ENABLE_CANARIES
-+    MAGMA_LOG("%MAGMA_BUG%", MAGMA_AND(entity->etype == XML_EXTERNAL_PARAMETER_ENTITY, \
++    MAGMA_LOG("XML003", MAGMA_AND(entity->etype == XML_EXTERNAL_PARAMETER_ENTITY, \
 +        MAGMA_AND((ctxt->options & XML_PARSE_NOENT) == 0, \
 +        MAGMA_AND((ctxt->options & XML_PARSE_DTDVALID) == 0, \
 +        MAGMA_AND((ctxt->options & XML_PARSE_DTDLOAD) == 0, \

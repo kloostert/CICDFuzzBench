@@ -33,7 +33,7 @@ index de624f8d..00b2fb1c 100644
              ret = xmlStrndup((BASE_PTR+startPosition), len);
 +#else
 +#ifdef MAGMA_ENABLE_CANARIES
-+        MAGMA_LOG("%MAGMA_BUG%", q != (BASE_PTR+startPosition));
++        MAGMA_LOG("XML013", q != (BASE_PTR+startPosition));
 +#endif
 +        ret = xmlStrndup(q, CUR_PTR - q);
 +        NEXT;
@@ -72,7 +72,7 @@ index de624f8d..00b2fb1c 100644
              ret = xmlStrndup((BASE_PTR + startPosition), len);
 +#else
 +#ifdef MAGMA_ENABLE_CANARIES
-+        MAGMA_LOG("%MAGMA_BUG%", q != (BASE_PTR+startPosition));
++        MAGMA_LOG("XML013", q != (BASE_PTR+startPosition));
 +#endif
 +        ret = xmlStrndup(q, CUR_PTR - q);
 +        NEXT;

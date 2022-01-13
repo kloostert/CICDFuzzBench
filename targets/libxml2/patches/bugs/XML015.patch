@@ -16,7 +16,7 @@ index d6971b5..15da2ae 100644
  	}
 +#endif
 +#ifdef MAGMA_ENABLE_CANARIES
-+	MAGMA_LOG("%MAGMA_BUG%", ctxt->input->base != base);
++	MAGMA_LOG("XML015", ctxt->input->base != base);
 +#endif
      }
  

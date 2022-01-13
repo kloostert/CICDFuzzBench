@@ -12,7 +12,7 @@ index b1cfede..49e6251 100644
      /* Validity Constraint: ID uniqueness */
      if (attrDecl->atype == XML_ATTRIBUTE_ID) {
 +#ifdef MAGMA_ENABLE_CANARIES
-+        MAGMA_LOG("%MAGMA_BUG%", 1); // type confusion on the next line
++        MAGMA_LOG("XML002", 1); // type confusion on the next line
 +#endif
          if (xmlAddID(ctxt, doc, value, (xmlAttrPtr) ns) == NULL)
  	    ret = 0;
@@ -21,7 +21,7 @@ index b1cfede..49e6251 100644
      if ((attrDecl->atype == XML_ATTRIBUTE_IDREF) ||
  	(attrDecl->atype == XML_ATTRIBUTE_IDREFS)) {
 +#ifdef MAGMA_ENABLE_CANARIES
-+        MAGMA_LOG("%MAGMA_BUG%", 1); // type confusion on the next line
++        MAGMA_LOG("XML002", 1); // type confusion on the next line
 +#endif
          if (xmlAddRef(ctxt, doc, value, (xmlAttrPtr) ns) == NULL)
  	    ret = 0;

@@ -10,7 +10,7 @@ index b1cfede..d0db16a 100644
      if (size - strlen(buf) <= 2) return;
 +#endif
 +#ifdef MAGMA_ENABLE_CANARIES
-+    MAGMA_LOG("%MAGMA_BUG%", size - strlen(buf) <= 2);
++    MAGMA_LOG("XML006", size - strlen(buf) <= 2);
 +#endif
      if (englob)
          strcat(buf, ")");

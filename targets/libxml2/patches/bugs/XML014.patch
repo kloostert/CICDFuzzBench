@@ -11,7 +11,7 @@ index d6971b5..7c82c11 100644
  	    return(NULL);
 +#endif
 +#ifdef MAGMA_ENABLE_CANARIES
-+	MAGMA_LOG("%MAGMA_BUG%", in >= ctxt->input->end);
++	MAGMA_LOG("XML014", in >= ctxt->input->end);
 +#endif
  
  	if ((*in > 0) && (*in < 0x80)) {

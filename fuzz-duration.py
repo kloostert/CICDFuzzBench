@@ -10,8 +10,8 @@ SETUP_LOCATION = f'../CometFuzz/targets/{c.TARGET}/patches/setup/'
 PATCH_LOCATION = f'../CometFuzz/targets/{c.TARGET}/patches/bugs/'
 BUGS = []
 BUGS_ACTIVE = []
-DURATIONS = ['1m']  #, '5m', '10m', '15m', '20m', '30m', '45m', '60m']
-ITERATIONS = 1  #5
+DURATIONS = ['5m', '10m', '15m', '20m', '30m', '40m']
+ITERATIONS = 5
 
 
 def checkout_base():

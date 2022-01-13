@@ -9,7 +9,7 @@ index d255fbf..28d53ae 100644
 +#ifdef MAGMA_ENABLE_FIXES
 +#else
 +#ifdef MAGMA_ENABLE_CANARIES
-+    MAGMA_LOG("%MAGMA_BUG%", end < start);
++    MAGMA_LOG("XML016", end < start);
 +#endif
 +    NEXTL(len);
 +#endif

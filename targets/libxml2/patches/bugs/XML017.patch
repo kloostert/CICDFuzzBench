@@ -18,7 +18,7 @@ index 3f31329..4aea5b8 100644
 +    // However, to avoid the complexity of analyzing the real triggering
 +    // condition (bounds checks and others), we'll use the condition relied
 +    // on by the devs when fixing the bug.
-+    MAGMA_LOG("%MAGMA_BUG%", RAW != '>');
++    MAGMA_LOG("XML017", RAW != '>');
 +#endif
      NEXT;
  }

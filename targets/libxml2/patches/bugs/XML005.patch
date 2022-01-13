@@ -13,7 +13,7 @@
      }
 +#endif
 +#ifdef MAGMA_ENABLE_CANARIES
-+    MAGMA_LOG("%MAGMA_BUG%", size > (MAX_SIZE_T - RESERVE_SIZE));
++    MAGMA_LOG("XML005", size > (MAX_SIZE_T - RESERVE_SIZE));
 +#endif
  
      p = (MEMHDR *) malloc(RESERVE_SIZE+size);
@@ -31,7 +31,7 @@
      }
 +#endif
 +#ifdef MAGMA_ENABLE_CANARIES
-+    MAGMA_LOG("%MAGMA_BUG%", size > (MAX_SIZE_T - RESERVE_SIZE));
++    MAGMA_LOG("XML005", size > (MAX_SIZE_T - RESERVE_SIZE));
 +#endif
  
      p = (MEMHDR *) malloc(RESERVE_SIZE+size);
@@ -49,7 +49,7 @@
      }
 +#endif
 +#ifdef MAGMA_ENABLE_CANARIES
-+    MAGMA_LOG("%MAGMA_BUG%", size > (MAX_SIZE_T - RESERVE_SIZE));
++    MAGMA_LOG("XML005", size > (MAX_SIZE_T - RESERVE_SIZE));
 +#endif
  
      tmp = (MEMHDR *) realloc(p,RESERVE_SIZE+size);
@@ -67,7 +67,7 @@
      }
 +#endif
 +#ifdef MAGMA_ENABLE_CANARIES
-+    MAGMA_LOG("%MAGMA_BUG%", size > (MAX_SIZE_T - RESERVE_SIZE));
++    MAGMA_LOG("XML005", size > (MAX_SIZE_T - RESERVE_SIZE));
 +#endif
  
      p = (MEMHDR *) malloc(RESERVE_SIZE+size);
