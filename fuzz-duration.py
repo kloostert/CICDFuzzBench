@@ -141,8 +141,8 @@ if __name__ == '__main__':
         SETUP_LOCATION = f'../CometFuzz/targets/{TARGET}/patches/setup/'
         PATCH_LOCATION = f'../CometFuzz/targets/{TARGET}/patches/bugs/'
         # checkout_base()  # disabled, otherwise it overrides manual checkout
-        # apply_setup_patches()
-        # find_and_apply_patches()
+        apply_setup_patches()
+        find_and_apply_patches()
         for duration in DURATIONS:
             c.log_info(f'Starting the run with a duration of {duration}.')
             # c.empty_seed_corpus()  # this needs to be generalized before use!
