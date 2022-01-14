@@ -1,5 +1,6 @@
-targets/openssl/repo/
-targets/openssl/corpus/
+targets/*/repo/
+targets/*/corpus/
+targets/poppler/freetype2
 tools/captain/workdir*/
 tools/captain/benchd_results
 tools/captain/final_results
@@ -7,3 +8,4 @@ tools/captain/coverage_results
 *.out
 *.err
 __pycache__/
+.vscode

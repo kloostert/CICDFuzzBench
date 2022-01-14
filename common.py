@@ -4,21 +4,8 @@ import os
 import subprocess
 import sys
 
-TARGET = 'libxml2'  # 'openssl'
-EXPERIMENT_TYPE = 'artificial'
 DEFAULT_TIMEOUT = '10m'
-DEFAULT_FUZZERS = '(aflplusplus honggfuzz libfuzzer)'  # '(aflplusplus honggfuzz)'
-DEFAULT_TARGETS = '(libxml2_xml_read_memory_fuzzer xmllint)'  # '(asn1parse bignum server client x509)'
-BASE_COMMITS = {'libpng':       'a37d4836519517bdce6cb9d956092321eca3e73b',
-                'libsndfile':   '86c9f9eb7022d186ad4d0689487e7d4f04ce2b29',
-                'libtiff':      'c145a6c14978f73bb484c955eb9f84203efcb12e',  # additional fetch step!
-                'libxml2':      'ec6e3efb06d7b15cf5a2328fabd3845acea4c815',
-                'lua':          'dbdc74dc5502c2e05e1c1e2ac894943f418c8431',
-                'openssl':      '728d03b576f360e72bbddc7e751433575430af3b',  #'3bd5319b5d0df9ecf05c8baba2c401ad8e3ba130',  # additional fetch step! different base!
-                'php':          'bc39abe8c3c492e29bc5d60ca58442040bbf063b',  # additional fetch step!
-                'poppler':      '1d23101ccebe14261c6afc024ea14f29d209e760',  # additional fetch step!
-                'sqlite3':      '0000000000000000000000000000000000000000'   # no git!
-                }
+DEFAULT_FUZZERS = '(aflplusplus honggfuzz libfuzzer)'
 
 
 def log_info(entry):
@@ -45,7 +32,7 @@ def get_stdout(result):
     return result.stdout.strip('\n"')
 
 
-def save_coverage_statistics(result_index, experiment_type):
+def save_coverage_statistics(result_index, experiment_type, library):
     logfiles = []
     stats = {'libfuzzer': {}, 'honggfuzz': {}, 'aflplusplus': {}}
     try:
@@ -113,7 +100,7 @@ def save_coverage_statistics(result_index, experiment_type):
                                                        'sha': afl_sha}
         except Exception as e:
             log_error(e)
-    with open(f'../results/{TARGET}/{experiment_type}/{result_index}/coverage_results', 'w') as f:
+    with open(f'../results/{library}/{experiment_type}/{result_index}/coverage_results', 'w') as f:
         json.dump(stats, f, indent=4)
 
 
@@ -153,40 +140,39 @@ def save_sha(result_index, experiment_type):
         json.dump(stats, f, indent=4)
 
 
-def save_nr_crashes(result_index, experiment_type):
+def save_nr_crashes(result_index, experiment_type, library):
     crashes = {'libfuzzer': {}, 'honggfuzz': {}, 'aflplusplus': {}}
     try:
-        for dirname in os.listdir(f'./tools/captain/workdir/ar/aflplusplus/{TARGET}/'):
+        for dirname in os.listdir(f'./tools/captain/workdir/ar/aflplusplus/{library}/'):
             nr_crashes = len(
-                os.listdir(f'./tools/captain/workdir/ar/aflplusplus/{TARGET}/{dirname}/0/findings/crashes/'))
+                os.listdir(f'./tools/captain/workdir/ar/aflplusplus/{library}/{dirname}/0/findings/crashes/'))
             if nr_crashes > 0:
                 nr_crashes -= 1
-            crashes['aflplusplus'][f'{TARGET}-{dirname}'] = nr_crashes
+            crashes['aflplusplus'][f'{library}-{dirname}'] = nr_crashes
     except Exception as e:
         log_error(e)
 
     try:
-        for dirname in os.listdir(f'./tools/captain/workdir/ar/libfuzzer/{TARGET}/'):
-            nr_crashes = len(os.listdir(f'./tools/captain/workdir/ar/libfuzzer/{TARGET}/{dirname}/0/findings/'))
-            crashes['libfuzzer'][f'{TARGET}-{dirname}'] = nr_crashes
+        for dirname in os.listdir(f'./tools/captain/workdir/ar/libfuzzer/{library}/'):
+            nr_crashes = len(os.listdir(f'./tools/captain/workdir/ar/libfuzzer/{library}/{dirname}/0/findings/'))
+            crashes['libfuzzer'][f'{library}-{dirname}'] = nr_crashes
     except Exception as e:
         log_error(e)
 
     try:
-        for dirname in os.listdir(f'./tools/captain/workdir/ar/honggfuzz/{TARGET}/'):
-            nr_crashes = len(os.listdir(f'./tools/captain/workdir/ar/honggfuzz/{TARGET}/{dirname}/0/findings/'))
+        for dirname in os.listdir(f'./tools/captain/workdir/ar/honggfuzz/{library}/'):
+            nr_crashes = len(os.listdir(f'./tools/captain/workdir/ar/honggfuzz/{library}/{dirname}/0/findings/'))
             if nr_crashes > 0:
                 nr_crashes -= 1
-            crashes['honggfuzz'][f'{TARGET}-{dirname}'] = nr_crashes
+            crashes['honggfuzz'][f'{library}-{dirname}'] = nr_crashes
     except Exception as e:
         log_error(e)
 
-    with open(f'../results/{TARGET}/{experiment_type}/{result_index}/nr_crashes', 'w') as f:
+    with open(f'../results/{library}/{experiment_type}/{result_index}/nr_crashes', 'w') as f:
         json.dump(crashes, f, indent=4)
 
 
-def configure_settings(result_index, experiment_type, timeout=DEFAULT_TIMEOUT, fuzzers=DEFAULT_FUZZERS,
-                       targets=DEFAULT_TARGETS, commit=None):
+def configure_settings(result_index, experiment_type, library, timeout=DEFAULT_TIMEOUT, fuzzers=DEFAULT_FUZZERS, commit=None):
     settings = {}
 
     with open('./tools/captain/captainrc', 'r') as file:
@@ -197,75 +183,77 @@ def configure_settings(result_index, experiment_type, timeout=DEFAULT_TIMEOUT, f
                 data[idx] = f'TIMEOUT={timeout}\n'
             if 'FUZZERS=' in data[idx]:
                 data[idx] = f'FUZZERS={fuzzers}\n'
+            if 'aflplusplus_TARGETS=' in data[idx]:
+                data[idx] = f'aflplusplus_TARGETS=({library})\n'
+            if 'honggfuzz_TARGETS=' in data[idx]:
+                data[idx] = f'honggfuzz_TARGETS=({library})\n'
+            if 'libfuzzer_TARGETS=' in data[idx]:
+                data[idx] = f'libfuzzer_TARGETS=({library})\n'
             if len(data[idx]) > 1:
                 setting = data[idx].split('=')
                 settings[setting[0]] = setting[1][:-1]
     with open('./tools/captain/captainrc', 'w') as file:
         file.writelines(data)
 
-    with open(f'./targets/{TARGET}/configrc', 'r') as file:
+    with open(f'./targets/{library}/configrc', 'r') as file:
         data = file.readlines()
     for idx in range(len(data)):
-        if 'PROGRAMS=' in data[idx]:
-            data[idx] = f'PROGRAMS={targets}\n'
         if len(data[idx]) > 1:
             setting = data[idx].split('=')
             settings[setting[0]] = setting[1][:-1]
-    with open(f'./targets/{TARGET}/configrc', 'w') as file:
-        file.writelines(data)
 
     if commit:
         settings['COMMIT'] = commit
 
-    with open(f'../results/{TARGET}/{experiment_type}/{result_index}/settings', 'w') as f:
+    with open(f'../results/{library}/{experiment_type}/{result_index}/settings', 'w') as f:
         json.dump(settings, f, indent=4)
 
 
-def save_new_corpus():
+def save_new_corpus(library):
     try:
-        for dirname in os.listdir(f'./targets/{TARGET}/corpus/'):
-            run_cmd_enable_output(['rm', '-rf', f'./targets/{TARGET}/corpus/{dirname}'])
-            run_cmd_enable_output(['mkdir', f'./targets/{TARGET}/corpus/{dirname}'])
+        for dirname in os.listdir(f'./targets/{library}/corpus/'):
+            run_cmd_enable_output(['rm', '-rf', f'./targets/{library}/corpus/{dirname}'])
+            run_cmd_enable_output(['mkdir', f'./targets/{library}/corpus/{dirname}'])
     except Exception as e:
         log_error(e)
     try:
-        for dirname in os.listdir(f'./tools/captain/workdir/ar/libfuzzer/{TARGET}/'):
-            run_cmd_enable_output(['cp', '-a', f'./tools/captain/workdir/ar/libfuzzer/{TARGET}/{dirname}/0/corpus/.',
-                                   f'./targets/{TARGET}/corpus/{dirname}/'])
+        for dirname in os.listdir(f'./tools/captain/workdir/ar/libfuzzer/{library}/'):
+            run_cmd_enable_output(['cp', '-a', f'./tools/captain/workdir/ar/libfuzzer/{library}/{dirname}/0/corpus/.',
+                                   f'./targets/{library}/corpus/{dirname}/'])
     except Exception as e:
         log_error(e)
     try:
-        for dirname in os.listdir(f'./tools/captain/workdir/ar/honggfuzz/{TARGET}/'):
-            run_cmd_enable_output(['cp', '-a', f'./tools/captain/workdir/ar/honggfuzz/{TARGET}/{dirname}/0/output/.',
-                                   f'./targets/{TARGET}/corpus/{dirname}/'])
+        for dirname in os.listdir(f'./tools/captain/workdir/ar/honggfuzz/{library}/'):
+            run_cmd_enable_output(['cp', '-a', f'./tools/captain/workdir/ar/honggfuzz/{library}/{dirname}/0/output/.',
+                                   f'./targets/{library}/corpus/{dirname}/'])
     except Exception as e:
         log_error(e)
     try:
-        for dirname in os.listdir(f'./tools/captain/workdir/ar/aflplusplus/{TARGET}/'):
+        for dirname in os.listdir(f'./tools/captain/workdir/ar/aflplusplus/{library}/'):
             run_cmd_enable_output(
-                ['cp', '-a', f'./tools/captain/workdir/ar/aflplusplus/{TARGET}/{dirname}/0/findings/queue/.',
-                 f'./targets/{TARGET}/corpus/{dirname}/'])
+                ['cp', '-a', f'./tools/captain/workdir/ar/aflplusplus/{library}/{dirname}/0/findings/queue/.',
+                 f'./targets/{library}/corpus/{dirname}/'])
     except Exception as e:
         log_error(e)
 
 
-def initialize_seed_corpus():
+def initialize_seed_corpus(library):
     log_info('Initializing seed corpus...')
-    run_cmd_enable_output(['rm', '-rf', f'./targets/{TARGET}/corpus'])
-    if run_cmd_enable_output(['cp', '-r', f'../magma/targets/{TARGET}/corpus', f'./targets/{TARGET}/']).returncode != 0:
+    run_cmd_enable_output(['rm', '-rf', f'./targets/{library}/corpus'])
+    if run_cmd_enable_output(['cp', '-r', f'../magma/targets/{library}/corpus', f'./targets/{library}/']).returncode != 0:
         log_error('Seed corpus initialization failed!')
         sys.exit(1)
 
 
-def empty_seed_corpus():
+def empty_seed_corpus(library):
     log_info('Initializing empty seed corpus...')
-    run_cmd_enable_output(['rm', '-rf', f'./targets/{TARGET}/corpus'])
-    run_cmd_enable_output(['mkdir', f'./targets/{TARGET}/corpus'])
+    run_cmd_enable_output(['rm', '-rf', f'./targets/{library}/corpus'])
+    run_cmd_enable_output(['mkdir', f'./targets/{library}/corpus'])
     run_cmd_enable_output(['mkdir', 'asn1', 'asn1parse', 'bignum', 'client', 'server', 'x509'],
-                          cwd=f'./targets/{TARGET}/corpus/')
-    run_cmd_enable_output(['cp', 'zero', 'corpus/asn1/0'], cwd=f'./targets/{TARGET}')
-    run_cmd_enable_output(['cp', 'zero', 'corpus/asn1parse/0'], cwd=f'./targets/{TARGET}')
-    run_cmd_enable_output(['cp', 'zero', 'corpus/bignum/0'], cwd=f'./targets/{TARGET}')
-    run_cmd_enable_output(['cp', 'zero', 'corpus/client/0'], cwd=f'./targets/{TARGET}')
-    run_cmd_enable_output(['cp', 'zero', 'corpus/server/0'], cwd=f'./targets/{TARGET}')
-    run_cmd_enable_output(['cp', 'zero', 'corpus/x509/0'], cwd=f'./targets/{TARGET}')
+                          cwd=f'./targets/{library}/corpus/')
+    run_cmd_enable_output(['cp', 'zero', 'corpus/asn1/0'], cwd=f'./targets/{library}')
+    run_cmd_enable_output(['cp', 'zero', 'corpus/asn1parse/0'], cwd=f'./targets/{library}')
+    run_cmd_enable_output(['cp', 'zero', 'corpus/bignum/0'], cwd=f'./targets/{library}')
+    run_cmd_enable_output(['cp', 'zero', 'corpus/client/0'], cwd=f'./targets/{library}')
+    run_cmd_enable_output(['cp', 'zero', 'corpus/server/0'], cwd=f'./targets/{library}')
+    run_cmd_enable_output(['cp', 'zero', 'corpus/x509/0'], cwd=f'./targets/{library}')

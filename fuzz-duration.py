@@ -5,21 +5,34 @@ import time
 
 import common as c
 
-REPO_LOCATION = f'../{c.TARGET}/'
-SETUP_LOCATION = f'../CometFuzz/targets/{c.TARGET}/patches/setup/'
-PATCH_LOCATION = f'../CometFuzz/targets/{c.TARGET}/patches/bugs/'
+
+TARGET = ''
+REPO_LOCATION = ''
+SETUP_LOCATION = ''
+PATCH_LOCATION = ''
+EXPERIMENT_TYPE = 'artificial'
 BUGS = []
 BUGS_ACTIVE = []
-DURATIONS = ['5m', '10m', '15m', '20m', '30m', '40m']
-ITERATIONS = 5
+DURATIONS = ['1m']  # ['5m', '10m', '15m', '20m', '30m', '40m']
+ITERATIONS = 1  # 5
+BASE_COMMITS = {'libpng':       'a37d4836519517bdce6cb9d956092321eca3e73b',
+                'libsndfile':   '86c9f9eb7022d186ad4d0689487e7d4f04ce2b29',
+                'libtiff':      'c145a6c14978f73bb484c955eb9f84203efcb12e',  # additional fetch step!
+                'libxml2':      'ec6e3efb06d7b15cf5a2328fabd3845acea4c815',
+                'lua':          'dbdc74dc5502c2e05e1c1e2ac894943f418c8431',
+                'openssl':      '728d03b576f360e72bbddc7e751433575430af3b',  #'3bd5319b5d0df9ecf05c8baba2c401ad8e3ba130',  # additional fetch step! different base!
+                'php':          'bc39abe8c3c492e29bc5d60ca58442040bbf063b',  # additional fetch step!
+                'poppler':      '1d23101ccebe14261c6afc024ea14f29d209e760',  # additional fetch step!
+                'sqlite3':      '0000000000000000000000000000000000000000'   # no git!
+                }
 
 
 def checkout_base():
-    c.log_info(f'Checking out the base commit {c.BASE_COMMITS[c.TARGET]}.')
+    c.log_info(f'Checking out the base commit {BASE_COMMITS[TARGET]}.')
     c.run_cmd_disable_output(['git', '-C', REPO_LOCATION, 'reset', '--hard'])
     c.run_cmd_disable_output(['git', '-C', REPO_LOCATION, 'clean', '-df'])
     c.run_cmd_disable_output(['git', '-C', REPO_LOCATION, 'checkout', 'master'])
-    c.run_cmd_disable_output(['git', '-C', REPO_LOCATION, 'checkout', c.BASE_COMMITS[c.TARGET]])
+    c.run_cmd_disable_output(['git', '-C', REPO_LOCATION, 'checkout', BASE_COMMITS[TARGET]])
 
 
 def apply_setup_patches():
@@ -34,7 +47,6 @@ def apply_setup_patches():
                     sys.exit(1)
     except Exception as e:
         c.log_error('There are no setup patches for this target.')
-        c.log_error(e)
 
 
 def find_and_apply_patches():
@@ -73,29 +85,31 @@ def introduce_or_fix_bug(bug_index):
 
 def fuzz_commit(timeout):
     c.log_info('Starting the fuzzing process!')
-    new_result_index = int(max(os.listdir(f'../results/{c.TARGET}/{c.EXPERIMENT_TYPE}'))) + 1
+    new_result_index = int(max(os.listdir(f'../results/{TARGET}/{EXPERIMENT_TYPE}'))) + 1
     new_result_index = f'{new_result_index:04d}'
-    c.run_cmd_enable_output(['mkdir', f'../results/{c.TARGET}/{c.EXPERIMENT_TYPE}/{new_result_index}'])
-    c.configure_settings(new_result_index, c.EXPERIMENT_TYPE, timeout=timeout)
-    c.run_cmd_enable_output(['rm', '-rf', './tools/captain/workdir', f'./targets/{c.TARGET}/repo'])
+    c.run_cmd_enable_output(['mkdir', f'../results/{TARGET}/{EXPERIMENT_TYPE}/{new_result_index}'])
+    c.configure_settings(new_result_index, EXPERIMENT_TYPE, TARGET, timeout=timeout)
+    c.run_cmd_enable_output(['rm', '-rf', './tools/captain/workdir', f'./targets/{TARGET}/repo'])
     c.run_cmd_enable_output(['rm', '-rf', './tools/captain/benchd_results', './tools/captain/final_results'])
-    c.run_cmd_enable_output(['mkdir', f'./targets/{c.TARGET}/repo'])
-    c.run_cmd_enable_output(['cp', '-a', f'{REPO_LOCATION}.', f'./targets/{c.TARGET}/repo'])
-    # c.run_cmd_enable_output(
-        # ['cp', f'./targets/{c.TARGET}/src/abilist.txt', f'./targets/{c.TARGET}/repo'])  # openssl specific!
+    c.run_cmd_enable_output(['mkdir', f'./targets/{TARGET}/repo'])
+    c.run_cmd_enable_output(['cp', '-a', f'{REPO_LOCATION}.', f'./targets/{TARGET}/repo'])
+    if TARGET == 'poppler':
+        c.run_cmd_enable_output(['cp', '-a', '../freetype2', f'./targets/{TARGET}/'])
+    # if TARGET == 'openssl':
+    #     c.run_cmd_enable_output(['cp', f'./targets/{TARGET}/src/abilist.txt', f'./targets/{TARGET}/repo'])
     c.run_cmd_enable_output(['./run.sh'], cwd='./tools/captain/')
     c.log_info('The fuzzing process has finished.')
     c.log_info('Gathering results...')
     c.run_cmd_disable_output(['python3', 'gather_results.py', 'workdir/', 'benchd_results'], cwd='./tools/captain/')
     c.run_cmd_enable_output(['python3', 'gather_detected.py'], cwd='./tools/captain/')
     c.run_cmd_enable_output(['cp', './tools/captain/benchd_results', './tools/captain/final_results',
-                             f'../results/{c.TARGET}/{c.EXPERIMENT_TYPE}/{new_result_index}'])
+                             f'../results/{TARGET}/{EXPERIMENT_TYPE}/{new_result_index}'])
     save_bug_status(new_result_index)
-    c.save_coverage_statistics(new_result_index, c.EXPERIMENT_TYPE)
-    c.save_nr_crashes(new_result_index, c.EXPERIMENT_TYPE)
-    c.save_new_corpus()
+    c.save_coverage_statistics(new_result_index, EXPERIMENT_TYPE, TARGET)
+    c.save_nr_crashes(new_result_index, EXPERIMENT_TYPE, TARGET)
+    c.save_new_corpus(TARGET)
     c.log_info(
-        f'The results of this fuzzing campaign were stored in ../results/{c.TARGET}/{c.EXPERIMENT_TYPE}/{new_result_index}/.')
+        f'The results of this fuzzing campaign were stored in ../results/{TARGET}/{EXPERIMENT_TYPE}/{new_result_index}/.')
 
 
 def save_bug_status(result_index):
@@ -110,19 +124,29 @@ def save_bug_status(result_index):
     bug_status['nr_active_bugs'] = active
     bug_status['nr_inactive_bugs'] = len(BUGS) - active
     bug_status['nr_total_bugs'] = len(BUGS)
-    with open(f'../results/{c.TARGET}/{c.EXPERIMENT_TYPE}/{result_index}/bug_status', 'w') as f:
+    with open(f'../results/{TARGET}/{EXPERIMENT_TYPE}/{result_index}/bug_status', 'w') as f:
         json.dump(bug_status, f, indent=4)
 
 
 if __name__ == '__main__':
     try:
-        checkout_base()
+        if len(sys.argv) != 2:
+            print(f'Usage: $ python3 {sys.argv[0]} <target-library>')
+            sys.exit()
+        if sys.argv[1] not in BASE_COMMITS:
+            print(f'<target-library> has to be one of {list(BASE_COMMITS.keys())}')
+            sys.exit()
+        TARGET = sys.argv[1]
+        REPO_LOCATION = f'../{TARGET}/'
+        SETUP_LOCATION = f'../CometFuzz/targets/{TARGET}/patches/setup/'
+        PATCH_LOCATION = f'../CometFuzz/targets/{TARGET}/patches/bugs/'
+        # checkout_base()  # disabled, otherwise it overrides manual checkout
         apply_setup_patches()
         find_and_apply_patches()
         for duration in DURATIONS:
             c.log_info(f'Starting the run with a duration of {duration}.')
             # c.empty_seed_corpus()  # this needs to be generalized before use!
-            c.initialize_seed_corpus()
+            c.initialize_seed_corpus(TARGET)
             for i in range(ITERATIONS):
                 c.log_info(f'Starting iteration {i + 1} of {ITERATIONS} for the duration of {duration}.')
                 start = time.time()
