@@ -240,9 +240,10 @@ def save_new_corpus(library):
 def initialize_seed_corpus(library):
     log_info('Initializing seed corpus...')
     run_cmd_enable_output(['rm', '-rf', f'./targets/{library}/corpus'])
-    if run_cmd_enable_output(['cp', '-r', f'../magma/targets/{library}/corpus', f'./targets/{library}/']).returncode != 0:
-        log_error('Seed corpus initialization failed!')
-        sys.exit(1)
+    if library != 'php':  # php has no corpus
+        if run_cmd_enable_output(['cp', '-r', f'../magma/targets/{library}/corpus', f'./targets/{library}/']).returncode != 0:
+            log_error('Seed corpus initialization failed!')
+            sys.exit(1)
 
 
 def empty_seed_corpus(library):

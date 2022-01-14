@@ -146,8 +146,7 @@ if __name__ == '__main__':
         for duration in DURATIONS:
             c.log_info(f'Starting the run with a duration of {duration}.')
             # c.empty_seed_corpus()  # disabled, use seed corpus (this needs to be generalized before use as well)
-            if TARGET != 'php':  # php has no corpus
-                c.initialize_seed_corpus(TARGET)
+            c.initialize_seed_corpus(TARGET)
             for i in range(ITERATIONS):
                 c.log_info(f'Starting iteration {i + 1} of {ITERATIONS} for the duration of {duration}.')
                 start = time.time()
