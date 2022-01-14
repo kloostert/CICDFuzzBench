@@ -6,6 +6,13 @@ import plotly.graph_objects as go
 
 PREFIX = '/srv'
 
+# /// Experiment runs of 6 durations x 5 iterations, with seed corpora. ///
+RESULT_DIR = '../results/libxml2/artificial/'
+DURATIONS = ['5m', '10m', '15m', '20m', '30m', '45m', '60m']
+RUNS =  [x + 1 for x in range(len(DURATIONS))]
+START = [x for x in range(60, 91, 5)]
+STOP =  [x for x in range(64, 96, 5)]
+
 # /// Original experiment runs from the thesis. ///
 # RUNS = [8, 9, 10, 1, 2, 3, 4, 7, 12, 13, 6, 5, 11]
 # DURATIONS = ['1m (run 8)', '1m (run 9)', '5m (run 10)', '10m (run 1)', '10m (run 2)', '15m (run 3)', '20m (run 4)',
@@ -14,11 +21,10 @@ PREFIX = '/srv'
 # STOP = [413, 451, 477, 109, 224, 306, 346, 398, 500, 506, 367, 353, 484]
 
 # /// Experiment runs of 8x5 iterations, without seed corpora. ///
-RUNS = [1, 2, 3, 4, 5, 6, 7, 8]
-DURATIONS = ['1m', '5m', '10m', '15m', '20m', '30m', '1h', '8h']
-START = [513, 518, 523, 528, 533, 538, 543, 548]
-STOP = [517, 522, 527, 532, 537, 542, 547, 552]
-
+# RUNS = [1, 2, 3, 4, 5, 6, 7, 8]
+# DURATIONS = ['1m', '5m', '10m', '15m', '20m', '30m', '1h', '8h']
+# START = [513, 518, 523, 528, 533, 538, 543, 548]
+# STOP = [517, 522, 527, 532, 537, 542, 547, 552]
 
 # /// Experiment runs of 8x5 iterations, with seed corpora. ///
 # RUNS = [1, 2, 3, 4, 5, 6, 7, 8]
@@ -40,7 +46,7 @@ def coverage_results(start_dir, stop_dir):
                         data[fuzzer][target][metric] = []
 
     for i in range(start_dir, stop_dir + 1):
-        with open(f'{PREFIX}/results/artificial/{i:04d}/coverage_results', 'r') as file:
+        with open(f'{RESULT_DIR}{i:04d}/coverage_results', 'r') as file:
             new = json.load(file)
             for fuzzer in data:
                 for target in data[fuzzer]:
@@ -89,12 +95,12 @@ def bugs_found(start_dir, stop_dir):
 
     for i in range(start_dir, stop_dir + 1):
         bug_codes = {'reached': [], 'triggered': [], 'detected': []}
-        with open(f'{PREFIX}/results/artificial/{i:04d}/bug_status', 'r') as file:
+        with open(f'{RESULT_DIR}{i:04d}/bug_status', 'r') as file:
             bug_status = json.load(file)
             res['active_bugs'].append(bug_status['nr_active_bugs'])
             overall_res['active'].append(bug_status['nr_active_bugs'])
 
-        with open(f'{PREFIX}/results/artificial/{i:04d}/final_results', 'r') as file:
+        with open(f'{RESULT_DIR}{i:04d}/final_results', 'r') as file:
             results = json.load(file)
             for status in results:
                 for fuzzer in fuzzers:
@@ -137,7 +143,7 @@ def nr_crashes(start_dir, stop_dir):
     for i in range(start_dir, stop_dir + 1):
         target_crashes = {}
         total_crashes = 0
-        with open(f'{PREFIX}/results/artificial/{i:04d}/nr_crashes', 'r') as file:
+        with open(f'{RESULT_DIR}{i:04d}/nr_crashes', 'r') as file:
             crashes = json.load(file)
             for fuzzer in crashes:
                 for target in crashes[fuzzer]:
@@ -164,7 +170,7 @@ def box_fuzz_dur_crashes():
     for i in range(len(START)):
         crashes = []
         for j in range(START[i], STOP[i] + 1):
-            with open(f'{PREFIX}/results/artificial/{j:04d}/nr_crashes', 'r') as file:
+            with open(f'{RESULT_DIR}{j:04d}/nr_crashes', 'r') as file:
                 data = json.load(file)
             count = 0
             for fuzzer in data:
@@ -183,7 +189,7 @@ def box_fuzz_dur_bugs():
     for i in range(len(START)):
         for j in range(START[i], STOP[i] + 1):
             count = {'reached': [], 'triggered': [], 'detected': []}
-            with open(f'{PREFIX}/results/artificial/{j:04d}/final_results', 'r') as file:
+            with open(f'{RESULT_DIR}{j:04d}/final_results', 'r') as file:
                 data = json.load(file)
             for metric in data:
                 for fuzzer in data[metric]:
@@ -202,7 +208,7 @@ def box_fuzz_dur_bug_time():
     bugs = {'reached': [], 'triggered': [], 'xreached': [], 'xtriggered': []}
     for i in range(len(START)):
         for j in range(START[i], STOP[i] + 1):
-            with open(f'{PREFIX}/results/artificial/{j:04d}/benchd_results', 'r') as file:
+            with open(f'{RESULT_DIR}{j:04d}/benchd_results', 'r') as file:
                 data = json.load(file)
             for fuzzer in data['results']:
                 for program in data['results'][fuzzer]:
@@ -225,13 +231,16 @@ def box_fuzz_dur_coverage():
                 'xlibfuzzer': []}
     for i in range(len(START)):
         for j in range(START[i], STOP[i] + 1):
-            with open(f'{PREFIX}/results/artificial/{j:04d}/coverage_results', 'r') as file:
+            with open(f'{RESULT_DIR}{j:04d}/coverage_results', 'r') as file:
                 data = json.load(file)
             for fuzzer in data:
                 for target in data[fuzzer]:
                     if fuzzer == 'libfuzzer':
-                        coverage[fuzzer].append(float(data[fuzzer][target]['stop']['coverage']))
-                        coverage['xlibfuzzer'].append(DURATIONS[i])
+                        try:
+                            coverage[fuzzer].append(float(data[fuzzer][target]['stop']['coverage']))
+                            coverage['xlibfuzzer'].append(DURATIONS[i])
+                        except:
+                            print(f'Coverage for result dir {j:04d} could not be retrieved.')
                     elif fuzzer == 'honggfuzz':
                         coverage[fuzzer].append(float(data[fuzzer][target]['coverage_percent']))
                         coverage['xhonggfuzz'].append(DURATIONS[i])
@@ -248,26 +257,34 @@ def box_fuzz_dur_coverage():
 
 def box_fuzz_dur_coverage_targets():
     fig = go.Figure()
-    coverage = {'openssl-bignum': [], 'openssl-asn1parse': [], 'openssl-server': [], 'openssl-client': [],
-                'openssl-x509': [],
-                'xopenssl-bignum': [], 'xopenssl-asn1parse': [], 'xopenssl-server': [], 'xopenssl-client': [],
-                'xopenssl-x509': []}
+    # coverage = {'openssl-bignum': [], 'openssl-asn1parse': [], 'openssl-server': [], 'openssl-client': [],
+    #             'openssl-x509': [],
+    #             'xopenssl-bignum': [], 'xopenssl-asn1parse': [], 'xopenssl-server': [], 'xopenssl-client': [],
+    #             'xopenssl-x509': []}
+    coverage = {'libxml2-xmllint': [], 'libxml2-libxml2_xml_read_memory_fuzzer': [],
+                'xlibxml2-xmllint': [], 'xlibxml2-libxml2_xml_read_memory_fuzzer': []}
     for i in range(len(START)):
         for j in range(START[i], STOP[i] + 1):
-            with open(f'{PREFIX}/results/artificial/{j:04d}/coverage_results', 'r') as file:
+            with open(f'{RESULT_DIR}{j:04d}/coverage_results', 'r') as file:
                 data = json.load(file)
             for fuzzer in data:
                 for target in data[fuzzer]:
                     if fuzzer == 'libfuzzer':
-                        coverage[target].append(float(data[fuzzer][target]['stop']['coverage']))
+                        try:
+                            coverage[target].append(float(data[fuzzer][target]['stop']['coverage']))
+                            coverage[f'x{target}'].append(DURATIONS[i])
+                        except:
+                            print(f'Coverage for result dir {j:04d} could not be retrieved.')
                     else:
                         coverage[target].append(100 * float(data[fuzzer][target]['coverage_percent']))
                         coverage[f'x{target}'].append(DURATIONS[i])
-    fig.add_trace(go.Box(name='bignum', y=coverage['openssl-bignum'], x=coverage['xopenssl-bignum']))
-    fig.add_trace(go.Box(name='asn1parse', y=coverage['openssl-asn1parse'], x=coverage['xopenssl-asn1parse']))
-    fig.add_trace(go.Box(name='server', y=coverage['openssl-server'], x=coverage['xopenssl-server']))
-    fig.add_trace(go.Box(name='client', y=coverage['openssl-client'], x=coverage['xopenssl-client']))
-    fig.add_trace(go.Box(name='x509', y=coverage['openssl-x509'], x=coverage['xopenssl-x509']))
+    # fig.add_trace(go.Box(name='bignum', y=coverage['openssl-bignum'], x=coverage['xopenssl-bignum']))
+    # fig.add_trace(go.Box(name='asn1parse', y=coverage['openssl-asn1parse'], x=coverage['xopenssl-asn1parse']))
+    # fig.add_trace(go.Box(name='server', y=coverage['openssl-server'], x=coverage['xopenssl-server']))
+    # fig.add_trace(go.Box(name='client', y=coverage['openssl-client'], x=coverage['xopenssl-client']))
+    # fig.add_trace(go.Box(name='x509', y=coverage['openssl-x509'], x=coverage['xopenssl-x509']))
+    fig.add_trace(go.Box(name='xmllint', y=coverage['libxml2-xmllint'], x=coverage['xlibxml2-xmllint']))
+    fig.add_trace(go.Box(name='libxml2_xml_read_memory_fuzzer', y=coverage['libxml2-libxml2_xml_read_memory_fuzzer'], x=coverage['xlibxml2-libxml2_xml_read_memory_fuzzer']))
     fig.update_layout(xaxis_title='Fuzz duration', yaxis_title='Coverage', boxmode='group')
     fig.show()
 
@@ -278,7 +295,7 @@ def box_fuzz_dur_cov_seeds():
                 'xlibfuzzer': []}
     for i in range(len(START)):
         for j in range(START[i], STOP[i] + 1):
-            with open(f'{PREFIX}/results/artificial/{j:04d}/coverage_results', 'r') as file:
+            with open(f'{RESULT_DIR}{j:04d}/coverage_results', 'r') as file:
                 data = json.load(file)
             for fuzzer in data:
                 for target in data[fuzzer]:
@@ -304,6 +321,7 @@ def box_fuzz_dur_cov_seeds():
 
 if __name__ == '__main__':
     # box_fuzz_dur_cov_seeds()
+
     box_fuzz_dur_coverage_targets()
     box_fuzz_dur_coverage()
     box_fuzz_dur_bug_time()
