@@ -10,7 +10,7 @@ index 37165e38..095a9d09 100644
              if (path && path->getCoordsLength() != 0) {
 +#else
 +#ifdef MAGMA_ENABLE_CANARIES
-+            MAGMA_LOG("%MAGMA_BUG%", !path);
++            MAGMA_LOG("PDF018", !path);
 +#endif
 +            if (path->getCoordsLength() != 0) {
 +#endif

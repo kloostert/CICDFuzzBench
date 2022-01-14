@@ -54,7 +54,7 @@ index ec3a709..fed5cdc 100644
     }
  
 +#ifdef MAGMA_ENABLE_CANARIES
-+   MAGMA_LOG("%MAGMA_BUG%", (image->flags & PNG_IMAGE_FLAG_INVALID) != 0);
++   MAGMA_LOG("PNG002", (image->flags & PNG_IMAGE_FLAG_INVALID) != 0);
 +#endif
 +
     image->opaque->error_buf = saved_error_buf;

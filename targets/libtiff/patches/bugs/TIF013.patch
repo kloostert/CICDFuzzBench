@@ -19,7 +19,7 @@ index 7ffe885..a2bc7bf 100644
 +#endif
  	}
 +#ifdef MAGMA_ENABLE_CANARIES
-+	MAGMA_LOG("%MAGMA_BUG%", (tmsize_t)decodedSize > size);
++	MAGMA_LOG("TIF013", (tmsize_t)decodedSize > size);
 +#endif
  	pImage = jbg_dec_getimage(&decoder, 0);
  	_TIFFmemcpy(buffer, pImage, decodedSize);

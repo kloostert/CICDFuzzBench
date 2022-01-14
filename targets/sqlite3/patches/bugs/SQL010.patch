@@ -11,7 +11,7 @@ index 3c91fc353..e2d332405 100644
    pTerm = &pWC->a[idxTerm];
 +#else
 +#ifdef MAGMA_ENABLE_CANARIES
-+  MAGMA_LOG("%MAGMA_BUG%", pTerm!=&pWC->a[idxTerm]);
++  MAGMA_LOG("SQL010", pTerm!=&pWC->a[idxTerm]);
 +#endif
 +#endif
    pTerm->prereqRight |= extraRight;

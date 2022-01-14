@@ -21,7 +21,7 @@ index 9b21eb7e2a..387e45c560 100644
 +
 +	PHAR_GET_32(buffer, manifest_count);
 +	#ifdef MAGMA_ENABLE_CANARIES
-+		MAGMA_LOG("%MAGMA_BUG%",buffer + 4 > endbuffer);
++		MAGMA_LOG("PHP007",buffer + 4 > endbuffer);
 +	#endif
 +#endif
  
@@ -38,7 +38,7 @@ index 9b21eb7e2a..387e45c560 100644
 +	PHAR_GET_32(buffer, manifest_flags);
 +
 +	#ifdef MAGMA_ENABLE_CANARIES
-+		MAGMA_LOG("%MAGMA_BUG%",buffer + 4 > endbuffer);
++		MAGMA_LOG("PHP007",buffer + 4 > endbuffer);
 +	#endif
 +#endif
  
@@ -54,7 +54,7 @@ index 9b21eb7e2a..387e45c560 100644
 +#else
 +	PHAR_GET_32(buffer, manifest_flags);
 +	#ifdef MAGMA_ENABLE_CANARIES
-+		MAGMA_LOG("%MAGMA_BUG%",buffer + 4 > endbuffer);
++		MAGMA_LOG("PHP007",buffer + 4 > endbuffer);
 +	#endif
 +#endif
  	if (buffer + tmp_len > endbuffer) {
@@ -92,7 +92,7 @@ index 9b21eb7e2a..387e45c560 100644
 +#else
 +	PHAR_GET_32(buffer, len);
 +	#ifdef MAGMA_ENABLE_CANARIES
-+		MAGMA_LOG("%MAGMA_BUG%",buffer + 4 > endbuffer);
++		MAGMA_LOG("PHP007",buffer + 4 > endbuffer);
 +	#endif
 +#endif
 +
@@ -104,7 +104,7 @@ index 9b21eb7e2a..387e45c560 100644
 +		#else
 +			PHAR_GET_32(buffer, len);
 +			#ifdef MAGMA_ENABLE_CANARIES
-+				MAGMA_LOG("%MAGMA_BUG%",buffer + 4 > endbuffer);
++				MAGMA_LOG("PHP007",buffer + 4 > endbuffer);
 +			#endif
 +		#endif
  		}

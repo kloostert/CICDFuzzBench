@@ -39,7 +39,7 @@ index 8e3657a9..a4b64532 100644
          changedline(p, oldpc, npci)) {  /* or when enter new line */
 +#else
 +#ifdef MAGMA_ENABLE_CANARIES
-+    MAGMA_LOG("%MAGMA_BUG%", pcRel(L->oldpc, p) < 0);
++    MAGMA_LOG("LUA004", pcRel(L->oldpc, p) < 0);
 +#endif
 +    if (npci == 0 ||
 +        pc <= L->oldpc ||

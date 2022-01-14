@@ -10,7 +10,7 @@ index 57ca8fdaa6..d75b50a4e5 100644
  	if (ImageInfo->FileSize >= 2 && ImageInfo->FileSize - 2 >= dir_offset) {
 +#else
 +#ifdef MAGMA_ENABLE_CANARIES
-+	MAGMA_LOG("%MAGMA_BUG%", dir_offset > SIZE_MAX - 2);
++	MAGMA_LOG("PHP002", dir_offset > SIZE_MAX - 2);
 +#endif
 +	if (ImageInfo->FileSize >= dir_offset+2) {
 +#endif

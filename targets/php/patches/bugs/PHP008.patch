@@ -13,7 +13,7 @@ index c566f4e6ae..0d3be92204 100644
  	}
 +	#else
 +		#ifdef MAGMA_ENABLE_CANARIES
-+			MAGMA_LOG("%MAGMA_BUG%", dlen == 0);
++			MAGMA_LOG("PHP008", dlen == 0);
 +		#endif
 +	#endif
  	if (type_to_fetch != DNS_T_ANY && type != type_to_fetch) {
@@ -29,7 +29,7 @@ index c566f4e6ae..0d3be92204 100644
  			}
 +			#else
 +				#ifdef MAGMA_ENABLE_CANARIES
-+					MAGMA_LOG("%MAGMA_BUG%",(size_t) dlen < ((size_t)n) + 2);
++					MAGMA_LOG("PHP008",(size_t) dlen < ((size_t)n) + 2);
 +				#endif
 +			#endif
  			n = dlen - n - 2;

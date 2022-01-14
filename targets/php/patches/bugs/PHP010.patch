@@ -12,7 +12,7 @@ index 8606bdd926..7c4e35d12a 100644
  		}
 +	#else
 +		#ifdef MAGMA_ENABLE_CANARIES
-+			MAGMA_LOG("%MAGMA_BUG%",MAGMA_AND(MAGMA_OR(pos > SIZE_MAX - length, length > ImageInfo->Thumbnail.size), pos < ImageInfo->Thumbnail.size - length));
++			MAGMA_LOG("PHP010",MAGMA_AND(MAGMA_OR(pos > SIZE_MAX - length, length > ImageInfo->Thumbnail.size), pos < ImageInfo->Thumbnail.size - length));
 +		#endif
 +		if (pos+length>=ImageInfo->Thumbnail.size) {
 +			return false;
@@ -32,7 +32,7 @@ index 8606bdd926..7c4e35d12a 100644
  				}
 +			#else
 +				#ifdef MAGMA_ENABLE_CANARIES
-+					MAGMA_LOG("%MAGMA_BUG%",MAGMA_OR(length < 8, ImageInfo->Thumbnail.size - 8 < pos));
++					MAGMA_LOG("PHP010",MAGMA_OR(length < 8, ImageInfo->Thumbnail.size - 8 < pos));
 +				#endif
 +			#endif
  				exif_process_SOFn(data+pos, marker, &sof_info);

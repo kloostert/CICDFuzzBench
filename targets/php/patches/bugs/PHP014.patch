@@ -16,7 +16,7 @@ index 0db2e70bde..53439cf1b8 100644
  	}
 +#else
 +	#ifdef MAGMA_ENABLE_CANARIES
-+		MAGMA_LOG("%MAGMA_BUG%",loc_name_len > ULOC_FULLNAME_CAPACITY);
++		MAGMA_LOG("PHP014",loc_name_len > ULOC_FULLNAME_CAPACITY);
 +	#endif
 +#endif
  

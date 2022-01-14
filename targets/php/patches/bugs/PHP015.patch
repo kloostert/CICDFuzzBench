@@ -15,7 +15,7 @@ index 9b21eb7e2a..d0092ab528 100644
 +			MAPPHAR_FAIL("internal corruption of phar \"%s\" (truncated manifest entry)")
 +		}
 +		#ifdef MAGMA_ENABLE_CANARIES
-+			MAGMA_LOG("%MAGMA_BUG%",buffer + 28 > endbuffer);
++			MAGMA_LOG("PHP015",buffer + 28 > endbuffer);
 +		#endif
 +	#endif
 +
@@ -34,8 +34,8 @@ index 9b21eb7e2a..d0092ab528 100644
  		}
 +	#else
 +		#ifdef MAGMA_ENABLE_CANARIES
-+			MAGMA_LOG("%MAGMA_BUG%",entry.filename_len > INT_MAX - 20);
-+			MAGMA_LOG("%MAGMA_BUG%",MAGMA_AND(entry.filename_len > (size_t)(endbuffer - buffer - 24),
++			MAGMA_LOG("PHP015",entry.filename_len > INT_MAX - 20);
++			MAGMA_LOG("PHP015",MAGMA_AND(entry.filename_len > (size_t)(endbuffer - buffer - 24),
 +								entry.filename_len <= (size_t)(endbuffer - buffer - 20)));
 +		#endif
 +		if (entry.filename_len + 20 > endbuffer - buffer) {

@@ -18,7 +18,7 @@ index ad3e1e7..5abc4a9 100644
          }
 +#endif
 +#ifdef MAGMA_ENABLE_CANARIES
-+    MAGMA_LOG("%MAGMA_BUG%", sp->decoder_ok == 0);
++    MAGMA_LOG("TIF004", sp->decoder_ok == 0);
 +#endif
  	if (sp->libjpeg_jpeg_query_style==0)
  	{

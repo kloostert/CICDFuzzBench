@@ -10,7 +10,7 @@ index 16d1ac8b0..979e2afe8 100644
      if( ExpandBlob(pVal) ) return 0;
 +#endif
 +#ifdef MAGMA_ENABLE_CANARIES
-+    MAGMA_LOG("%MAGMA_BUG%", ExpandBlob(pVal));
++    MAGMA_LOG("SQL009", ExpandBlob(pVal));
 +#endif
      pVal->flags |= MEM_Str;
      if( pVal->enc != (enc & ~SQLITE_UTF16_ALIGNED) ){

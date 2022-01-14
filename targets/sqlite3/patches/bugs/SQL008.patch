@@ -10,7 +10,7 @@ index 728a4d051..31c2c4f5d 100644
    if( azCol==0 ) return 0;
 +#endif
 +#ifdef MAGMA_ENABLE_CANARIES
-+  MAGMA_LOG("%MAGMA_BUG%", azCol==0);
++  MAGMA_LOG("SQL008", azCol==0);
 +#endif
    azCol[0] = 0;
    azCol[nCol+1] = 0;

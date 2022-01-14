@@ -23,7 +23,7 @@ index fc77f68df..a22223d75 100644
 +          szBufNeeded = MAX(e2,0)+(i64)precision+(i64)width+15;
 +#else
 +#ifdef MAGMA_ENABLE_CANARIES
-+          MAGMA_LOG("%MAGMA_BUG%", MAX(e2,0) + precision > (((int)-1)&0x7fffffff) - 15 - width);
++          MAGMA_LOG("SQL019", MAX(e2,0) + precision > (((int)-1)&0x7fffffff) - 15 - width);
 +#endif
            szBufNeeded = MAX(e2,0)+(i64)precision+(i64)width+15;
 +#endif

@@ -12,7 +12,7 @@ index d5fa08c..b98d69b 100644
 +#endif
 +
 +#ifdef MAGMA_ENABLE_CANARIES
-+   MAGMA_LOG("%MAGMA_BUG%", num > max_palette_length);
++   MAGMA_LOG("PNG003", num > max_palette_length);
 +#endif
  
  #ifdef PNG_POINTER_INDEXING_SUPPORTED

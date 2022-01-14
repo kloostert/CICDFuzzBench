@@ -30,7 +30,7 @@ index 1b300b0..b04612d 100644
 +        nstrips = (uint32_t)nstrips64;
 +#endif
 +#ifdef MAGMA_ENABLE_CANARIES
-+        MAGMA_LOG("%MAGMA_BUG%", nstrips > TIFFhowmany_32(td->td_imagelength, rowsperstrip));
++        MAGMA_LOG("TIF007", nstrips > TIFFhowmany_32(td->td_imagelength, rowsperstrip));
 +#endif
          /* If we are going to allocate a lot of memory, make sure that the */
          /* file is as big as needed */

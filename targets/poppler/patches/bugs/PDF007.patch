@@ -12,7 +12,7 @@ index 99ccbd2..581dcd5 100644
      }
 +#endif
 +#ifdef MAGMA_ENABLE_CANARIES
-+    MAGMA_LOG("%MAGMA_BUG%", readChars < 0);
++    MAGMA_LOG("PDF007", readChars < 0);
 +#endif
      for (; readChars < inputLineSize; readChars++)
          inputLine[readChars] = EOF;

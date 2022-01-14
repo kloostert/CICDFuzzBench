@@ -13,7 +13,7 @@ index 73e4cea7c..593b31617 100644
      }
 +#endif
 +#ifdef MAGMA_ENABLE_CANARIES
-+    MAGMA_LOG("%MAGMA_BUG%", pSelect != 0);
++    MAGMA_LOG("SQL007", pSelect != 0);
 +#endif
      p->tnum = db->init.newTnum;
      if( p->tnum==1 ) p->tabFlags |= TF_Readonly;

@@ -14,7 +14,7 @@ index 8606bdd926..1a7abce6d9 100644
  	}
 +	#else
 +		#ifdef MAGMA_ENABLE_CANARIES
-+			MAGMA_LOG("%MAGMA_BUG%",(dir_start - value_ptr) > value_len - (2+NumDirEntries*12));
++			MAGMA_LOG("PHP004",(dir_start - value_ptr) > value_len - (2+NumDirEntries*12));
 +		#endif
 +	#endif
  

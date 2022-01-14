@@ -17,7 +17,7 @@ index 6a63ead..780107e 100644
              td->td_sampleformat = SAMPLEFORMAT_INT;
          }
 +#ifdef MAGMA_ENABLE_CANARIES
-+    MAGMA_LOG("%MAGMA_BUG%", sp->encoder_state == 0);
++    MAGMA_LOG("TIF005", sp->encoder_state == 0);
 +#endif
  }
  

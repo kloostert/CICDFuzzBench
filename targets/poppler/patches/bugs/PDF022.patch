@@ -12,7 +12,7 @@ index 9aca67b3..8d5e89f2 100644
      } else {
 +#else
 +#ifdef MAGMA_ENABLE_CANARIES
-+        MAGMA_LOG("%MAGMA_BUG%", MAGMA_AND(alt->getMode() == csDeviceGray, name->cmp("Black") == 0));
++        MAGMA_LOG("PDF022", MAGMA_AND(alt->getMode() == csDeviceGray, name->cmp("Black") == 0));
 +#endif
 +#endif
          x = colToDbl(color->c[0]);
@@ -39,7 +39,7 @@ index 9aca67b3..8d5e89f2 100644
      } else {
 +#else
 +#ifdef MAGMA_ENABLE_CANARIES
-+        MAGMA_LOG("%MAGMA_BUG%", MAGMA_AND(alt->getMode() == csDeviceGray, name->cmp("Black") == 0));
++        MAGMA_LOG("PDF022", MAGMA_AND(alt->getMode() == csDeviceGray, name->cmp("Black") == 0));
 +#endif
 +#endif
          x = colToDbl(color->c[0]);
@@ -88,7 +88,7 @@ index 9aca67b3..8d5e89f2 100644
      } else {
 +#else
 +#ifdef MAGMA_ENABLE_CANARIES
-+        MAGMA_LOG("%MAGMA_BUG%", MAGMA_OR(name->cmp("Black") == 0, \
++        MAGMA_LOG("PDF022", MAGMA_OR(name->cmp("Black") == 0, \
 +                            MAGMA_OR(name->cmp("Cyan") == 0, \
 +                            MAGMA_OR(name->cmp("Magenta") == 0, \
 +                                     name->cmp("Yellow") == 0))));

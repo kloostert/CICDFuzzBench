@@ -13,7 +13,7 @@ index 8f9dd7fe..10255f9d 100644
              }
 +#endif
 +#ifdef MAGMA_ENABLE_CANARIES
-+            MAGMA_LOG("%MAGMA_BUG%", i >= capacity);
++            MAGMA_LOG("PDF014", i >= capacity);
 +#endif
  
              if (!parseEntry(mainXRefEntriesOffset + 20*i, &entries[i])) {

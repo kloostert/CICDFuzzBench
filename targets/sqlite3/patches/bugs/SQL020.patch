@@ -10,7 +10,7 @@ index 77ec8a02e..c99e556ed 100644
            pSub->u.zToken = 0;
 +#endif
 +#ifdef MAGMA_ENABLE_CANARIES
-+          MAGMA_LOG("%MAGMA_BUG%", pDup->u.zToken !=0);
++          MAGMA_LOG("SQL020", pDup->u.zToken !=0);
 +#endif
          }
        }

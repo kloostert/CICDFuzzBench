@@ -11,7 +11,7 @@ index a35a26f4d..a8d093edd 100644
 +#else
 +          nPath++;
 +#ifdef MAGMA_ENABLE_CANARIES
-+          MAGMA_LOG("%MAGMA_BUG%", (int)strlen(zPath) != nPath);
++          MAGMA_LOG("SQL004", (int)strlen(zPath) != nPath);
 +#endif
 +#endif
          }
@@ -26,7 +26,7 @@ index a35a26f4d..a8d093edd 100644
 +#else
 +      nName++;
 +#ifdef MAGMA_ENABLE_CANARIES
-+      MAGMA_LOG("%MAGMA_BUG%", (int)strlen(zName) != nName);
++      MAGMA_LOG("SQL004", (int)strlen(zName) != nName);
 +#endif
 +#endif
      }else{

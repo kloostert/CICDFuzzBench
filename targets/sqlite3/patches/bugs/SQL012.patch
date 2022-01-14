@@ -8,7 +8,7 @@ index c5b5bb667..a882e2307 100644
            sqlite3ExprCodeGetColumnOfTable(v, pTab, iDataCur, j, 3);
 +#ifndef MAGMA_ENABLE_FIXES
 +#ifdef MAGMA_ENABLE_CANARIES
-+          MAGMA_LOG("%MAGMA_BUG%", sqlite3VdbeGetOp(v,-1)->opcode!=OP_Column);
++          MAGMA_LOG("SQL012", sqlite3VdbeGetOp(v,-1)->opcode!=OP_Column);
 +#endif
 +#else
            if( sqlite3VdbeGetOp(v,-1)->opcode==OP_Column ){

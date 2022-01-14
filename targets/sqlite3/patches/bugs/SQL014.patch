@@ -11,7 +11,7 @@ index b2dd5f149..61c4cb9f9 100644
 -  
 +#endif
 +#ifdef MAGMA_ENABLE_CANARIES
-+  MAGMA_LOG("%MAGMA_BUG%", pParse->nErr != 0);
++  MAGMA_LOG("SQL014", pParse->nErr != 0);
 +#endif
    /* Compute collating sequences used by 
    ** temporary tables needed to implement the compound select.

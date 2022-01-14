@@ -10,7 +10,7 @@
        ){
 +#else
 +#ifdef MAGMA_ENABLE_CANARIES
-+      MAGMA_LOG("%MAGMA_BUG%", MAGMA_AND(pTerm != 0, pIter->nKey+1 < nTerm));
++      MAGMA_LOG("SQL001", MAGMA_AND(pTerm != 0, pIter->nKey+1 < nTerm));
 +#endif
 +      if(pTerm==0 || 0==memcmp(fts5EntryKey(pIter), pTerm, nTerm)) {
 +#endif

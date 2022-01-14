@@ -13,7 +13,7 @@ index afb54dfb..7346604d 100644
 -
 +#endif
 +#ifdef MAGMA_ENABLE_CANARIES
-+            MAGMA_LOG("%MAGMA_BUG%", MAGMA_OR(num <=0, gen < 0));
++            MAGMA_LOG("PDF016", MAGMA_OR(num <=0, gen < 0));
 +#endif
              Ref r;
              r.num = num;

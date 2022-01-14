@@ -9,7 +9,7 @@
 +#else
 +    if (typeA == 5 && nVerticesA > 0) {
 +#ifdef MAGMA_ENABLE_CANARIES
-+        MAGMA_LOG("%MAGMA_BUG%", vertsPerRow <= 0);
++        MAGMA_LOG("PDF008", vertsPerRow <= 0);
 +#endif
 +#endif
          nRows = nVerticesA / vertsPerRow;

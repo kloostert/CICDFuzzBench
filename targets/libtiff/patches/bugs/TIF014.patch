@@ -13,7 +13,7 @@ index 1b300b0..47d6992 100644
          }
 +#endif
 +#ifdef MAGMA_ENABLE_CANARIES
-+        MAGMA_LOG("%MAGMA_BUG%", MAGMA_AND(tif->tif_mode == O_RDONLY, \
++        MAGMA_LOG("TIF014", MAGMA_AND(tif->tif_mode == O_RDONLY, \
 +	        MAGMA_AND(nstrips > 1000000, \
 +	        MAGMA_OR(offset >= TIFFGetFileSize(tif), \
 +	         stripbytes * (nstrips - 1) > (TIFFGetFileSize(tif) - offset)))));

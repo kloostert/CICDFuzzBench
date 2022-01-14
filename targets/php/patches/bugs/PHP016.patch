@@ -16,7 +16,7 @@ index 53982b0f85..296a8767e5 100644
  			}
 +		#else
 +			#ifdef MAGMA_ENABLE_CANARIES
-+				MAGMA_LOG("%MAGMA_BUG%",sig_len < sizeof(digest));
++				MAGMA_LOG("PHP016",sig_len < sizeof(digest));
 +			#endif
 +		#endif
  
@@ -36,7 +36,7 @@ index 53982b0f85..296a8767e5 100644
  			}
 +			#else
 +			#ifdef MAGMA_ENABLE_CANARIES
-+				MAGMA_LOG("%MAGMA_BUG%",sig_len < sizeof(digest));
++				MAGMA_LOG("PHP016",sig_len < sizeof(digest));
 +			#endif
 +		#endif
  
@@ -56,7 +56,7 @@ index 53982b0f85..296a8767e5 100644
  			}
 +			#else
 +			#ifdef MAGMA_ENABLE_CANARIES
-+				MAGMA_LOG("%MAGMA_BUG%",sig_len < sizeof(digest));
++				MAGMA_LOG("PHP016",sig_len < sizeof(digest));
 +			#endif
 +		#endif
 +
@@ -77,7 +77,7 @@ index 53982b0f85..296a8767e5 100644
  			}
 +			#else
 +			#ifdef MAGMA_ENABLE_CANARIES
-+				MAGMA_LOG("%MAGMA_BUG%",sig_len < sizeof(digest));
++				MAGMA_LOG("PHP016",sig_len < sizeof(digest));
 +			#endif
 +		#endif
 +
@@ -105,7 +105,7 @@ index e086354b11..530fd2cd2f 100644
 +				PHAR_ZIP_FAIL("signature cannot be read");
 +			}
 +			#ifdef MAGMA_ENABLE_CANARIES
-+				MAGMA_LOG("%MAGMA_BUG%",read <= 8);
++				MAGMA_LOG("PHP016",read <= 8);
 +			#endif
 +		#endif
  			mydata->sig_flags = PHAR_GET_32(sig);

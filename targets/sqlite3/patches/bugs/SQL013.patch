@@ -11,7 +11,7 @@ index ad309006d..dcdd38d11 100644
 +#endif
    ){
 +#ifdef MAGMA_ENABLE_CANARIES
-+      MAGMA_LOG("%MAGMA_BUG%", pNew->nLSlot < (pNew->nLTerm+1));
++      MAGMA_LOG("SQL013", pNew->nLSlot < (pNew->nLTerm+1));
 +#endif
      LogEst nIter;
      pNew->u.btree.nEq++;

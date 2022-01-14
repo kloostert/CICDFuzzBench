@@ -11,7 +11,7 @@ index a861da21..fd38c198 100644
              continue;
 +#endif
 +#ifdef MAGMA_ENABLE_CANARIES
-+        MAGMA_LOG("%MAGMA_BUG%", MAGMA_OR(y + yy >= h, y + yy < 0));
++        MAGMA_LOG("PDF019", MAGMA_OR(y + yy >= h, y + yy < 0));
 +#endif
  
          // one byte per line -- need to mask both left and right side

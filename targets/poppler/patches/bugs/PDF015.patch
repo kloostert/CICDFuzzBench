@@ -12,7 +12,7 @@ index be262ad4..445931f3 100644
 -
 +#endif
 +#ifdef MAGMA_ENABLE_CANARIES
-+    MAGMA_LOG("%MAGMA_BUG%", !m_objStr.isStream());
++    MAGMA_LOG("PDF015", !m_objStr.isStream());
 +#endif
      m_objStr.streamReset();
      while ((c = m_objStr.streamGetChar()) != EOF) {

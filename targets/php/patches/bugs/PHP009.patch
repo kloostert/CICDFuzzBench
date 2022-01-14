@@ -19,7 +19,7 @@ index 8606bdd926..6cc66f2d4a 100644
 +		return true;
 +	}
 +	#ifdef MAGMA_ENABLE_CANARIES
-+		MAGMA_LOG("%MAGMA_BUG%",MAGMA_OR(maker_note->offset == value_len - 1,value_len < 2));
++		MAGMA_LOG("PHP009",MAGMA_OR(maker_note->offset == value_len - 1,value_len < 2));
 +	#endif
 +
 +#endif

@@ -10,7 +10,7 @@ index b08397da..49d72eeb 100644
    luaL_argcheck(L, l_checkmodep(mode), 2, "invalid mode");
 +#else
 +#ifdef MAGMA_ENABLE_CANARIES
-+  MAGMA_LOG("%MAGMA_BUG%", !l_checkmodep(mode));
++  MAGMA_LOG("LUA003", !l_checkmodep(mode));
 +#endif
 +#endif
    p->f = l_popen(L, filename, mode);

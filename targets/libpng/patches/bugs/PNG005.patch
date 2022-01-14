@@ -35,7 +35,7 @@ index d5fa08c..9a2e9b3 100644
 +    /* The input width resulted in an integer overflow, which could
 +     * later cause a heap buffer overflow due to a bad allocation size
 +     */
-+   MAGMA_LOG("%MAGMA_BUG%", row_bytes_check < ((png_ptr->width + 7) & ~((png_uint_32)7)));
++   MAGMA_LOG("PNG005", row_bytes_check < ((png_ptr->width + 7) & ~((png_uint_32)7)));
 +#endif
 +
  #ifdef PNG_MAX_MALLOC_64K

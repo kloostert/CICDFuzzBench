@@ -16,7 +16,7 @@ index a9ec1e852..0ce67e935 100644
 +      return WRC_Abort;
    }
 +#ifdef MAGMA_ENABLE_CANARIES
-+  MAGMA_LOG("%MAGMA_BUG%", pParse->nErr);
++  MAGMA_LOG("SQL002", pParse->nErr);
 +#endif
  
    /* For every "*" that occurs in the column list, insert the names of

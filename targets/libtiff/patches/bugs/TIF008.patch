@@ -13,7 +13,7 @@ index 0ba61ae..ba8b3cc 100644
 +#endif
 +                {
 +#ifdef MAGMA_ENABLE_CANARIES
-+                    MAGMA_LOG("%MAGMA_BUG%", op_offset >= scanline);
++                    MAGMA_LOG("TIF008", op_offset >= scanline);
 +#endif
  					SETPIXEL(op, grey);
 +                }

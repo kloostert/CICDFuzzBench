@@ -21,9 +21,9 @@ index 57ca8fdaa6..8d07216877 100644
 +#ifdef MAGMA_ENABLE_CANARIES
 +	// The canaries are split so that a triggered bug is recorded as early as
 +	//   possible.
-+	MAGMA_LOG("%MAGMA_BUG%", ptr_offset_overflows(info->offset_base, offset));
-+	MAGMA_LOG("%MAGMA_BUG%", ptr_offset_overflows(info->offset_base + offset, length));
-+	MAGMA_LOG("%MAGMA_BUG%", MAGMA_OR((info->offset_base + offset) < info->valid_start,
++	MAGMA_LOG("PHP011", ptr_offset_overflows(info->offset_base, offset));
++	MAGMA_LOG("PHP011", ptr_offset_overflows(info->offset_base + offset, length));
++	MAGMA_LOG("PHP011", MAGMA_OR((info->offset_base + offset) < info->valid_start,
 +			(info->offset_base + offset + length) > info->valid_end));
 +#endif
 +	return info->offset_base + offset;

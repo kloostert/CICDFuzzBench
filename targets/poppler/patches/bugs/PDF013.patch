@@ -16,7 +16,7 @@ index be262ad4..c43b3185 100644
 +    }
 +
 +#ifdef MAGMA_ENABLE_CANARIES
-+    MAGMA_LOG("%MAGMA_BUG%", !fileSpec.isDict());
++    MAGMA_LOG("PDF013", !fileSpec.isDict());
 +#endif
 +    obj1 = fileSpec.dictLookup("Desc");
 +    if (obj1.isString())

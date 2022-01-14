@@ -15,8 +15,8 @@ index ae9b915101..c3d64424f3 100644
 			}
 +		#else
 +			#ifdef MAGMA_ENABLE_CANARIES
-+				MAGMA_LOG("%MAGMA_BUG%", tmp_line_len < 1);
-+				MAGMA_LOG("%MAGMA_BUG%", MAGMA_AND(tmp_line_len == 1, tmp_line[tmp_line_len - 1] == '\n'));
++				MAGMA_LOG("PHP012", tmp_line_len < 1);
++				MAGMA_LOG("PHP012", MAGMA_AND(tmp_line_len == 1, tmp_line[tmp_line_len - 1] == '\n'));
 +			#endif
 +			if (tmp_line[tmp_line_len - 1] == '\n') {
 +				--tmp_line_len;

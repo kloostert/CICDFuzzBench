@@ -10,7 +10,7 @@ index c36ce113..588c950f 100644
      if (nComps <= 0 || nBits <= 0 || nVals > INT_MAX / nBits - 7 || width > INT_MAX / nComps) {
 +#else
 +#ifdef MAGMA_ENABLE_CANARIES
-+    MAGMA_LOG("%MAGMA_BUG%", nComps <= 0);
++    MAGMA_LOG("PDF021", nComps <= 0);
 +#endif
 +    if (nBits <= 0 || nVals > INT_MAX / nBits - 7 || width > INT_MAX / nComps) {
 +#endif
@@ -25,7 +25,7 @@ index c36ce113..588c950f 100644
          if (nComps <= 0 || width > INT_MAX / nComps) {
 +#else
 +#ifdef MAGMA_ENABLE_CANARIES
-+        MAGMA_LOG("%MAGMA_BUG%", nComps <= 0);
++        MAGMA_LOG("PDF021", nComps <= 0);
 +#endif
 +        if (width > INT_MAX / nComps) {
 +#endif

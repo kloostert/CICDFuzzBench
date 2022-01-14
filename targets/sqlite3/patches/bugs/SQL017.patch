@@ -15,7 +15,7 @@ index 8587f5ec7..225ee6737 100644
 +      )
 +#else
 +#ifdef MAGMA_ENABLE_CANARIES
-+      MAGMA_LOG("%MAGMA_BUG%", MAGMA_OR(
++      MAGMA_LOG("SQL017", MAGMA_OR(
 +                            MAGMA_AND(pLeft->op==TK_COLUMN, pLeft->y.pTab == 0),
 +                            MAGMA_AND(pLeft->op!=TK_COLUMN,
 +                              MAGMA_AND(pRight->op==TK_COLUMN, pRight->y.pTab == 0))));
@@ -42,7 +42,7 @@ index 7a00b576a..9e7d21b7f 100644
  #else
 +#ifdef MAGMA_ENABLE_CANARIES
 +#  define ExprIsVtab(X)  \
-+              (MAGMA_LOG_V("%MAGMA_BUG%", MAGMA_AND((X)->op==TK_COLUMN, (X)->y.pTab == 0)), \
++              (MAGMA_LOG_V("SQL017", MAGMA_AND((X)->op==TK_COLUMN, (X)->y.pTab == 0)), \
 +                (X)->op==TK_COLUMN && (X)->y.pTab->nModuleArg)
 +#else
 +#  define ExprIsVtab(X)  \

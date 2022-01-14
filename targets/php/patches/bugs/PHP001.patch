@@ -10,7 +10,7 @@ index 9b21eb7e2a..a6f0176b6e 100644
  		pos = memchr(pos + 1, '.', filename_len - (pos - filename) - 1);
 +	#else
 +		#ifdef MAGMA_ENABLE_CANARIES
-+			MAGMA_LOG("%MAGMA_BUG%", memchr(pos + 1, '.', filename_len - (pos - filename) - 1) == NULL);
++			MAGMA_LOG("PHP001", memchr(pos + 1, '.', filename_len - (pos - filename) - 1) == NULL);
 +		#endif
 +		pos = memchr(pos + 1, '.', filename_len - (pos - filename) + 1);
 +	#endif

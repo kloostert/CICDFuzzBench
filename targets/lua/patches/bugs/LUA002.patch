@@ -11,7 +11,7 @@ index 8e3657a9..c53f339a 100644
      return 0;
 +#else
 +#ifdef MAGMA_ENABLE_CANARIES
-+  MAGMA_LOG("%MAGMA_BUG%", p->lineinfo == NULL);
++  MAGMA_LOG("LUA002", p->lineinfo == NULL);
 +#endif
 +#endif
    if (newpc - oldpc < MAXIWTHABS / 2) {  /* not too far apart? */

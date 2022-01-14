@@ -10,7 +10,7 @@ index a35a26f4d..28c700c16 100644
        if( zPath==0 ) zPath = "";
 +#else
 +#ifdef MAGMA_ENABLE_CANARIES
-+      MAGMA_LOG("%MAGMA_BUG%", zPath == 0);
++      MAGMA_LOG("SQL005", zPath == 0);
 +#endif
 +#endif
        nPath = (int)strlen(zPath);

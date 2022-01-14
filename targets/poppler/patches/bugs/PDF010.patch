@@ -10,7 +10,7 @@ index 3d2befc..fd731f9 100644
      if (!t3GlyphStack || t3GlyphStack->haveDx) {
 +#else
 +#ifdef MAGMA_ENABLE_CANARIES
-+    MAGMA_LOG("%MAGMA_BUG%", t3GlyphStack == nullptr);
++    MAGMA_LOG("PDF010", t3GlyphStack == nullptr);
 +#endif
 +    if (t3GlyphStack->haveDx) {
 +#endif

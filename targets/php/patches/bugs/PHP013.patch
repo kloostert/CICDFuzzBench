@@ -10,7 +10,7 @@ index 006d9d8999..bbf2144b9e 100644
  	INTL_CHECK_LOCALE_LEN(slocale_len);
 +#else
 +	#ifdef MAGMA_ENABLE_CANARIES
-+		MAGMA_LOG("%MAGMA_BUG%",(slocale_len > INTL_MAX_LOCALE_LEN));
++		MAGMA_LOG("PHP013",(slocale_len > INTL_MAX_LOCALE_LEN));
 +	#endif
 +#endif
  	memset(mfo, 0, sizeof(*mfo));

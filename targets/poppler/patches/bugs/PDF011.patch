@@ -14,7 +14,7 @@ index 8f9dd7fe..84fac3fb 100644
 -
 +#endif
 +#ifdef MAGMA_ENABLE_CANARIES
-+    MAGMA_LOG("%MAGMA_BUG%", i < 0);
++    MAGMA_LOG("PDF011", i < 0);
 +#endif
      if (i >= size || entries[i].type == xrefEntryNone) {
  

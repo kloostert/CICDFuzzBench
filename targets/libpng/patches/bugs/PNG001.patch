@@ -22,7 +22,7 @@ index 4db3de990..01c97dc37 100644
 +         + (png_ptr->interlaced? 6: 0);
 +
 +#ifdef MAGMA_ENABLE_CANARIES
-+      MAGMA_LOG("%MAGMA_BUG%", row_factor_l == ((size_t)1 << (sizeof(png_uint_32) * 8)));
++      MAGMA_LOG("PNG001", row_factor_l == ((size_t)1 << (sizeof(png_uint_32) * 8)));
 +#endif
 +
 +      size_t row_factor = (png_uint_32)row_factor_l;

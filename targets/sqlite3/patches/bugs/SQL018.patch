@@ -10,7 +10,7 @@ index e58889737..20ba8144e 100644
      Expr *pNew = sqlite3ExprAlloc(pParse->db, TK_COLLATE, pCollName, dequote);
 +#else
 +#ifdef MAGMA_ENABLE_CANARIES
-+    MAGMA_LOG("%MAGMA_BUG%", dequote==0);
++    MAGMA_LOG("SQL018", dequote==0);
 +#endif
 +    Expr *pNew = sqlite3ExprAlloc(pParse->db, TK_COLLATE, pCollName, 1);
 +#endif

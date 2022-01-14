@@ -7,7 +7,7 @@ index 9e4d306..98d6e1a 100644
  	if (n==3)
  	{
 +#ifdef MAGMA_ENABLE_CANARIES
-+		MAGMA_LOG("%MAGMA_BUG%", tif->tif_dir.td_transferfunction[2] == NULL);
++		MAGMA_LOG("TIF009", tif->tif_dir.td_transferfunction[2] == NULL);
 +#endif
 +#ifdef MAGMA_ENABLE_FIXES
  		if (tif->tif_dir.td_transferfunction[2] == NULL ||
@@ -20,7 +20,7 @@ index 9e4d306..98d6e1a 100644
  	if (n==2)
  	{
 +#ifdef MAGMA_ENABLE_CANARIES
-+		MAGMA_LOG("%MAGMA_BUG%", tif->tif_dir.td_transferfunction[1] == NULL);
++		MAGMA_LOG("TIF009", tif->tif_dir.td_transferfunction[1] == NULL);
 +#endif
 +#ifdef MAGMA_ENABLE_FIXES
  		if (tif->tif_dir.td_transferfunction[1] == NULL ||

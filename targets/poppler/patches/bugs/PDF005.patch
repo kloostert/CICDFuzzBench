@@ -14,7 +14,7 @@ index 8e6902f..0f50bc0 100644
              }
 +#endif
 +#ifdef MAGMA_ENABLE_CANARIES
-+            MAGMA_LOG("%MAGMA_BUG%", componentPixels != priv->npixels);
++            MAGMA_LOG("PDF005", componentPixels != priv->npixels);
 +#endif
              unsigned char *cdata = (unsigned char *)priv->image->comps[component].data;
              int adjust = 0;

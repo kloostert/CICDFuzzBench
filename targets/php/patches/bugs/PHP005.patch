@@ -12,7 +12,7 @@ index 26603c26a4..db10c8e50d 100644
  								}
 +							#else
 +								#ifdef MAGMA_ENABLE_CANARIES
-+									MAGMA_LOG("%MAGMA_BUG%", str_left <= 1);
++									MAGMA_LOG("PHP005", str_left <= 1);
 +								#endif
 +								--str_left;
 +							#endif

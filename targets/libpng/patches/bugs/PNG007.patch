@@ -11,7 +11,7 @@ index 238f5af..4067087 100644
              png_error (png_ptr, "Palette is NULL in indexed image");
 +#endif
 +#ifdef MAGMA_ENABLE_CANARIES
-+         MAGMA_LOG("%MAGMA_BUG%", png_ptr->palette == NULL);
++         MAGMA_LOG("PNG007", png_ptr->palette == NULL);
 +#endif
        }
        else

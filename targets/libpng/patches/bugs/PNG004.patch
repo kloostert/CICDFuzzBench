@@ -20,7 +20,7 @@ index d5fa08c..48e521a 100644
           pixel_depth >>= 3; /* now in bytes */
 +
 +#ifdef MAGMA_ENABLE_CANARIES
-+         MAGMA_LOG("%MAGMA_BUG%", (row_width * pixel_depth) != (u_int64_t)row_width * pixel_depth);
++         MAGMA_LOG("PNG004", (row_width * pixel_depth) != (u_int64_t)row_width * pixel_depth);
 +#endif
           row_width *= pixel_depth;
  

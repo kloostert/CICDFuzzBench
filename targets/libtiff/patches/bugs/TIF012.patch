@@ -15,7 +15,7 @@
          }
 +#endif
 +#ifdef MAGMA_ENABLE_CANARIES
-+        MAGMA_LOG("%MAGMA_BUG%", MAGMA_AND(td->td_transferfunction[0] != NULL, MAGMA_AND(td->td_samplesperpixel - *v > 1, \
++        MAGMA_LOG("TIF012", MAGMA_AND(td->td_transferfunction[0] != NULL, MAGMA_AND(td->td_samplesperpixel - *v > 1, \
 +            !(td->td_samplesperpixel - td->td_extrasamples > 1))));
 +#endif
  
@@ -35,7 +35,7 @@
              }
 +#endif
 +#ifdef MAGMA_ENABLE_CANARIES
-+            MAGMA_LOG("%MAGMA_BUG%", MAGMA_OR(td->td_sminsamplevalue != NULL, \
++            MAGMA_LOG("TIF012", MAGMA_OR(td->td_sminsamplevalue != NULL, \
 +                MAGMA_OR(td->td_smaxsamplevalue != NULL, \
 +                MAGMA_AND(td->td_transferfunction[0] != NULL, MAGMA_AND(v - td->td_extrasamples > 1, \
 +                   !(td->td_samplesperpixel - td->td_extrasamples > 1))))));

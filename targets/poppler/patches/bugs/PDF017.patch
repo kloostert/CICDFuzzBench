@@ -13,7 +13,7 @@ index 24624352..6a48384b 100644
                      }
 +#else
 +#ifdef MAGMA_ENABLE_CANARIES
-+                    MAGMA_LOG("%MAGMA_BUG%", length > (int)sizeof(vheaTab));
++                    MAGMA_LOG("PDF017", length > (int)sizeof(vheaTab));
 +#endif
 +#endif
                      dumpString(vheaTab, length, outputFunc, outputStream);
@@ -25,7 +25,7 @@ index 24624352..6a48384b 100644
                      }
 +#else
 +#ifdef MAGMA_ENABLE_CANARIES
-+                    MAGMA_LOG("%MAGMA_BUG%", length > vmtxTabLength);
++                    MAGMA_LOG("PDF017", length > vmtxTabLength);
 +#endif
 +#endif
                      dumpString(vmtxTab, length, outputFunc, outputStream);

@@ -10,7 +10,7 @@ index 7a4ed86f..9bbe4216 100644
                      if (likely(ok && val.pos != offset)) {
 +#else
 +#ifdef MAGMA_ENABLE_CANARIES
-+                    MAGMA_LOG("%MAGMA_BUG%", val.pos == offset);
++                    MAGMA_LOG("PDF020", val.pos == offset);
 +#endif
 +                    if(ok) {
 +#endif
@@ -25,7 +25,7 @@ index 7a4ed86f..9bbe4216 100644
                      if (likely(ok && val.pos != offset)) {
 +#else
 +#ifdef MAGMA_ENABLE_CANARIES
-+                    MAGMA_LOG("%MAGMA_BUG%", val.pos == offset);
++                    MAGMA_LOG("PDF020", val.pos == offset);
 +#endif
 +                    if(ok) {
 +#endif

@@ -12,7 +12,7 @@ index 8e3657a9..8b3a61ea 100644
 +#else
 +    if (n <= nextra) {
 +#ifdef MAGMA_ENABLE_CANARIES
-+      MAGMA_LOG("%MAGMA_BUG%", INT_MAX - nextra <= (n - 1));
++      MAGMA_LOG("LUA001", INT_MAX - nextra <= (n - 1));
 +#endif
 +      *pos = ci->func - nextra + (n - 1);
 +#endif

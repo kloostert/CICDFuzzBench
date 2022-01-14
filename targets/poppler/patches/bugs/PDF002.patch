@@ -11,7 +11,7 @@ index 8e6902f..0fe7a62 100644
          bufSize = oLen.getInt();
 +#else
 +#ifdef MAGMA_ENABLE_CANARIES
-+    MAGMA_LOG("%MAGMA_BUG%", oLen.getInt() < 0);
++    MAGMA_LOG("PDF002", oLen.getInt() < 0);
 +#endif
 +    if (oLen.isInt()) bufSize = oLen.getInt();
 +#endif
