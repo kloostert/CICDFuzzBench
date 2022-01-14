@@ -15,6 +15,8 @@ Benchmarking the fuzzing effort for real and artificial commits using [Magma](ht
 
 sudo (to mount temporary filesystem for faster execution)
 
+`echo core >/proc/sys/kernel/core_pattern`
+
 `mkdir -p results/{TARGET}/artificial/0000`
 
 - clone CometFuzz (experiments and metrics)
