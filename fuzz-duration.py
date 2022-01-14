@@ -13,14 +13,14 @@ PATCH_LOCATION = ''
 EXPERIMENT_TYPE = 'artificial'
 BUGS = []
 BUGS_ACTIVE = []
-DURATIONS = ['1m']  # ['5m', '10m', '15m', '20m', '30m', '40m']
-ITERATIONS = 1  # 5
+DURATIONS = ['5m', '10m', '15m', '20m', '30m', '45m', '60m']
+ITERATIONS = 1
 BASE_COMMITS = {'libpng':       'a37d4836519517bdce6cb9d956092321eca3e73b',
                 'libsndfile':   '86c9f9eb7022d186ad4d0689487e7d4f04ce2b29',
                 'libtiff':      'c145a6c14978f73bb484c955eb9f84203efcb12e',  # additional fetch step!
                 'libxml2':      'ec6e3efb06d7b15cf5a2328fabd3845acea4c815',
                 'lua':          'dbdc74dc5502c2e05e1c1e2ac894943f418c8431',
-                'openssl':      '728d03b576f360e72bbddc7e751433575430af3b',  #'3bd5319b5d0df9ecf05c8baba2c401ad8e3ba130',  # additional fetch step! different base!
+                'openssl':      '3bd5319b5d0df9ecf05c8baba2c401ad8e3ba130',  # additional fetch step!
                 'php':          'bc39abe8c3c492e29bc5d60ca58442040bbf063b',  # additional fetch step!
                 'poppler':      '1d23101ccebe14261c6afc024ea14f29d209e760',  # additional fetch step!
                 'sqlite3':      '0000000000000000000000000000000000000000'   # no git!
@@ -89,14 +89,14 @@ def fuzz_commit(timeout):
     new_result_index = f'{new_result_index:04d}'
     c.run_cmd_enable_output(['mkdir', f'../results/{TARGET}/{EXPERIMENT_TYPE}/{new_result_index}'])
     c.configure_settings(new_result_index, EXPERIMENT_TYPE, TARGET, timeout=timeout)
-    c.run_cmd_enable_output(['rm', '-rf', './tools/captain/workdir', f'./targets/{TARGET}/repo'])
+    c.run_cmd_enable_output(['rm', '-rf', './tools/captain/workdir', f'./targets/{TARGET}/repo', f'./targets/{TARGET}/freetype2'])
     c.run_cmd_enable_output(['rm', '-rf', './tools/captain/benchd_results', './tools/captain/final_results'])
     c.run_cmd_enable_output(['mkdir', f'./targets/{TARGET}/repo'])
     c.run_cmd_enable_output(['cp', '-a', f'{REPO_LOCATION}.', f'./targets/{TARGET}/repo'])
     if TARGET == 'poppler':
         c.run_cmd_enable_output(['cp', '-a', '../freetype2', f'./targets/{TARGET}/'])
-    # if TARGET == 'openssl':
-    #     c.run_cmd_enable_output(['cp', f'./targets/{TARGET}/src/abilist.txt', f'./targets/{TARGET}/repo'])
+    if TARGET == 'openssl':
+        c.run_cmd_enable_output(['cp', f'./targets/openssl/src/abilist.txt', f'./targets/{TARGET}/repo'])
     c.run_cmd_enable_output(['./run.sh'], cwd='./tools/captain/')
     c.log_info('The fuzzing process has finished.')
     c.log_info('Gathering results...')
@@ -141,11 +141,11 @@ if __name__ == '__main__':
         SETUP_LOCATION = f'../CometFuzz/targets/{TARGET}/patches/setup/'
         PATCH_LOCATION = f'../CometFuzz/targets/{TARGET}/patches/bugs/'
         # checkout_base()  # disabled, otherwise it overrides manual checkout
-        apply_setup_patches()
-        find_and_apply_patches()
+        # apply_setup_patches()  # disabled, otherwise it overrides manual set-up
+        # find_and_apply_patches()  # disabled, otherwise it overrides manual set-up
         for duration in DURATIONS:
             c.log_info(f'Starting the run with a duration of {duration}.')
-            # c.empty_seed_corpus()  # this needs to be generalized before use!
+            # c.empty_seed_corpus()  # disabled, use seed corpus (this needs to be generalized before use as well)
             c.initialize_seed_corpus(TARGET)
             for i in range(ITERATIONS):
                 c.log_info(f'Starting iteration {i + 1} of {ITERATIONS} for the duration of {duration}.')
