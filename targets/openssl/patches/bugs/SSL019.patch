@@ -14,7 +14,7 @@ index b4675f3c8c..cfd1b5d415 100644
              } else {
 +#else
 +#ifdef MAGMA_ENABLE_CANARIES
-+            MAGMA_LOG("MAE114", MAGMA_AND(peek, \
++            MAGMA_LOG("SSL019", MAGMA_AND(peek, \
 +                                MAGMA_AND(SSL3_RECORD_get_length(rr) == 0, \
 +                                          !SSL3_RECORD_is_read(rr))));
 +#endif

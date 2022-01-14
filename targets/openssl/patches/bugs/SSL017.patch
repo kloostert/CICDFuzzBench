@@ -18,7 +18,7 @@ index c8d1258803..3b42adc259 100644
 +#else
 +        if (crl_score == best_score) {
 +#ifdef MAGMA_ENABLE_CANARIES
-+            MAGMA_LOG("MAE112", best_crl == NULL);
++            MAGMA_LOG("SSL017", best_crl == NULL);
 +#endif
 +#endif
              int day, sec;

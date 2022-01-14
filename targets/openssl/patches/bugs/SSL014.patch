@@ -19,7 +19,7 @@ index 3a75385a25..cc82c4ed9c 100644
      case V_ASN1_OTHER:
      default:
 +#ifdef MAGMA_ENABLE_CANARIES
-+    MAGMA_LOG("MAE109", a->type == V_ASN1_BOOLEAN);
++    MAGMA_LOG("SSL014", a->type == V_ASN1_BOOLEAN);
 +#endif
          result = ASN1_STRING_cmp((ASN1_STRING *)a->value.ptr,
                                   (ASN1_STRING *)b->value.ptr);
