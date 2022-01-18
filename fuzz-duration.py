@@ -13,8 +13,8 @@ PATCH_LOCATION = ''
 EXPERIMENT_TYPE = 'artificial'
 BUGS = []
 BUGS_ACTIVE = []
-DURATIONS = ['5m', '10m', '15m', '20m', '30m', '45m', '60m']
-ITERATIONS = 1
+DURATIONS = []
+ITERATIONS = 0
 BASE_COMMITS = {'libpng':       'a37d4836519517bdce6cb9d956092321eca3e73b',
                 'libsndfile':   '86c9f9eb7022d186ad4d0689487e7d4f04ce2b29',
                 'libtiff':      'c145a6c14978f73bb484c955eb9f84203efcb12e',  # additional fetch step!
@@ -137,6 +137,8 @@ if __name__ == '__main__':
             print(f'<target-library> has to be one of {list(BASE_COMMITS.keys())}')
             sys.exit()
         TARGET = sys.argv[1]
+        DURATIONS = ['15m']
+        ITERATIONS = 5
         REPO_LOCATION = f'../{TARGET}/'
         SETUP_LOCATION = f'../CometFuzz/targets/{TARGET}/patches/setup/'
         PATCH_LOCATION = f'../CometFuzz/targets/{TARGET}/patches/bugs/'

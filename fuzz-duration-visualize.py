@@ -1,4 +1,5 @@
 import json
+import os
 
 import pandas as pd
 import plotly.express as px
@@ -6,12 +7,19 @@ import plotly.graph_objects as go
 
 PREFIX = '/srv'
 
+TARGET = ''
+RESULT_DIR = ''
+DURATIONS = []
+RUNS =  []
+START = []
+STOP =  []
+
 # /// Experiment runs of 6 durations x 5 iterations, with seed corpora. ///
-RESULT_DIR = '../results/libxml2/artificial/'
-DURATIONS = ['5m', '10m', '15m', '20m', '30m', '45m', '60m']
-RUNS =  [x + 1 for x in range(len(DURATIONS))]
-START = [x for x in range(60, 91, 5)]
-STOP =  [x for x in range(64, 96, 5)]
+# RESULT_DIR = '../results/libxml2/artificial/'
+# DURATIONS = ['5m', '10m', '15m', '20m', '30m', '45m', '60m']
+# RUNS =  [x + 1 for x in range(len(DURATIONS))]
+# START = [x for x in range(60, 91, 5)]
+# STOP =  [x for x in range(64, 96, 5)]
 
 # /// Original experiment runs from the thesis. ///
 # RUNS = [8, 9, 10, 1, 2, 3, 4, 7, 12, 13, 6, 5, 11]
@@ -179,8 +187,8 @@ def box_fuzz_dur_crashes():
             crashes.append(count)
         fig.add_trace(go.Box(name=f'Run {RUNS[i]}', y=crashes, x0=DURATIONS[i], marker_color='#3D9970'))
     fig.update_yaxes(type='log')
-    fig.update_layout(xaxis_title='Fuzz duration', yaxis_title='Number of crashes')
-    fig.show()
+    fig.update_layout(xaxis_title='Fuzz duration', yaxis_title='Number of crashes', showlegend=False)
+    fig.write_image(f'../images/{TARGET}/{TARGET}-crashes.png')
 
 
 def box_fuzz_dur_bugs():
@@ -200,7 +208,7 @@ def box_fuzz_dur_bugs():
     fig.add_trace(go.Box(name='triggered', y=bugs['triggered'], x=bugs['x'], marker_color='#FF851B'))
     fig.add_trace(go.Box(name='detected', y=bugs['detected'], x=bugs['x'], marker_color='#3D9970'))
     fig.update_layout(xaxis_title='Fuzz duration', yaxis_title='Number of bugs', boxmode='group')
-    fig.show()
+    fig.write_image(f'../images/{TARGET}/{TARGET}-bugs.png')
 
 
 def box_fuzz_dur_bug_time():
@@ -222,7 +230,7 @@ def box_fuzz_dur_bug_time():
     fig.add_trace(go.Box(name='triggered', y=bugs['triggered'], x=bugs['xtriggered'], marker_color='#FF851B'))
     fig.update_yaxes(type='log')
     fig.update_layout(xaxis_title='Fuzz duration', yaxis_title='Time to bug (seconds)', boxmode='group')
-    fig.show()
+    fig.write_image(f'../images/{TARGET}/{TARGET}-time_to_bug.png')
 
 
 def box_fuzz_dur_coverage():
@@ -235,58 +243,54 @@ def box_fuzz_dur_coverage():
                 data = json.load(file)
             for fuzzer in data:
                 for target in data[fuzzer]:
-                    if fuzzer == 'libfuzzer':
-                        try:
-                            coverage[fuzzer].append(float(data[fuzzer][target]['stop']['coverage']))
+                    try:
+                        if fuzzer == 'libfuzzer':
+                            total_edges = int(data['aflplusplus'][target]['total_edges'])
+                            coverage[fuzzer].append(float(data[fuzzer][target]['stop']['coverage']) / total_edges * 100)
                             coverage['xlibfuzzer'].append(DURATIONS[i])
-                        except:
-                            print(f'Coverage for result dir {j:04d} could not be retrieved.')
-                    elif fuzzer == 'honggfuzz':
-                        coverage[fuzzer].append(float(data[fuzzer][target]['coverage_percent']))
-                        coverage['xhonggfuzz'].append(DURATIONS[i])
-                    elif fuzzer == 'aflplusplus':
-                        coverage[fuzzer].append(float(data[fuzzer][target]['coverage_percent']))
-                        coverage['xaflplusplus'].append(DURATIONS[i])
+                        elif fuzzer == 'honggfuzz':
+                            coverage[fuzzer].append(float(data[fuzzer][target]['coverage_percent']))
+                            coverage['xhonggfuzz'].append(DURATIONS[i])
+                        elif fuzzer == 'aflplusplus':
+                            coverage[fuzzer].append(float(data[fuzzer][target]['coverage_percent']))
+                            coverage['xaflplusplus'].append(DURATIONS[i])
+                    except:
+                        print(f'[WARNING] {TARGET} {fuzzer} {target} coverage in result dir {j:04d} could not be retrieved...')
     fig.add_trace(go.Box(name='AFL++', y=coverage['aflplusplus'], x=coverage['xaflplusplus'], marker_color='#FF4136'))
     fig.add_trace(go.Box(name='Honggfuzz', y=coverage['honggfuzz'], x=coverage['xhonggfuzz'], marker_color='#FF851B'))
     fig.add_trace(go.Box(name='libFuzzer', y=coverage['libfuzzer'], x=coverage['xlibfuzzer'], marker_color='#3D9970'))
     fig.update_yaxes(type='log')
     fig.update_layout(xaxis_title='Fuzz duration', yaxis_title='Coverage', boxmode='group')
-    fig.show()
+    fig.write_image(f'../images/{TARGET}/{TARGET}-coverage.png')
 
 
 def box_fuzz_dur_coverage_targets():
     fig = go.Figure()
-    # coverage = {'openssl-bignum': [], 'openssl-asn1parse': [], 'openssl-server': [], 'openssl-client': [],
-    #             'openssl-x509': [],
-    #             'xopenssl-bignum': [], 'xopenssl-asn1parse': [], 'xopenssl-server': [], 'xopenssl-client': [],
-    #             'xopenssl-x509': []}
-    coverage = {'libxml2-xmllint': [], 'libxml2-libxml2_xml_read_memory_fuzzer': [],
-                'xlibxml2-xmllint': [], 'xlibxml2-libxml2_xml_read_memory_fuzzer': []}
+    coverage = {}
     for i in range(len(START)):
         for j in range(START[i], STOP[i] + 1):
             with open(f'{RESULT_DIR}{j:04d}/coverage_results', 'r') as file:
                 data = json.load(file)
             for fuzzer in data:
                 for target in data[fuzzer]:
-                    if fuzzer == 'libfuzzer':
-                        try:
-                            coverage[target].append(float(data[fuzzer][target]['stop']['coverage']))
+                    if target not in coverage:
+                        coverage[target] = []
+                        coverage[f'x{target}'] = []
+                    try:
+                        if fuzzer == 'libfuzzer':
+                            total_edges = int(data['aflplusplus'][target]['total_edges'])
+                            coverage[target].append(float(data[fuzzer][target]['stop']['coverage']) / total_edges * 100)
                             coverage[f'x{target}'].append(DURATIONS[i])
-                        except:
-                            print(f'Coverage for result dir {j:04d} could not be retrieved.')
-                    else:
-                        coverage[target].append(100 * float(data[fuzzer][target]['coverage_percent']))
-                        coverage[f'x{target}'].append(DURATIONS[i])
-    # fig.add_trace(go.Box(name='bignum', y=coverage['openssl-bignum'], x=coverage['xopenssl-bignum']))
-    # fig.add_trace(go.Box(name='asn1parse', y=coverage['openssl-asn1parse'], x=coverage['xopenssl-asn1parse']))
-    # fig.add_trace(go.Box(name='server', y=coverage['openssl-server'], x=coverage['xopenssl-server']))
-    # fig.add_trace(go.Box(name='client', y=coverage['openssl-client'], x=coverage['xopenssl-client']))
-    # fig.add_trace(go.Box(name='x509', y=coverage['openssl-x509'], x=coverage['xopenssl-x509']))
-    fig.add_trace(go.Box(name='xmllint', y=coverage['libxml2-xmllint'], x=coverage['xlibxml2-xmllint']))
-    fig.add_trace(go.Box(name='libxml2_xml_read_memory_fuzzer', y=coverage['libxml2-libxml2_xml_read_memory_fuzzer'], x=coverage['xlibxml2-libxml2_xml_read_memory_fuzzer']))
+                        else:
+                            coverage[target].append(float(data[fuzzer][target]['coverage_percent']))
+                            coverage[f'x{target}'].append(DURATIONS[i])
+                    except:
+                        print(f'[WARNING] {TARGET} {fuzzer} {target} coverage in result dir {j:04d} could not be retrieved...')
+    for target in coverage:
+        if target[0] != 'x':
+            fig.add_trace(go.Box(name=target, y=coverage[target], x=coverage[f'x{target}']))
     fig.update_layout(xaxis_title='Fuzz duration', yaxis_title='Coverage', boxmode='group')
-    fig.show()
+    fig.write_image(f'../images/{TARGET}/{TARGET}-coverage_per_target.png')
 
 
 def box_fuzz_dur_cov_seeds():
@@ -321,12 +325,30 @@ def box_fuzz_dur_cov_seeds():
 
 if __name__ == '__main__':
     # box_fuzz_dur_cov_seeds()
+    
+    # libraries = {'libpng': 3, 'libsndfile': 1, 'libtiff': 1, 'libxml2': 6, 'lua': 1, 'openssl': 1, 'php': 1, 'poppler': 3, 'sqlite3': 1}
+    libraries = ['php']
+    for lib in libraries:
+        TARGET = lib
+        RESULT_DIR = f'../results/{TARGET}/artificial/'
+        # DURATIONS = ['5m', '10m', '15m', '20m', '30m', '45m', '60m']
+        DURATIONS = ['15m']
+        RUNS =  [x + 1 for x in range(len(DURATIONS))]
+        START = [9]
+        STOP = [13]
+        # START = [x for x in range(libraries[lib], libraries[lib] + 7, 1)]
+        # STOP =  [x for x in range(libraries[lib], libraries[lib] + 7, 1)]
 
-    box_fuzz_dur_coverage_targets()
-    box_fuzz_dur_coverage()
-    box_fuzz_dur_bug_time()
-    box_fuzz_dur_bugs()
-    box_fuzz_dur_crashes()
+        if not os.path.exists('../images'):
+            os.mkdir('../images')
+        if not os.path.exists(f'../images/{TARGET}'):
+            os.mkdir(f'../images/{TARGET}')
+
+        box_fuzz_dur_coverage_targets()
+        box_fuzz_dur_coverage()
+        box_fuzz_dur_bug_time()
+        box_fuzz_dur_bugs()
+        box_fuzz_dur_crashes()
 
     # start = 226
     # stop = 306
