@@ -137,7 +137,7 @@ if __name__ == '__main__':
             print(f'<target-library> has to be one of {list(BASE_COMMITS.keys())}')
             sys.exit()
         TARGET = sys.argv[1]
-        DURATIONS = ['15m']
+        DURATIONS = ['5m', '10m', '15m', '20m', '30m', '45m', '60m']
         ITERATIONS = 5
         REPO_LOCATION = f'../{TARGET}/'
         SETUP_LOCATION = f'../CometFuzz/targets/{TARGET}/patches/setup/'

@@ -208,6 +208,7 @@ def box_fuzz_dur_bugs():
     fig.add_trace(go.Box(name='triggered', y=bugs['triggered'], x=bugs['x'], marker_color='#FF851B'))
     fig.add_trace(go.Box(name='detected', y=bugs['detected'], x=bugs['x'], marker_color='#3D9970'))
     fig.update_layout(xaxis_title='Fuzz duration', yaxis_title='Number of bugs', boxmode='group')
+    fig.update_yaxes(rangemode="tozero")
     fig.write_image(f'../images/{TARGET}/{TARGET}-bugs.png')
 
 
