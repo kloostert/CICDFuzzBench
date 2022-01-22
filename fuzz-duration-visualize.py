@@ -327,17 +327,15 @@ if __name__ == '__main__':
     # box_fuzz_dur_cov_seeds()
     
     # libraries = {'libpng': 3, 'libsndfile': 1, 'libtiff': 1, 'libxml2': 6, 'lua': 1, 'openssl': 1, 'php': 1, 'poppler': 3, 'sqlite3': 1}
-    libraries = ['php']
+    libraries = {'libsndfile': 9}
     for lib in libraries:
         TARGET = lib
         RESULT_DIR = f'../results/{TARGET}/artificial/'
-        # DURATIONS = ['5m', '10m', '15m', '20m', '30m', '45m', '60m']
-        DURATIONS = ['15m']
+        DURATIONS = ['5m', '10m', '15m', '20m', '30m', '45m', '60m']
+        ITERATIONS = 5
         RUNS =  [x + 1 for x in range(len(DURATIONS))]
-        START = [9]
-        STOP = [13]
-        # START = [x for x in range(libraries[lib], libraries[lib] + 7, 1)]
-        # STOP =  [x for x in range(libraries[lib], libraries[lib] + 7, 1)]
+        START = [x for x in range(libraries[lib], libraries[lib] + (len(DURATIONS)-1) * ITERATIONS + 1, ITERATIONS)]
+        STOP =  [x for x in range(libraries[lib] + ITERATIONS - 1, libraries[lib] + (len(DURATIONS)-1) * ITERATIONS + ITERATIONS, ITERATIONS)]
 
         if not os.path.exists('../images'):
             os.mkdir('../images')
