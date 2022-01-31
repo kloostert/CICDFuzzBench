@@ -1,1 +1,1 @@
-PROGRAMS=(asn1parse bignum server client x509)
+PROGRAMS=(asn1 asn1parse server client x509)
