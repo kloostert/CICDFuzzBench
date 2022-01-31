@@ -137,8 +137,8 @@ if __name__ == '__main__':
             print(f'<target-library> has to be one of {list(BASE_COMMITS.keys())}')
             sys.exit()
         TARGET = sys.argv[1]
-        DURATIONS = ['5m', '10m', '15m', '20m', '30m', '45m', '60m']
-        ITERATIONS = 5
+        DURATIONS = ['5m', '10m', '15m', '20m', '30m', '1h', '2h', '4h', '8h']
+        ITERATIONS = 10
         REPO_LOCATION = f'../{TARGET}/'
         SETUP_LOCATION = f'../CometFuzz/targets/{TARGET}/patches/setup/'
         PATCH_LOCATION = f'../CometFuzz/targets/{TARGET}/patches/bugs/'
@@ -146,6 +146,8 @@ if __name__ == '__main__':
         # apply_setup_patches()  # disabled, otherwise it overrides manual set-up
         # find_and_apply_patches()  # disabled, otherwise it overrides manual set-up
         for duration in DURATIONS:
+            c.log_info('Cleaning up disk space.')
+            c.run_cmd_disable_output(['docker', 'system', 'prune', '-af'])
             c.log_info(f'Starting the run with a duration of {duration}.')
             # c.empty_seed_corpus()  # disabled, use seed corpus (this needs to be generalized before use as well)
             c.initialize_seed_corpus(TARGET)
