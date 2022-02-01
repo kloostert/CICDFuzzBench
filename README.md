@@ -33,4 +33,10 @@ sudo (to mount temporary filesystem for faster execution)
 - clone sqlite3 (target library)
 - clone freetype2 (poppler addition)
 
-checkout base commits and execute the additional fetch steps
+Checkout base commits and execute the additional fetch steps!
+
+- clone aflplusplus
+- clone honggfuzz
+- clone libfuzzer
+
+Checkout base commits and execute the additional fetch steps!
