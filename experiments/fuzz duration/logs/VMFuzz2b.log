@@ -1,0 +1,1011 @@
+nohup: ignoring input
+[2022-03-18 10:21] (INFO) Cleaning up disk space.
+[2022-03-18 10:22] (INFO) Starting the run with a duration of 8h.
+[2022-03-18 10:22] (INFO) Initializing seed corpus...
+[2022-03-18 10:22] (INFO) Starting iteration 1 of 10 for the duration of 8h.
+[2022-03-18 10:22] (INFO) Starting the fuzzing process!
+[2022-03-18 10:22] Obtaining sudo permissions to mount tmpfs
+[2022-03-18 10:22] Building magma/aflplusplus/php
+[2022-03-18 10:36] Starting campaigns for json 
+[2022-03-18 10:36] Starting campaigns for exif 
+[2022-03-18 10:36] Starting campaigns for unserialize 
+[2022-03-18 10:36] Container aflplusplus/php/json/0 started on CPU 0
+[2022-03-18 10:36] Container aflplusplus/php/exif/0 started on CPU 1
+[2022-03-18 10:36] Starting campaigns for parser 
+[2022-03-18 10:36] Container aflplusplus/php/unserialize/0 started on CPU 2
+[2022-03-18 10:36] Building magma/honggfuzz/php
+[2022-03-18 10:36] Container aflplusplus/php/parser/0 started on CPU 3
+[2022-03-18 10:46] Starting campaigns for json 
+[2022-03-18 10:46] Starting campaigns for exif 
+[2022-03-18 10:46] Starting campaigns for unserialize 
+[2022-03-18 10:46] Container honggfuzz/php/json/0 started on CPU 4
+[2022-03-18 10:46] Container honggfuzz/php/exif/0 started on CPU 5
+[2022-03-18 10:46] Starting campaigns for parser 
+[2022-03-18 10:46] Container honggfuzz/php/unserialize/0 started on CPU 6
+[2022-03-18 10:46] Building magma/libfuzzer/php
+[2022-03-18 10:46] Container honggfuzz/php/parser/0 started on CPU 7
+[2022-03-18 11:20] Starting campaigns for json 
+[2022-03-18 18:36] Container aflplusplus/php/unserialize/0 stopped
+[2022-03-18 18:36] Container aflplusplus/php/exif/0 stopped
+[2022-03-18 18:36] Container aflplusplus/php/json/0 stopped
+[2022-03-18 18:36] Starting campaigns for exif 
+[2022-03-18 18:36] Container libfuzzer/php/json/0 started on CPU 2
+[2022-03-18 18:36] Starting campaigns for unserialize 
+[2022-03-18 18:36] Container libfuzzer/php/exif/0 started on CPU 0
+[2022-03-18 18:36] Starting campaigns for parser 
+[2022-03-18 18:36] Container libfuzzer/php/unserialize/0 started on CPU 1
+[2022-03-18 18:39] Container aflplusplus/php/parser/0 stopped
+[2022-03-18 18:39] Waiting for jobs to finish
+[2022-03-18 18:39] Container libfuzzer/php/parser/0 started on CPU 3
+[2022-03-18 18:47] Container honggfuzz/php/unserialize/0 stopped
+[2022-03-18 18:47] Container honggfuzz/php/json/0 stopped
+[2022-03-18 18:47] Container honggfuzz/php/exif/0 stopped
+[2022-03-18 19:31] Container honggfuzz/php/parser/0 stopped
+[2022-03-19 02:36] Container libfuzzer/php/json/0 stopped
+[2022-03-19 02:40] Container libfuzzer/php/unserialize/0 stopped
+[2022-03-19 02:40] Container libfuzzer/php/exif/0 stopped
+[2022-03-19 02:46] Container libfuzzer/php/parser/0 stopped
+[2022-03-19 02:46] Obtaining sudo permissions to umount tmpfs
+[2022-03-19 02:46] (INFO) The fuzzing process has finished.
+[2022-03-19 02:46] (INFO) Gathering results...
+[2022-03-19 02:46] (ERROR) list index out of range
+[2022-03-19 02:46] (ERROR) list index out of range
+[2022-03-19 02:46] (ERROR) list index out of range
+[2022-03-19 02:46] (ERROR) list index out of range
+[2022-03-19 02:46] (ERROR) list index out of range
+[2022-03-19 02:46] (ERROR) list index out of range
+[2022-03-19 02:46] (ERROR) list index out of range
+[2022-03-19 02:46] (ERROR) list index out of range
+[2022-03-19 02:46] (INFO) The results of this fuzzing campaign were stored in ../results/php/artificial/0001/.
+[2022-03-19 02:46] (INFO) Iteration 1 of 10 for the duration of 8h took 59023s.
+[2022-03-19 02:46] (INFO) Starting iteration 2 of 10 for the duration of 8h.
+[2022-03-19 02:46] (INFO) Starting the fuzzing process!
+[2022-03-19 02:46] Obtaining sudo permissions to mount tmpfs
+[2022-03-19 02:46] Building magma/aflplusplus/php
+[2022-03-19 03:02] Starting campaigns for json 
+[2022-03-19 03:02] Starting campaigns for exif 
+[2022-03-19 03:02] Starting campaigns for unserialize 
+[2022-03-19 03:02] Container aflplusplus/php/json/0 started on CPU 0
+[2022-03-19 03:02] Container aflplusplus/php/exif/0 started on CPU 1
+[2022-03-19 03:02] Starting campaigns for parser 
+[2022-03-19 03:02] Container aflplusplus/php/unserialize/0 started on CPU 2
+[2022-03-19 03:02] Building magma/honggfuzz/php
+[2022-03-19 03:02] Container aflplusplus/php/parser/0 started on CPU 3
+[2022-03-19 03:18] Starting campaigns for json 
+[2022-03-19 03:18] Starting campaigns for exif 
+[2022-03-19 03:18] Container honggfuzz/php/json/0 started on CPU 4
+[2022-03-19 03:18] Starting campaigns for unserialize 
+[2022-03-19 03:18] Container honggfuzz/php/exif/0 started on CPU 5
+[2022-03-19 03:18] Starting campaigns for parser 
+[2022-03-19 03:18] Container honggfuzz/php/unserialize/0 started on CPU 6
+[2022-03-19 03:18] Building magma/libfuzzer/php
+[2022-03-19 03:18] Container honggfuzz/php/parser/0 started on CPU 7
+[2022-03-19 03:49] Starting campaigns for json 
+[2022-03-19 11:05] Container aflplusplus/php/unserialize/0 stopped
+[2022-03-19 11:05] Starting campaigns for exif 
+[2022-03-19 11:05] Container libfuzzer/php/json/0 started on CPU 2
+[2022-03-19 11:05] Container aflplusplus/php/exif/0 stopped
+[2022-03-19 11:06] Starting campaigns for unserialize 
+[2022-03-19 11:06] Container libfuzzer/php/exif/0 started on CPU 1
+[2022-03-19 11:06] Container aflplusplus/php/json/0 stopped
+[2022-03-19 11:06] Starting campaigns for parser 
+[2022-03-19 11:06] Container libfuzzer/php/unserialize/0 started on CPU 0
+[2022-03-19 11:31] Container aflplusplus/php/parser/0 stopped
+[2022-03-19 11:31] Waiting for jobs to finish
+[2022-03-19 11:31] Container libfuzzer/php/parser/0 started on CPU 3
+[2022-03-19 11:51] Container honggfuzz/php/json/0 stopped
+[2022-03-19 11:57] Container honggfuzz/php/unserialize/0 stopped
+[2022-03-19 12:17] Container honggfuzz/php/exif/0 stopped
+[2022-03-19 19:14] Container libfuzzer/php/exif/0 stopped
+[2022-03-19 19:14] Container libfuzzer/php/unserialize/0 stopped
+[2022-03-19 19:14] Container libfuzzer/php/json/0 stopped
+[2022-03-19 20:06] Container libfuzzer/php/parser/0 stopped
+[2022-03-20 04:49] Container honggfuzz/php/parser/0 stopped
+[2022-03-20 04:49] Obtaining sudo permissions to umount tmpfs
+[2022-03-20 04:49] (INFO) The fuzzing process has finished.
+[2022-03-20 04:49] (INFO) Gathering results...
+[2022-03-20 04:49] (ERROR) list index out of range
+[2022-03-20 04:49] (ERROR) list index out of range
+[2022-03-20 04:49] (ERROR) list index out of range
+[2022-03-20 04:49] (ERROR) list index out of range
+[2022-03-20 04:49] (ERROR) list index out of range
+[2022-03-20 04:49] (ERROR) list index out of range
+[2022-03-20 04:49] (ERROR) list index out of range
+[2022-03-20 04:49] (ERROR) list index out of range
+[2022-03-20 04:49] (INFO) The results of this fuzzing campaign were stored in ../results/php/artificial/0002/.
+[2022-03-20 04:49] (INFO) Iteration 2 of 10 for the duration of 8h took 93779s.
+[2022-03-20 04:49] (INFO) Starting iteration 3 of 10 for the duration of 8h.
+[2022-03-20 04:49] (INFO) Starting the fuzzing process!
+[2022-03-20 04:49] Obtaining sudo permissions to mount tmpfs
+[2022-03-20 04:49] Building magma/aflplusplus/php
+[2022-03-20 05:06] Starting campaigns for json 
+[2022-03-20 05:06] Starting campaigns for exif 
+[2022-03-20 05:06] Container aflplusplus/php/json/0 started on CPU 0
+[2022-03-20 05:06] Starting campaigns for unserialize 
+[2022-03-20 05:06] Container aflplusplus/php/exif/0 started on CPU 1
+[2022-03-20 05:06] Starting campaigns for parser 
+[2022-03-20 05:06] Container aflplusplus/php/unserialize/0 started on CPU 2
+[2022-03-20 05:06] Building magma/honggfuzz/php
+[2022-03-20 05:06] Container aflplusplus/php/parser/0 started on CPU 3
+[2022-03-20 05:22] Starting campaigns for json 
+[2022-03-20 05:22] Starting campaigns for exif 
+[2022-03-20 05:22] Container honggfuzz/php/json/0 started on CPU 4
+[2022-03-20 05:22] Starting campaigns for unserialize 
+[2022-03-20 05:22] Container honggfuzz/php/exif/0 started on CPU 5
+[2022-03-20 05:22] Starting campaigns for parser 
+[2022-03-20 05:22] Container honggfuzz/php/unserialize/0 started on CPU 6
+[2022-03-20 05:22] Building magma/libfuzzer/php
+[2022-03-20 05:22] Container honggfuzz/php/parser/0 started on CPU 7
+[2022-03-20 05:54] Starting campaigns for json 
+[2022-03-20 13:08] Container aflplusplus/php/unserialize/0 stopped
+[2022-03-20 13:08] Starting campaigns for exif 
+[2022-03-20 13:08] Container libfuzzer/php/json/0 started on CPU 2
+[2022-03-20 13:09] Container aflplusplus/php/exif/0 stopped
+[2022-03-20 13:09] Starting campaigns for unserialize 
+[2022-03-20 13:09] Container libfuzzer/php/exif/0 started on CPU 1
+[2022-03-20 13:09] Container aflplusplus/php/json/0 stopped
+[2022-03-20 13:09] Starting campaigns for parser 
+[2022-03-20 13:09] Container libfuzzer/php/unserialize/0 started on CPU 0
+[2022-03-20 13:28] Container aflplusplus/php/parser/0 stopped
+[2022-03-20 13:29] Waiting for jobs to finish
+[2022-03-20 13:29] Container libfuzzer/php/parser/0 started on CPU 3
+[2022-03-20 13:44] Container honggfuzz/php/json/0 stopped
+[2022-03-20 13:56] Container honggfuzz/php/unserialize/0 stopped
+[2022-03-20 14:12] Container honggfuzz/php/exif/0 stopped
+[2022-03-20 21:12] Container libfuzzer/php/exif/0 stopped
+[2022-03-20 21:16] Container libfuzzer/php/unserialize/0 stopped
+[2022-03-20 21:16] Container libfuzzer/php/json/0 stopped
+[2022-03-20 21:57] Container libfuzzer/php/parser/0 stopped
+[2022-03-20 23:46] Container honggfuzz/php/parser/0 stopped
+[2022-03-20 23:46] Obtaining sudo permissions to umount tmpfs
+[2022-03-20 23:46] (INFO) The fuzzing process has finished.
+[2022-03-20 23:46] (INFO) Gathering results...
+[2022-03-20 23:46] (ERROR) list index out of range
+[2022-03-20 23:46] (ERROR) list index out of range
+[2022-03-20 23:46] (ERROR) list index out of range
+[2022-03-20 23:46] (ERROR) list index out of range
+[2022-03-20 23:46] (ERROR) list index out of range
+[2022-03-20 23:46] (ERROR) list index out of range
+[2022-03-20 23:46] (ERROR) list index out of range
+[2022-03-20 23:46] (ERROR) list index out of range
+[2022-03-20 23:46] (INFO) The results of this fuzzing campaign were stored in ../results/php/artificial/0003/.
+[2022-03-20 23:46] (INFO) Iteration 3 of 10 for the duration of 8h took 68219s.
+[2022-03-20 23:46] (INFO) Starting iteration 4 of 10 for the duration of 8h.
+[2022-03-20 23:46] (INFO) Starting the fuzzing process!
+[2022-03-20 23:46] Obtaining sudo permissions to mount tmpfs
+[2022-03-20 23:46] Building magma/aflplusplus/php
+[2022-03-21 00:04] Starting campaigns for json 
+[2022-03-21 00:04] Starting campaigns for exif 
+[2022-03-21 00:04] Container aflplusplus/php/json/0 started on CPU 0
+[2022-03-21 00:04] Starting campaigns for unserialize 
+[2022-03-21 00:04] Container aflplusplus/php/exif/0 started on CPU 1
+[2022-03-21 00:04] Starting campaigns for parser 
+[2022-03-21 00:04] Container aflplusplus/php/unserialize/0 started on CPU 2
+[2022-03-21 00:04] Building magma/honggfuzz/php
+[2022-03-21 00:04] Container aflplusplus/php/parser/0 started on CPU 3
+[2022-03-21 00:22] Starting campaigns for json 
+[2022-03-21 00:22] Starting campaigns for exif 
+[2022-03-21 00:22] Container honggfuzz/php/json/0 started on CPU 4
+[2022-03-21 00:22] Starting campaigns for unserialize 
+[2022-03-21 00:22] Container honggfuzz/php/exif/0 started on CPU 5
+[2022-03-21 00:22] Starting campaigns for parser 
+[2022-03-21 00:22] Container honggfuzz/php/unserialize/0 started on CPU 6
+[2022-03-21 00:22] Building magma/libfuzzer/php
+[2022-03-21 00:22] Container honggfuzz/php/parser/0 started on CPU 7
+[2022-03-21 00:56] Starting campaigns for json 
+[2022-03-21 08:07] Container aflplusplus/php/unserialize/0 stopped
+[2022-03-21 08:07] Starting campaigns for exif 
+[2022-03-21 08:07] Container libfuzzer/php/json/0 started on CPU 2
+[2022-03-21 08:07] Container aflplusplus/php/exif/0 stopped
+[2022-03-21 08:07] Starting campaigns for unserialize 
+[2022-03-21 08:07] Container libfuzzer/php/exif/0 started on CPU 1
+[2022-03-21 08:07] Container aflplusplus/php/json/0 stopped
+[2022-03-21 08:07] Starting campaigns for parser 
+[2022-03-21 08:07] Container libfuzzer/php/unserialize/0 started on CPU 0
+[2022-03-21 08:26] Container aflplusplus/php/parser/0 stopped
+[2022-03-21 08:27] Waiting for jobs to finish
+[2022-03-21 08:27] Container libfuzzer/php/parser/0 started on CPU 3
+[2022-03-21 08:43] Container honggfuzz/php/json/0 stopped
+[2022-03-21 08:51] Container honggfuzz/php/unserialize/0 stopped
+[2022-03-21 09:06] Container honggfuzz/php/exif/0 stopped
+[2022-03-21 16:10] Container libfuzzer/php/exif/0 stopped
+[2022-03-21 16:11] Container libfuzzer/php/json/0 stopped
+[2022-03-21 16:15] Container libfuzzer/php/unserialize/0 stopped
+[2022-03-21 16:56] Container libfuzzer/php/parser/0 stopped
+[2022-03-21 18:16] Container honggfuzz/php/parser/0 stopped
+[2022-03-21 18:16] Obtaining sudo permissions to umount tmpfs
+[2022-03-21 18:16] (INFO) The fuzzing process has finished.
+[2022-03-21 18:16] (INFO) Gathering results...
+[2022-03-21 18:16] (ERROR) list index out of range
+[2022-03-21 18:16] (ERROR) list index out of range
+[2022-03-21 18:16] (ERROR) list index out of range
+[2022-03-21 18:16] (ERROR) list index out of range
+[2022-03-21 18:16] (ERROR) list index out of range
+[2022-03-21 18:16] (ERROR) list index out of range
+[2022-03-21 18:16] (ERROR) list index out of range
+[2022-03-21 18:16] (ERROR) list index out of range
+[2022-03-21 18:16] (INFO) The results of this fuzzing campaign were stored in ../results/php/artificial/0004/.
+[2022-03-21 18:16] (INFO) Iteration 4 of 10 for the duration of 8h took 66629s.
+[2022-03-21 18:16] (INFO) Starting iteration 5 of 10 for the duration of 8h.
+[2022-03-21 18:16] (INFO) Starting the fuzzing process!
+[2022-03-21 18:17] Obtaining sudo permissions to mount tmpfs
+[2022-03-21 18:17] Building magma/aflplusplus/php
+[2022-03-21 18:40] Starting campaigns for json 
+[2022-03-21 18:40] Starting campaigns for exif 
+[2022-03-21 18:40] Container aflplusplus/php/json/0 started on CPU 0
+[2022-03-21 18:40] Starting campaigns for unserialize 
+[2022-03-21 18:40] Container aflplusplus/php/exif/0 started on CPU 1
+[2022-03-21 18:40] Starting campaigns for parser 
+[2022-03-21 18:40] Container aflplusplus/php/unserialize/0 started on CPU 2
+[2022-03-21 18:40] Building magma/honggfuzz/php
+[2022-03-21 18:40] Container aflplusplus/php/parser/0 started on CPU 3
+[2022-03-21 19:05] Starting campaigns for json 
+[2022-03-21 19:05] Starting campaigns for exif 
+[2022-03-21 19:05] Container honggfuzz/php/json/0 started on CPU 4
+[2022-03-21 19:05] Starting campaigns for unserialize 
+[2022-03-21 19:05] Container honggfuzz/php/exif/0 started on CPU 5
+[2022-03-21 19:05] Starting campaigns for parser 
+[2022-03-21 19:05] Container honggfuzz/php/unserialize/0 started on CPU 6
+[2022-03-21 19:05] Building magma/libfuzzer/php
+[2022-03-21 19:05] Container honggfuzz/php/parser/0 started on CPU 7
+[2022-03-21 19:54] Starting campaigns for json 
+[2022-03-22 02:43] Container aflplusplus/php/unserialize/0 stopped
+[2022-03-22 02:44] Starting campaigns for exif 
+[2022-03-22 02:44] Container libfuzzer/php/json/0 started on CPU 2
+[2022-03-22 02:44] Container aflplusplus/php/exif/0 stopped
+[2022-03-22 02:44] Starting campaigns for unserialize 
+[2022-03-22 02:44] Container libfuzzer/php/exif/0 started on CPU 1
+[2022-03-22 02:44] Container aflplusplus/php/json/0 stopped
+[2022-03-22 02:44] Starting campaigns for parser 
+[2022-03-22 02:44] Container libfuzzer/php/unserialize/0 started on CPU 0
+[2022-03-22 03:06] Container aflplusplus/php/parser/0 stopped
+[2022-03-22 03:06] Waiting for jobs to finish
+[2022-03-22 03:06] Container libfuzzer/php/parser/0 started on CPU 3
+[2022-03-22 03:30] Container honggfuzz/php/json/0 stopped
+[2022-03-22 03:39] Container honggfuzz/php/unserialize/0 stopped
+[2022-03-22 03:57] Container honggfuzz/php/exif/0 stopped
+[2022-03-22 10:48] Container libfuzzer/php/unserialize/0 stopped
+[2022-03-22 10:49] Container libfuzzer/php/json/0 stopped
+[2022-03-22 10:52] Container libfuzzer/php/exif/0 stopped
+[2022-03-22 11:42] Container libfuzzer/php/parser/0 stopped
+[2022-03-22 12:31] Container honggfuzz/php/parser/0 stopped
+[2022-03-22 12:31] Obtaining sudo permissions to umount tmpfs
+[2022-03-22 12:31] (INFO) The fuzzing process has finished.
+[2022-03-22 12:31] (INFO) Gathering results...
+[2022-03-22 12:31] (ERROR) list index out of range
+[2022-03-22 12:31] (ERROR) list index out of range
+[2022-03-22 12:31] (ERROR) list index out of range
+[2022-03-22 12:31] (ERROR) list index out of range
+[2022-03-22 12:31] (ERROR) list index out of range
+[2022-03-22 12:31] (ERROR) list index out of range
+[2022-03-22 12:31] (ERROR) list index out of range
+[2022-03-22 12:31] (ERROR) list index out of range
+[2022-03-22 12:31] (INFO) The results of this fuzzing campaign were stored in ../results/php/artificial/0005/.
+[2022-03-22 12:31] (INFO) Iteration 5 of 10 for the duration of 8h took 65689s.
+[2022-03-22 12:31] (INFO) Starting iteration 6 of 10 for the duration of 8h.
+[2022-03-22 12:31] (INFO) Starting the fuzzing process!
+[2022-03-22 12:32] Obtaining sudo permissions to mount tmpfs
+[2022-03-22 12:32] Building magma/aflplusplus/php
+[2022-03-22 12:58] Starting campaigns for json 
+[2022-03-22 12:58] Starting campaigns for exif 
+[2022-03-22 12:58] Container aflplusplus/php/json/0 started on CPU 0
+[2022-03-22 12:58] Starting campaigns for unserialize 
+[2022-03-22 12:58] Container aflplusplus/php/exif/0 started on CPU 1
+[2022-03-22 12:58] Starting campaigns for parser 
+[2022-03-22 12:58] Container aflplusplus/php/unserialize/0 started on CPU 2
+[2022-03-22 12:58] Building magma/honggfuzz/php
+[2022-03-22 12:58] Container aflplusplus/php/parser/0 started on CPU 3
+[2022-03-22 13:27] Starting campaigns for json 
+[2022-03-22 13:27] Starting campaigns for exif 
+[2022-03-22 13:27] Container honggfuzz/php/json/0 started on CPU 4
+[2022-03-22 13:27] Starting campaigns for unserialize 
+[2022-03-22 13:27] Container honggfuzz/php/exif/0 started on CPU 5
+[2022-03-22 13:27] Starting campaigns for parser 
+[2022-03-22 13:27] Container honggfuzz/php/unserialize/0 started on CPU 6
+[2022-03-22 13:27] Building magma/libfuzzer/php
+[2022-03-22 13:27] Container honggfuzz/php/parser/0 started on CPU 7
+[2022-03-22 14:24] Starting campaigns for json 
+[2022-03-22 21:01] Container aflplusplus/php/unserialize/0 stopped
+[2022-03-22 21:01] Starting campaigns for exif 
+[2022-03-22 21:01] Container libfuzzer/php/json/0 started on CPU 2
+[2022-03-22 21:01] Container aflplusplus/php/exif/0 stopped
+[2022-03-22 21:01] Starting campaigns for unserialize 
+[2022-03-22 21:01] Container libfuzzer/php/exif/0 started on CPU 1
+[2022-03-22 21:02] Container aflplusplus/php/json/0 stopped
+[2022-03-22 21:02] Starting campaigns for parser 
+[2022-03-22 21:02] Container libfuzzer/php/unserialize/0 started on CPU 0
+[2022-03-22 21:25] Container aflplusplus/php/parser/0 stopped
+[2022-03-22 21:25] Waiting for jobs to finish
+[2022-03-22 21:25] Container libfuzzer/php/parser/0 started on CPU 3
+[2022-03-22 21:52] Container honggfuzz/php/json/0 stopped
+[2022-03-22 21:53] Container honggfuzz/php/unserialize/0 stopped
+[2022-03-22 22:11] Container honggfuzz/php/exif/0 stopped
+[2022-03-23 05:05] Container libfuzzer/php/exif/0 stopped
+[2022-03-23 05:05] Container libfuzzer/php/unserialize/0 stopped
+[2022-03-23 05:06] Container libfuzzer/php/json/0 stopped
+[2022-03-23 06:01] Container libfuzzer/php/parser/0 stopped
+[2022-03-23 06:31] Container honggfuzz/php/parser/0 stopped
+[2022-03-23 06:31] Obtaining sudo permissions to umount tmpfs
+[2022-03-23 06:31] (INFO) The fuzzing process has finished.
+[2022-03-23 06:31] (INFO) Gathering results...
+[2022-03-23 06:31] (ERROR) list index out of range
+[2022-03-23 06:31] (ERROR) list index out of range
+[2022-03-23 06:31] (ERROR) list index out of range
+[2022-03-23 06:31] (ERROR) list index out of range
+[2022-03-23 06:31] (ERROR) list index out of range
+[2022-03-23 06:31] (ERROR) list index out of range
+[2022-03-23 06:31] (ERROR) list index out of range
+[2022-03-23 06:31] (ERROR) list index out of range
+[2022-03-23 06:31] (INFO) The results of this fuzzing campaign were stored in ../results/php/artificial/0006/.
+[2022-03-23 06:31] (INFO) Iteration 6 of 10 for the duration of 8h took 64812s.
+[2022-03-23 06:31] (INFO) Starting iteration 7 of 10 for the duration of 8h.
+[2022-03-23 06:31] (INFO) Starting the fuzzing process!
+[2022-03-23 06:32] Obtaining sudo permissions to mount tmpfs
+[2022-03-23 06:32] Building magma/aflplusplus/php
+[2022-03-23 06:59] Starting campaigns for json 
+[2022-03-23 06:59] Starting campaigns for exif 
+[2022-03-23 06:59] Container aflplusplus/php/json/0 started on CPU 0
+[2022-03-23 06:59] Starting campaigns for unserialize 
+[2022-03-23 06:59] Container aflplusplus/php/exif/0 started on CPU 1
+[2022-03-23 06:59] Starting campaigns for parser 
+[2022-03-23 06:59] Container aflplusplus/php/unserialize/0 started on CPU 2
+[2022-03-23 06:59] Building magma/honggfuzz/php
+[2022-03-23 06:59] Container aflplusplus/php/parser/0 started on CPU 3
+[2022-03-23 07:29] Starting campaigns for json 
+[2022-03-23 07:29] Starting campaigns for exif 
+[2022-03-23 07:29] Container honggfuzz/php/json/0 started on CPU 4
+[2022-03-23 07:29] Starting campaigns for unserialize 
+[2022-03-23 07:29] Container honggfuzz/php/exif/0 started on CPU 5
+[2022-03-23 07:29] Starting campaigns for parser 
+[2022-03-23 07:29] Container honggfuzz/php/unserialize/0 started on CPU 6
+[2022-03-23 07:29] Building magma/libfuzzer/php
+[2022-03-23 07:29] Container honggfuzz/php/parser/0 started on CPU 7
+[2022-03-23 08:24] Starting campaigns for json 
+[2022-03-23 15:02] Container aflplusplus/php/unserialize/0 stopped
+[2022-03-23 15:02] Starting campaigns for exif 
+[2022-03-23 15:02] Container libfuzzer/php/json/0 started on CPU 2
+[2022-03-23 15:02] Container aflplusplus/php/exif/0 stopped
+[2022-03-23 15:02] Starting campaigns for unserialize 
+[2022-03-23 15:02] Container libfuzzer/php/exif/0 started on CPU 1
+[2022-03-23 15:03] Container aflplusplus/php/json/0 stopped
+[2022-03-23 15:03] Starting campaigns for parser 
+[2022-03-23 15:03] Container libfuzzer/php/unserialize/0 started on CPU 0
+[2022-03-23 15:24] Container aflplusplus/php/parser/0 stopped
+[2022-03-23 15:25] Waiting for jobs to finish
+[2022-03-23 15:25] Container libfuzzer/php/parser/0 started on CPU 3
+[2022-03-23 15:50] Container honggfuzz/php/json/0 stopped
+[2022-03-23 16:00] Container honggfuzz/php/unserialize/0 stopped
+[2022-03-23 16:13] Container honggfuzz/php/exif/0 stopped
+[2022-03-23 23:07] Container libfuzzer/php/exif/0 stopped
+[2022-03-23 23:07] Container libfuzzer/php/unserialize/0 stopped
+[2022-03-23 23:07] Container libfuzzer/php/json/0 stopped
+[2022-03-24 00:01] Container libfuzzer/php/parser/0 stopped
+[2022-03-24 00:25] Container honggfuzz/php/parser/0 stopped
+[2022-03-24 00:25] Obtaining sudo permissions to umount tmpfs
+[2022-03-24 00:25] (INFO) The fuzzing process has finished.
+[2022-03-24 00:25] (INFO) Gathering results...
+[2022-03-24 00:25] (ERROR) list index out of range
+[2022-03-24 00:25] (ERROR) list index out of range
+[2022-03-24 00:25] (ERROR) list index out of range
+[2022-03-24 00:25] (ERROR) list index out of range
+[2022-03-24 00:25] (ERROR) list index out of range
+[2022-03-24 00:25] (ERROR) list index out of range
+[2022-03-24 00:25] (ERROR) list index out of range
+[2022-03-24 00:25] (ERROR) list index out of range
+[2022-03-24 00:25] (INFO) The results of this fuzzing campaign were stored in ../results/php/artificial/0007/.
+[2022-03-24 00:25] (INFO) Iteration 7 of 10 for the duration of 8h took 64437s.
+[2022-03-24 00:25] (INFO) Starting iteration 8 of 10 for the duration of 8h.
+[2022-03-24 00:25] (INFO) Starting the fuzzing process!
+[2022-03-24 00:26] Obtaining sudo permissions to mount tmpfs
+[2022-03-24 00:26] Building magma/aflplusplus/php
+[2022-03-24 00:56] Starting campaigns for json 
+[2022-03-24 00:56] Starting campaigns for exif 
+[2022-03-24 00:56] Starting campaigns for unserialize 
+[2022-03-24 00:56] Container aflplusplus/php/json/0 started on CPU 0
+[2022-03-24 00:56] Container aflplusplus/php/exif/0 started on CPU 1
+[2022-03-24 00:56] Starting campaigns for parser 
+[2022-03-24 00:56] Container aflplusplus/php/unserialize/0 started on CPU 2
+[2022-03-24 00:56] Building magma/honggfuzz/php
+[2022-03-24 00:56] Container aflplusplus/php/parser/0 started on CPU 3
+[2022-03-24 01:32] Starting campaigns for json 
+[2022-03-24 01:32] Starting campaigns for exif 
+[2022-03-24 01:32] Starting campaigns for unserialize 
+[2022-03-24 01:32] Container honggfuzz/php/json/0 started on CPU 4
+[2022-03-24 01:32] Container honggfuzz/php/exif/0 started on CPU 5
+[2022-03-24 01:32] Starting campaigns for parser 
+[2022-03-24 01:32] Container honggfuzz/php/unserialize/0 started on CPU 6
+[2022-03-24 01:32] Building magma/libfuzzer/php
+[2022-03-24 01:32] Container honggfuzz/php/parser/0 started on CPU 7
+[2022-03-24 02:36] Starting campaigns for json 
+[2022-03-24 08:59] Container aflplusplus/php/unserialize/0 stopped
+[2022-03-24 08:59] Starting campaigns for exif 
+[2022-03-24 08:59] Container libfuzzer/php/json/0 started on CPU 2
+[2022-03-24 08:59] Container aflplusplus/php/exif/0 stopped
+[2022-03-24 08:59] Starting campaigns for unserialize 
+[2022-03-24 08:59] Container libfuzzer/php/exif/0 started on CPU 1
+[2022-03-24 09:00] Container aflplusplus/php/json/0 stopped
+[2022-03-24 09:00] Starting campaigns for parser 
+[2022-03-24 09:00] Container libfuzzer/php/unserialize/0 started on CPU 0
+[2022-03-24 09:23] Container aflplusplus/php/parser/0 stopped
+[2022-03-24 09:23] Waiting for jobs to finish
+[2022-03-24 09:23] Container libfuzzer/php/parser/0 started on CPU 3
+[2022-03-24 09:55] Container honggfuzz/php/json/0 stopped
+[2022-03-24 09:58] Container honggfuzz/php/unserialize/0 stopped
+[2022-03-24 10:23] Container honggfuzz/php/exif/0 stopped
+[2022-03-24 17:04] Container libfuzzer/php/unserialize/0 stopped
+[2022-03-24 17:04] Container libfuzzer/php/json/0 stopped
+[2022-03-24 17:08] Container libfuzzer/php/exif/0 stopped
+[2022-03-24 17:56] Container libfuzzer/php/parser/0 stopped
+[2022-03-24 18:31] Container honggfuzz/php/parser/0 stopped
+[2022-03-24 18:31] Obtaining sudo permissions to umount tmpfs
+[2022-03-24 18:31] (INFO) The fuzzing process has finished.
+[2022-03-24 18:31] (INFO) Gathering results...
+[2022-03-24 18:31] (ERROR) list index out of range
+[2022-03-24 18:31] (ERROR) list index out of range
+[2022-03-24 18:31] (ERROR) list index out of range
+[2022-03-24 18:31] (ERROR) list index out of range
+[2022-03-24 18:31] (ERROR) list index out of range
+[2022-03-24 18:31] (ERROR) list index out of range
+[2022-03-24 18:31] (ERROR) list index out of range
+[2022-03-24 18:31] (ERROR) list index out of range
+[2022-03-24 18:31] (ERROR) list index out of range
+[2022-03-24 18:31] (ERROR) list index out of range
+[2022-03-24 18:31] (INFO) The results of this fuzzing campaign were stored in ../results/php/artificial/0008/.
+[2022-03-24 18:31] (INFO) Iteration 8 of 10 for the duration of 8h took 65150s.
+[2022-03-24 18:31] (INFO) Starting iteration 9 of 10 for the duration of 8h.
+[2022-03-24 18:31] (INFO) Starting the fuzzing process!
+[2022-03-24 18:32] Obtaining sudo permissions to mount tmpfs
+[2022-03-24 18:32] Building magma/aflplusplus/php
+[2022-03-24 18:58] Failed to build magma/aflplusplus/php. Check build log for info.
+[2022-03-24 18:58] Building magma/honggfuzz/php
+[2022-03-24 19:26] Failed to build magma/honggfuzz/php. Check build log for info.
+[2022-03-24 19:26] Building magma/libfuzzer/php
+[2022-03-24 19:57] Failed to build magma/libfuzzer/php. Check build log for info.
+[2022-03-24 19:57] Waiting for jobs to finish
+[2022-03-24 19:57] Obtaining sudo permissions to umount tmpfs
+[2022-03-24 19:57] (INFO) The fuzzing process has finished.
+[2022-03-24 19:57] (INFO) Gathering results...
+[2022-03-24 19:57] (ERROR) [Errno 2] No such file or directory: './tools/captain/workdir/ar/aflplusplus/php/'
+[2022-03-24 19:57] (ERROR) [Errno 2] No such file or directory: './tools/captain/workdir/ar/libfuzzer/php/'
+[2022-03-24 19:57] (ERROR) [Errno 2] No such file or directory: './tools/captain/workdir/ar/honggfuzz/php/'
+[2022-03-24 19:58] (ERROR) [Errno 2] No such file or directory: './tools/captain/workdir/ar/libfuzzer/php/'
+[2022-03-24 19:58] (ERROR) [Errno 2] No such file or directory: './tools/captain/workdir/ar/honggfuzz/php/'
+[2022-03-24 19:58] (ERROR) [Errno 2] No such file or directory: './tools/captain/workdir/ar/aflplusplus/php/'
+[2022-03-24 19:58] (INFO) The results of this fuzzing campaign were stored in ../results/php/artificial/0009/.
+[2022-03-24 19:58] (INFO) Iteration 9 of 10 for the duration of 8h took 5177s.
+[2022-03-24 19:58] (INFO) Starting iteration 10 of 10 for the duration of 8h.
+[2022-03-24 19:58] (INFO) Starting the fuzzing process!
+[2022-03-24 19:58] Obtaining sudo permissions to mount tmpfs
+[2022-03-24 19:58] Building magma/aflplusplus/php
+[2022-03-24 20:02] Failed to build magma/aflplusplus/php. Check build log for info.
+[2022-03-24 20:02] Building magma/honggfuzz/php
+[2022-03-24 20:07] Failed to build magma/honggfuzz/php. Check build log for info.
+[2022-03-24 20:07] Building magma/libfuzzer/php
+[2022-03-24 20:14] Failed to build magma/libfuzzer/php. Check build log for info.
+[2022-03-24 20:14] Waiting for jobs to finish
+[2022-03-24 20:14] Obtaining sudo permissions to umount tmpfs
+[2022-03-24 20:14] (INFO) The fuzzing process has finished.
+[2022-03-24 20:14] (INFO) Gathering results...
+[2022-03-24 20:14] (ERROR) [Errno 2] No such file or directory: './tools/captain/workdir/ar/aflplusplus/php/'
+[2022-03-24 20:14] (ERROR) [Errno 2] No such file or directory: './tools/captain/workdir/ar/libfuzzer/php/'
+[2022-03-24 20:14] (ERROR) [Errno 2] No such file or directory: './tools/captain/workdir/ar/honggfuzz/php/'
+[2022-03-24 20:14] (ERROR) [Errno 2] No such file or directory: './tools/captain/workdir/ar/libfuzzer/php/'
+[2022-03-24 20:14] (ERROR) [Errno 2] No such file or directory: './tools/captain/workdir/ar/honggfuzz/php/'
+[2022-03-24 20:14] (ERROR) [Errno 2] No such file or directory: './tools/captain/workdir/ar/aflplusplus/php/'
+[2022-03-24 20:14] (INFO) The results of this fuzzing campaign were stored in ../results/php/artificial/0010/.
+[2022-03-24 20:14] (INFO) Iteration 10 of 10 for the duration of 8h took 983s.
+[2022-03-24 20:14] (INFO) Cleaning up disk space.
+[2022-03-24 20:16] (INFO) Starting the run with a duration of 4h.
+[2022-03-24 20:16] (INFO) Initializing seed corpus...
+[2022-03-24 20:16] (INFO) Starting iteration 1 of 10 for the duration of 4h.
+[2022-03-24 20:16] (INFO) Starting the fuzzing process!
+[2022-03-24 20:16] Obtaining sudo permissions to mount tmpfs
+[2022-03-24 20:16] Building magma/aflplusplus/php
+[2022-03-24 20:30] Starting campaigns for json 
+[2022-03-24 20:30] Starting campaigns for exif 
+[2022-03-24 20:30] Container aflplusplus/php/json/0 started on CPU 0
+[2022-03-24 20:30] Starting campaigns for unserialize 
+[2022-03-24 20:30] Container aflplusplus/php/exif/0 started on CPU 1
+[2022-03-24 20:30] Starting campaigns for parser 
+[2022-03-24 20:30] Container aflplusplus/php/unserialize/0 started on CPU 2
+[2022-03-24 20:30] Building magma/honggfuzz/php
+[2022-03-24 20:30] Container aflplusplus/php/parser/0 started on CPU 3
+[2022-03-24 20:41] Starting campaigns for json 
+[2022-03-24 20:41] Starting campaigns for exif 
+[2022-03-24 20:41] Container honggfuzz/php/json/0 started on CPU 4
+[2022-03-24 20:41] Starting campaigns for unserialize 
+[2022-03-24 20:41] Container honggfuzz/php/exif/0 started on CPU 5
+[2022-03-24 20:41] Starting campaigns for parser 
+[2022-03-24 20:41] Container honggfuzz/php/unserialize/0 started on CPU 6
+[2022-03-24 20:41] Building magma/libfuzzer/php
+[2022-03-24 20:41] Container honggfuzz/php/parser/0 started on CPU 7
+[2022-03-24 21:16] Starting campaigns for json 
+[2022-03-25 00:30] Container aflplusplus/php/unserialize/0 stopped
+[2022-03-25 00:30] Container aflplusplus/php/exif/0 stopped
+[2022-03-25 00:30] Container aflplusplus/php/json/0 stopped
+[2022-03-25 00:30] Starting campaigns for exif 
+[2022-03-25 00:30] Container libfuzzer/php/json/0 started on CPU 2
+[2022-03-25 00:30] Starting campaigns for unserialize 
+[2022-03-25 00:30] Container libfuzzer/php/exif/0 started on CPU 0
+[2022-03-25 00:30] Starting campaigns for parser 
+[2022-03-25 00:30] Container libfuzzer/php/unserialize/0 started on CPU 1
+[2022-03-25 00:34] Container aflplusplus/php/parser/0 stopped
+[2022-03-25 00:34] Waiting for jobs to finish
+[2022-03-25 00:34] Container libfuzzer/php/parser/0 started on CPU 3
+[2022-03-25 00:41] Container honggfuzz/php/unserialize/0 stopped
+[2022-03-25 00:42] Container honggfuzz/php/exif/0 stopped
+[2022-03-25 00:42] Container honggfuzz/php/json/0 stopped
+[2022-03-25 01:25] Container honggfuzz/php/parser/0 stopped
+[2022-03-25 04:31] Container libfuzzer/php/json/0 stopped
+[2022-03-25 04:31] Container libfuzzer/php/exif/0 stopped
+[2022-03-25 04:33] Container libfuzzer/php/unserialize/0 stopped
+[2022-03-25 04:37] Container libfuzzer/php/parser/0 stopped
+[2022-03-25 04:37] Obtaining sudo permissions to umount tmpfs
+[2022-03-25 04:37] (INFO) The fuzzing process has finished.
+[2022-03-25 04:37] (INFO) Gathering results...
+[2022-03-25 04:37] (ERROR) list index out of range
+[2022-03-25 04:37] (ERROR) list index out of range
+[2022-03-25 04:37] (ERROR) list index out of range
+[2022-03-25 04:37] (ERROR) list index out of range
+[2022-03-25 04:37] (ERROR) list index out of range
+[2022-03-25 04:37] (ERROR) list index out of range
+[2022-03-25 04:37] (ERROR) list index out of range
+[2022-03-25 04:37] (ERROR) list index out of range
+[2022-03-25 04:37] (INFO) The results of this fuzzing campaign were stored in ../results/php/artificial/0011/.
+[2022-03-25 04:37] (INFO) Iteration 1 of 10 for the duration of 4h took 30066s.
+[2022-03-25 04:37] (INFO) Starting iteration 2 of 10 for the duration of 4h.
+[2022-03-25 04:37] (INFO) Starting the fuzzing process!
+[2022-03-25 04:38] Obtaining sudo permissions to mount tmpfs
+[2022-03-25 04:38] Building magma/aflplusplus/php
+[2022-03-25 04:55] Starting campaigns for json 
+[2022-03-25 04:55] Starting campaigns for exif 
+[2022-03-25 04:55] Starting campaigns for unserialize 
+[2022-03-25 04:55] Container aflplusplus/php/json/0 started on CPU 0
+[2022-03-25 04:55] Container aflplusplus/php/exif/0 started on CPU 1
+[2022-03-25 04:55] Starting campaigns for parser 
+[2022-03-25 04:55] Container aflplusplus/php/unserialize/0 started on CPU 2
+[2022-03-25 04:55] Building magma/honggfuzz/php
+[2022-03-25 04:55] Container aflplusplus/php/parser/0 started on CPU 3
+[2022-03-25 05:13] Starting campaigns for json 
+[2022-03-25 05:13] Starting campaigns for exif 
+[2022-03-25 05:13] Container honggfuzz/php/json/0 started on CPU 4
+[2022-03-25 05:13] Starting campaigns for unserialize 
+[2022-03-25 05:13] Container honggfuzz/php/exif/0 started on CPU 5
+[2022-03-25 05:13] Starting campaigns for parser 
+[2022-03-25 05:13] Container honggfuzz/php/unserialize/0 started on CPU 6
+[2022-03-25 05:13] Building magma/libfuzzer/php
+[2022-03-25 05:13] Container honggfuzz/php/parser/0 started on CPU 7
+[2022-03-25 05:13] Failed to build magma/libfuzzer/php. Check build log for info.
+[2022-03-25 05:13] Waiting for jobs to finish
+[2022-03-25 08:59] Container aflplusplus/php/exif/0 stopped
+[2022-03-25 08:59] Container aflplusplus/php/unserialize/0 stopped
+[2022-03-25 09:00] Container aflplusplus/php/json/0 stopped
+[2022-03-25 09:23] Container aflplusplus/php/parser/0 stopped
+[2022-03-25 09:38] Container honggfuzz/php/json/0 stopped
+[2022-03-25 09:45] Container honggfuzz/php/unserialize/0 stopped
+[2022-03-25 09:57] Container honggfuzz/php/exif/0 stopped
+[2022-03-25 23:30] Container honggfuzz/php/parser/0 stopped
+[2022-03-25 23:30] Obtaining sudo permissions to umount tmpfs
+[2022-03-25 23:30] (INFO) The fuzzing process has finished.
+[2022-03-25 23:30] (INFO) Gathering results...
+[2022-03-25 23:30] (ERROR) list index out of range
+[2022-03-25 23:30] (ERROR) list index out of range
+[2022-03-25 23:30] (ERROR) list index out of range
+[2022-03-25 23:30] (ERROR) list index out of range
+[2022-03-25 23:30] (ERROR) [Errno 2] No such file or directory: './tools/captain/workdir/ar/libfuzzer/php/'
+[2022-03-25 23:30] (ERROR) [Errno 2] No such file or directory: './tools/captain/workdir/ar/libfuzzer/php/'
+[2022-03-25 23:30] (INFO) The results of this fuzzing campaign were stored in ../results/php/artificial/0012/.
+[2022-03-25 23:30] (INFO) Iteration 2 of 10 for the duration of 4h took 67959s.
+[2022-03-25 23:30] (INFO) Starting iteration 3 of 10 for the duration of 4h.
+[2022-03-25 23:30] (INFO) Starting the fuzzing process!
+[2022-03-25 23:30] Obtaining sudo permissions to mount tmpfs
+[2022-03-25 23:30] Building magma/aflplusplus/php
+[2022-03-25 23:44] Starting campaigns for json 
+[2022-03-25 23:44] Starting campaigns for exif 
+[2022-03-25 23:44] Container aflplusplus/php/json/0 started on CPU 0
+[2022-03-25 23:44] Starting campaigns for unserialize 
+[2022-03-25 23:44] Container aflplusplus/php/exif/0 started on CPU 1
+[2022-03-25 23:44] Starting campaigns for parser 
+[2022-03-25 23:44] Container aflplusplus/php/unserialize/0 started on CPU 2
+[2022-03-25 23:44] Building magma/honggfuzz/php
+[2022-03-25 23:44] Container aflplusplus/php/parser/0 started on CPU 3
+[2022-03-25 23:56] Starting campaigns for json 
+[2022-03-25 23:56] Starting campaigns for exif 
+[2022-03-25 23:56] Container honggfuzz/php/json/0 started on CPU 4
+[2022-03-25 23:56] Starting campaigns for unserialize 
+[2022-03-25 23:56] Container honggfuzz/php/exif/0 started on CPU 5
+[2022-03-25 23:56] Starting campaigns for parser 
+[2022-03-25 23:56] Container honggfuzz/php/unserialize/0 started on CPU 6
+[2022-03-25 23:56] Building magma/libfuzzer/php
+[2022-03-25 23:56] Container honggfuzz/php/parser/0 started on CPU 7
+[2022-03-26 00:27] Starting campaigns for json 
+[2022-03-26 03:45] Container aflplusplus/php/unserialize/0 stopped
+[2022-03-26 03:45] Starting campaigns for exif 
+[2022-03-26 03:45] Container libfuzzer/php/json/0 started on CPU 2
+[2022-03-26 03:45] Container aflplusplus/php/json/0 stopped
+[2022-03-26 03:45] Starting campaigns for unserialize 
+[2022-03-26 03:45] Container libfuzzer/php/exif/0 started on CPU 0
+[2022-03-26 03:45] Container aflplusplus/php/exif/0 stopped
+[2022-03-26 03:46] Starting campaigns for parser 
+[2022-03-26 03:46] Container libfuzzer/php/unserialize/0 started on CPU 1
+[2022-03-26 03:58] Container aflplusplus/php/parser/0 stopped
+[2022-03-26 03:58] Waiting for jobs to finish
+[2022-03-26 03:58] Container libfuzzer/php/parser/0 started on CPU 3
+[2022-03-26 04:08] Container honggfuzz/php/json/0 stopped
+[2022-03-26 04:18] Container honggfuzz/php/unserialize/0 stopped
+[2022-03-26 04:31] Container honggfuzz/php/exif/0 stopped
+[2022-03-26 07:47] Container libfuzzer/php/json/0 stopped
+[2022-03-26 07:48] Container libfuzzer/php/exif/0 stopped
+[2022-03-26 07:50] Container libfuzzer/php/unserialize/0 stopped
+[2022-03-26 08:13] Container libfuzzer/php/parser/0 stopped
+[2022-03-26 10:06] Container honggfuzz/php/parser/0 stopped
+[2022-03-26 10:07] Obtaining sudo permissions to umount tmpfs
+[2022-03-26 10:07] (INFO) The fuzzing process has finished.
+[2022-03-26 10:07] (INFO) Gathering results...
+[2022-03-26 10:07] (ERROR) list index out of range
+[2022-03-26 10:07] (ERROR) list index out of range
+[2022-03-26 10:07] (ERROR) list index out of range
+[2022-03-26 10:07] (ERROR) list index out of range
+[2022-03-26 10:07] (ERROR) list index out of range
+[2022-03-26 10:07] (ERROR) list index out of range
+[2022-03-26 10:07] (ERROR) list index out of range
+[2022-03-26 10:07] (ERROR) list index out of range
+[2022-03-26 10:07] (INFO) The results of this fuzzing campaign were stored in ../results/php/artificial/0013/.
+[2022-03-26 10:07] (INFO) Iteration 3 of 10 for the duration of 4h took 38191s.
+[2022-03-26 10:07] (INFO) Starting iteration 4 of 10 for the duration of 4h.
+[2022-03-26 10:07] (INFO) Starting the fuzzing process!
+[2022-03-26 10:07] Obtaining sudo permissions to mount tmpfs
+[2022-03-26 10:07] Building magma/aflplusplus/php
+[2022-03-26 10:24] Starting campaigns for json 
+[2022-03-26 10:24] Starting campaigns for exif 
+[2022-03-26 10:24] Container aflplusplus/php/json/0 started on CPU 0
+[2022-03-26 10:24] Starting campaigns for unserialize 
+[2022-03-26 10:24] Container aflplusplus/php/exif/0 started on CPU 1
+[2022-03-26 10:24] Starting campaigns for parser 
+[2022-03-26 10:24] Container aflplusplus/php/unserialize/0 started on CPU 2
+[2022-03-26 10:24] Building magma/honggfuzz/php
+[2022-03-26 10:24] Container aflplusplus/php/parser/0 started on CPU 3
+[2022-03-26 10:41] Starting campaigns for json 
+[2022-03-26 10:41] Starting campaigns for exif 
+[2022-03-26 10:41] Container honggfuzz/php/json/0 started on CPU 4
+[2022-03-26 10:41] Starting campaigns for unserialize 
+[2022-03-26 10:41] Container honggfuzz/php/exif/0 started on CPU 5
+[2022-03-26 10:41] Starting campaigns for parser 
+[2022-03-26 10:41] Container honggfuzz/php/unserialize/0 started on CPU 6
+[2022-03-26 10:41] Building magma/libfuzzer/php
+[2022-03-26 10:41] Container honggfuzz/php/parser/0 started on CPU 7
+[2022-03-26 10:45] Failed to build magma/libfuzzer/php. Check build log for info.
+[2022-03-26 10:45] Waiting for jobs to finish
+[2022-03-26 14:26] Container aflplusplus/php/unserialize/0 stopped
+[2022-03-26 14:27] Container aflplusplus/php/json/0 stopped
+[2022-03-26 14:27] Container aflplusplus/php/exif/0 stopped
+[2022-03-26 14:48] Container aflplusplus/php/parser/0 stopped
+[2022-03-26 15:02] Container honggfuzz/php/json/0 stopped
+[2022-03-26 15:13] Container honggfuzz/php/unserialize/0 stopped
+[2022-03-26 15:32] Container honggfuzz/php/exif/0 stopped
+[2022-03-26 23:20] Container honggfuzz/php/parser/0 stopped
+[2022-03-26 23:20] Obtaining sudo permissions to umount tmpfs
+[2022-03-26 23:20] (INFO) The fuzzing process has finished.
+[2022-03-26 23:20] (INFO) Gathering results...
+[2022-03-26 23:20] (ERROR) list index out of range
+[2022-03-26 23:20] (ERROR) list index out of range
+[2022-03-26 23:20] (ERROR) list index out of range
+[2022-03-26 23:20] (ERROR) list index out of range
+[2022-03-26 23:20] (ERROR) [Errno 2] No such file or directory: './tools/captain/workdir/ar/libfuzzer/php/'
+[2022-03-26 23:20] (ERROR) [Errno 2] No such file or directory: './tools/captain/workdir/ar/libfuzzer/php/'
+[2022-03-26 23:20] (INFO) The results of this fuzzing campaign were stored in ../results/php/artificial/0014/.
+[2022-03-26 23:20] (INFO) Iteration 4 of 10 for the duration of 4h took 47617s.
+[2022-03-26 23:20] (INFO) Starting iteration 5 of 10 for the duration of 4h.
+[2022-03-26 23:20] (INFO) Starting the fuzzing process!
+[2022-03-26 23:20] Obtaining sudo permissions to mount tmpfs
+[2022-03-26 23:20] Building magma/aflplusplus/php
+[2022-03-26 23:34] Starting campaigns for json 
+[2022-03-26 23:34] Starting campaigns for exif 
+[2022-03-26 23:34] Starting campaigns for unserialize 
+[2022-03-26 23:34] Container aflplusplus/php/json/0 started on CPU 0
+[2022-03-26 23:34] Container aflplusplus/php/exif/0 started on CPU 1
+[2022-03-26 23:34] Starting campaigns for parser 
+[2022-03-26 23:34] Container aflplusplus/php/unserialize/0 started on CPU 2
+[2022-03-26 23:34] Building magma/honggfuzz/php
+[2022-03-26 23:34] Container aflplusplus/php/parser/0 started on CPU 3
+[2022-03-26 23:46] Starting campaigns for json 
+[2022-03-26 23:46] Starting campaigns for exif 
+[2022-03-26 23:46] Container honggfuzz/php/json/0 started on CPU 4
+[2022-03-26 23:46] Starting campaigns for unserialize 
+[2022-03-26 23:46] Container honggfuzz/php/exif/0 started on CPU 5
+[2022-03-26 23:46] Starting campaigns for parser 
+[2022-03-26 23:46] Container honggfuzz/php/unserialize/0 started on CPU 6
+[2022-03-26 23:46] Building magma/libfuzzer/php
+[2022-03-26 23:46] Container honggfuzz/php/parser/0 started on CPU 7
+[2022-03-27 00:17] Starting campaigns for json 
+[2022-03-27 03:36] Container aflplusplus/php/unserialize/0 stopped
+[2022-03-27 03:36] Starting campaigns for exif 
+[2022-03-27 03:36] Container libfuzzer/php/json/0 started on CPU 2
+[2022-03-27 03:36] Container aflplusplus/php/json/0 stopped
+[2022-03-27 03:36] Starting campaigns for unserialize 
+[2022-03-27 03:36] Container libfuzzer/php/exif/0 started on CPU 0
+[2022-03-27 03:36] Container aflplusplus/php/exif/0 stopped
+[2022-03-27 03:36] Starting campaigns for parser 
+[2022-03-27 03:36] Container libfuzzer/php/unserialize/0 started on CPU 1
+[2022-03-27 03:48] Container aflplusplus/php/parser/0 stopped
+[2022-03-27 03:48] Waiting for jobs to finish
+[2022-03-27 03:48] Container libfuzzer/php/parser/0 started on CPU 3
+[2022-03-27 03:57] Container honggfuzz/php/json/0 stopped
+[2022-03-27 04:05] Container honggfuzz/php/unserialize/0 stopped
+[2022-03-27 04:18] Container honggfuzz/php/exif/0 stopped
+[2022-03-27 07:37] Container libfuzzer/php/unserialize/0 stopped
+[2022-03-27 07:38] Container libfuzzer/php/json/0 stopped
+[2022-03-27 07:38] Container libfuzzer/php/exif/0 stopped
+[2022-03-27 08:04] Container libfuzzer/php/parser/0 stopped
+[2022-03-27 09:19] Container honggfuzz/php/parser/0 stopped
+[2022-03-27 09:19] Obtaining sudo permissions to umount tmpfs
+[2022-03-27 09:19] (INFO) The fuzzing process has finished.
+[2022-03-27 09:19] (INFO) Gathering results...
+[2022-03-27 09:19] (ERROR) list index out of range
+[2022-03-27 09:19] (ERROR) list index out of range
+[2022-03-27 09:19] (ERROR) list index out of range
+[2022-03-27 09:19] (ERROR) list index out of range
+[2022-03-27 09:19] (ERROR) list index out of range
+[2022-03-27 09:19] (ERROR) list index out of range
+[2022-03-27 09:19] (ERROR) list index out of range
+[2022-03-27 09:19] (ERROR) list index out of range
+[2022-03-27 09:19] (INFO) The results of this fuzzing campaign were stored in ../results/php/artificial/0015/.
+[2022-03-27 09:19] (INFO) Iteration 5 of 10 for the duration of 4h took 35917s.
+[2022-03-27 09:19] (INFO) Starting iteration 6 of 10 for the duration of 4h.
+[2022-03-27 09:19] (INFO) Starting the fuzzing process!
+[2022-03-27 09:19] Obtaining sudo permissions to mount tmpfs
+[2022-03-27 09:19] Building magma/aflplusplus/php
+[2022-03-27 09:37] Starting campaigns for json 
+[2022-03-27 09:37] Starting campaigns for exif 
+[2022-03-27 09:37] Container aflplusplus/php/json/0 started on CPU 0
+[2022-03-27 09:37] Starting campaigns for unserialize 
+[2022-03-27 09:37] Container aflplusplus/php/exif/0 started on CPU 1
+[2022-03-27 09:37] Starting campaigns for parser 
+[2022-03-27 09:37] Container aflplusplus/php/unserialize/0 started on CPU 2
+[2022-03-27 09:37] Building magma/honggfuzz/php
+[2022-03-27 09:37] Container aflplusplus/php/parser/0 started on CPU 3
+[2022-03-27 09:54] Starting campaigns for json 
+[2022-03-27 09:54] Starting campaigns for exif 
+[2022-03-27 09:54] Container honggfuzz/php/json/0 started on CPU 4
+[2022-03-27 09:54] Starting campaigns for unserialize 
+[2022-03-27 09:54] Container honggfuzz/php/exif/0 started on CPU 5
+[2022-03-27 09:54] Starting campaigns for parser 
+[2022-03-27 09:54] Container honggfuzz/php/unserialize/0 started on CPU 6
+[2022-03-27 09:54] Building magma/libfuzzer/php
+[2022-03-27 09:54] Container honggfuzz/php/parser/0 started on CPU 7
+[2022-03-27 10:32] Starting campaigns for json 
+[2022-03-27 13:39] Container aflplusplus/php/unserialize/0 stopped
+[2022-03-27 13:39] Starting campaigns for exif 
+[2022-03-27 13:39] Container libfuzzer/php/json/0 started on CPU 2
+[2022-03-27 13:40] Container aflplusplus/php/exif/0 stopped
+[2022-03-27 13:40] Starting campaigns for unserialize 
+[2022-03-27 13:40] Container libfuzzer/php/exif/0 started on CPU 1
+[2022-03-27 13:40] Container aflplusplus/php/json/0 stopped
+[2022-03-27 13:40] Starting campaigns for parser 
+[2022-03-27 13:40] Container libfuzzer/php/unserialize/0 started on CPU 0
+[2022-03-27 14:02] Container aflplusplus/php/parser/0 stopped
+[2022-03-27 14:02] Waiting for jobs to finish
+[2022-03-27 14:02] Container libfuzzer/php/parser/0 started on CPU 3
+[2022-03-27 14:15] Container honggfuzz/php/json/0 stopped
+[2022-03-27 14:16] Container honggfuzz/php/unserialize/0 stopped
+[2022-03-27 14:32] Container honggfuzz/php/exif/0 stopped
+[2022-03-27 17:43] Container libfuzzer/php/exif/0 stopped
+[2022-03-27 17:44] Container libfuzzer/php/json/0 stopped
+[2022-03-27 17:47] Container libfuzzer/php/unserialize/0 stopped
+[2022-03-27 18:30] Container libfuzzer/php/parser/0 stopped
+[2022-03-27 21:52] Container honggfuzz/php/parser/0 stopped
+[2022-03-27 21:52] Obtaining sudo permissions to umount tmpfs
+[2022-03-27 21:52] (INFO) The fuzzing process has finished.
+[2022-03-27 21:52] (INFO) Gathering results...
+[2022-03-27 21:52] (ERROR) list index out of range
+[2022-03-27 21:52] (ERROR) list index out of range
+[2022-03-27 21:52] (ERROR) list index out of range
+[2022-03-27 21:52] (ERROR) list index out of range
+[2022-03-27 21:52] (ERROR) list index out of range
+[2022-03-27 21:52] (ERROR) list index out of range
+[2022-03-27 21:52] (ERROR) list index out of range
+[2022-03-27 21:52] (ERROR) list index out of range
+[2022-03-27 21:52] (INFO) The results of this fuzzing campaign were stored in ../results/php/artificial/0016/.
+[2022-03-27 21:52] (INFO) Iteration 6 of 10 for the duration of 4h took 45194s.
+[2022-03-27 21:52] (INFO) Starting iteration 7 of 10 for the duration of 4h.
+[2022-03-27 21:52] (INFO) Starting the fuzzing process!
+[2022-03-27 21:52] Obtaining sudo permissions to mount tmpfs
+[2022-03-27 21:52] Building magma/aflplusplus/php
+[2022-03-27 22:10] Starting campaigns for json 
+[2022-03-27 22:10] Starting campaigns for exif 
+[2022-03-27 22:10] Container aflplusplus/php/json/0 started on CPU 0
+[2022-03-27 22:10] Starting campaigns for unserialize 
+[2022-03-27 22:10] Container aflplusplus/php/exif/0 started on CPU 1
+[2022-03-27 22:10] Starting campaigns for parser 
+[2022-03-27 22:10] Container aflplusplus/php/unserialize/0 started on CPU 2
+[2022-03-27 22:10] Building magma/honggfuzz/php
+[2022-03-27 22:10] Container aflplusplus/php/parser/0 started on CPU 3
+[2022-03-27 22:29] Starting campaigns for json 
+[2022-03-27 22:29] Starting campaigns for exif 
+[2022-03-27 22:29] Container honggfuzz/php/json/0 started on CPU 4
+[2022-03-27 22:29] Starting campaigns for unserialize 
+[2022-03-27 22:29] Container honggfuzz/php/exif/0 started on CPU 5
+[2022-03-27 22:29] Starting campaigns for parser 
+[2022-03-27 22:29] Container honggfuzz/php/unserialize/0 started on CPU 6
+[2022-03-27 22:29] Building magma/libfuzzer/php
+[2022-03-27 22:29] Container honggfuzz/php/parser/0 started on CPU 7
+[2022-03-27 22:33] Failed to build magma/libfuzzer/php. Check build log for info.
+[2022-03-27 22:33] Waiting for jobs to finish
+[2022-03-28 02:13] Container aflplusplus/php/unserialize/0 stopped
+[2022-03-28 02:13] Container aflplusplus/php/exif/0 stopped
+[2022-03-28 02:14] Container aflplusplus/php/json/0 stopped
+[2022-03-28 02:34] Container aflplusplus/php/parser/0 stopped
+[2022-03-28 02:51] Container honggfuzz/php/json/0 stopped
+[2022-03-28 02:54] Container honggfuzz/php/unserialize/0 stopped
+[2022-03-28 03:10] Container honggfuzz/php/exif/0 stopped
+[2022-03-28 10:43] Container honggfuzz/php/parser/0 stopped
+[2022-03-28 10:44] Obtaining sudo permissions to umount tmpfs
+[2022-03-28 10:44] (INFO) The fuzzing process has finished.
+[2022-03-28 10:44] (INFO) Gathering results...
+[2022-03-28 10:44] (ERROR) list index out of range
+[2022-03-28 10:44] (ERROR) list index out of range
+[2022-03-28 10:44] (ERROR) list index out of range
+[2022-03-28 10:44] (ERROR) list index out of range
+[2022-03-28 10:44] (ERROR) [Errno 2] No such file or directory: './tools/captain/workdir/ar/libfuzzer/php/'
+[2022-03-28 10:44] (ERROR) [Errno 2] No such file or directory: './tools/captain/workdir/ar/libfuzzer/php/'
+[2022-03-28 10:44] (INFO) The results of this fuzzing campaign were stored in ../results/php/artificial/0017/.
+[2022-03-28 10:44] (INFO) Iteration 7 of 10 for the duration of 4h took 46288s.
+[2022-03-28 10:44] (INFO) Starting iteration 8 of 10 for the duration of 4h.
+[2022-03-28 10:44] (INFO) Starting the fuzzing process!
+[2022-03-28 10:44] Obtaining sudo permissions to mount tmpfs
+[2022-03-28 10:44] Building magma/aflplusplus/php
+[2022-03-28 10:58] Starting campaigns for json 
+[2022-03-28 10:58] Starting campaigns for exif 
+[2022-03-28 10:58] Container aflplusplus/php/json/0 started on CPU 0
+[2022-03-28 10:58] Starting campaigns for unserialize 
+[2022-03-28 10:58] Container aflplusplus/php/exif/0 started on CPU 1
+[2022-03-28 10:58] Starting campaigns for parser 
+[2022-03-28 10:58] Container aflplusplus/php/unserialize/0 started on CPU 2
+[2022-03-28 10:58] Building magma/honggfuzz/php
+[2022-03-28 10:58] Container aflplusplus/php/parser/0 started on CPU 3
+[2022-03-28 11:10] Starting campaigns for json 
+[2022-03-28 11:10] Starting campaigns for exif 
+[2022-03-28 11:10] Container honggfuzz/php/json/0 started on CPU 4
+[2022-03-28 11:10] Starting campaigns for unserialize 
+[2022-03-28 11:10] Container honggfuzz/php/exif/0 started on CPU 5
+[2022-03-28 11:10] Starting campaigns for parser 
+[2022-03-28 11:10] Container honggfuzz/php/unserialize/0 started on CPU 6
+[2022-03-28 11:10] Building magma/libfuzzer/php
+[2022-03-28 11:10] Container honggfuzz/php/parser/0 started on CPU 7
+[2022-03-28 11:42] Starting campaigns for json 
+[2022-03-28 14:59] Container aflplusplus/php/unserialize/0 stopped
+[2022-03-28 14:59] Starting campaigns for exif 
+[2022-03-28 14:59] Container libfuzzer/php/json/0 started on CPU 2
+[2022-03-28 14:59] Container aflplusplus/php/json/0 stopped
+[2022-03-28 14:59] Container aflplusplus/php/exif/0 stopped
+[2022-03-28 14:59] Starting campaigns for unserialize 
+[2022-03-28 14:59] Container libfuzzer/php/exif/0 started on CPU 0
+[2022-03-28 14:59] Starting campaigns for parser 
+[2022-03-28 14:59] Container libfuzzer/php/unserialize/0 started on CPU 1
+[2022-03-28 15:12] Container aflplusplus/php/parser/0 stopped
+[2022-03-28 15:12] Waiting for jobs to finish
+[2022-03-28 15:12] Container libfuzzer/php/parser/0 started on CPU 3
+[2022-03-28 15:23] Container honggfuzz/php/json/0 stopped
+[2022-03-28 15:27] Container honggfuzz/php/unserialize/0 stopped
+[2022-03-28 15:40] Container honggfuzz/php/exif/0 stopped
+[2022-03-28 19:01] Container libfuzzer/php/json/0 stopped
+[2022-03-28 19:01] Container libfuzzer/php/exif/0 stopped
+[2022-03-28 19:04] Container libfuzzer/php/unserialize/0 stopped
+[2022-03-28 19:28] Container libfuzzer/php/parser/0 stopped
+[2022-03-28 20:39] Container honggfuzz/php/parser/0 stopped
+[2022-03-28 20:39] Obtaining sudo permissions to umount tmpfs
+[2022-03-28 20:39] (INFO) The fuzzing process has finished.
+[2022-03-28 20:39] (INFO) Gathering results...
+[2022-03-28 20:39] (ERROR) list index out of range
+[2022-03-28 20:39] (ERROR) list index out of range
+[2022-03-28 20:39] (ERROR) list index out of range
+[2022-03-28 20:39] (ERROR) list index out of range
+[2022-03-28 20:39] (ERROR) list index out of range
+[2022-03-28 20:39] (ERROR) list index out of range
+[2022-03-28 20:39] (ERROR) list index out of range
+[2022-03-28 20:39] (ERROR) list index out of range
+[2022-03-28 20:39] (INFO) The results of this fuzzing campaign were stored in ../results/php/artificial/0018/.
+[2022-03-28 20:39] (INFO) Iteration 8 of 10 for the duration of 4h took 35713s.
+[2022-03-28 20:39] (INFO) Starting iteration 9 of 10 for the duration of 4h.
+[2022-03-28 20:39] (INFO) Starting the fuzzing process!
+[2022-03-28 20:39] Obtaining sudo permissions to mount tmpfs
+[2022-03-28 20:39] Building magma/aflplusplus/php
+[2022-03-28 20:56] Starting campaigns for json 
+[2022-03-28 20:56] Starting campaigns for exif 
+[2022-03-28 20:56] Container aflplusplus/php/json/0 started on CPU 0
+[2022-03-28 20:56] Starting campaigns for unserialize 
+[2022-03-28 20:56] Container aflplusplus/php/exif/0 started on CPU 1
+[2022-03-28 20:56] Starting campaigns for parser 
+[2022-03-28 20:56] Container aflplusplus/php/unserialize/0 started on CPU 2
+[2022-03-28 20:56] Building magma/honggfuzz/php
+[2022-03-28 20:56] Container aflplusplus/php/parser/0 started on CPU 3
+[2022-03-28 21:14] Starting campaigns for json 
+[2022-03-28 21:14] Starting campaigns for exif 
+[2022-03-28 21:14] Container honggfuzz/php/json/0 started on CPU 4
+[2022-03-28 21:14] Starting campaigns for unserialize 
+[2022-03-28 21:14] Container honggfuzz/php/exif/0 started on CPU 5
+[2022-03-28 21:14] Starting campaigns for parser 
+[2022-03-28 21:14] Container honggfuzz/php/unserialize/0 started on CPU 6
+[2022-03-28 21:14] Building magma/libfuzzer/php
+[2022-03-28 21:14] Container honggfuzz/php/parser/0 started on CPU 7
+[2022-03-28 21:52] Starting campaigns for json 
+[2022-03-29 00:59] Container aflplusplus/php/unserialize/0 stopped
+[2022-03-29 00:59] Starting campaigns for exif 
+[2022-03-29 00:59] Container libfuzzer/php/json/0 started on CPU 2
+[2022-03-29 00:59] Container aflplusplus/php/exif/0 stopped
+[2022-03-29 00:59] Starting campaigns for unserialize 
+[2022-03-29 00:59] Container libfuzzer/php/exif/0 started on CPU 1
+[2022-03-29 01:00] Container aflplusplus/php/json/0 stopped
+[2022-03-29 01:00] Starting campaigns for parser 
+[2022-03-29 01:00] Container libfuzzer/php/unserialize/0 started on CPU 0
+[2022-03-29 01:22] Container aflplusplus/php/parser/0 stopped
+[2022-03-29 01:22] Waiting for jobs to finish
+[2022-03-29 01:22] Container libfuzzer/php/parser/0 started on CPU 3
+[2022-03-29 01:36] Container honggfuzz/php/json/0 stopped
+[2022-03-29 01:42] Container honggfuzz/php/unserialize/0 stopped
+[2022-03-29 01:54] Container honggfuzz/php/exif/0 stopped
+[2022-03-29 05:03] Container libfuzzer/php/exif/0 stopped
+[2022-03-29 05:03] Container libfuzzer/php/unserialize/0 stopped
+[2022-03-29 05:04] Container libfuzzer/php/json/0 stopped
+[2022-03-29 05:50] Container libfuzzer/php/parser/0 stopped
+[2022-03-29 09:36] Container honggfuzz/php/parser/0 stopped
+[2022-03-29 09:36] Obtaining sudo permissions to umount tmpfs
+[2022-03-29 09:36] (INFO) The fuzzing process has finished.
+[2022-03-29 09:36] (INFO) Gathering results...
+[2022-03-29 09:36] (ERROR) list index out of range
+[2022-03-29 09:36] (ERROR) list index out of range
+[2022-03-29 09:36] (ERROR) list index out of range
+[2022-03-29 09:36] (ERROR) list index out of range
+[2022-03-29 09:36] (ERROR) list index out of range
+[2022-03-29 09:36] (ERROR) list index out of range
+[2022-03-29 09:36] (ERROR) list index out of range
+[2022-03-29 09:36] (ERROR) list index out of range
+[2022-03-29 09:36] (INFO) The results of this fuzzing campaign were stored in ../results/php/artificial/0019/.
+[2022-03-29 09:36] (INFO) Iteration 9 of 10 for the duration of 4h took 46627s.
+[2022-03-29 09:36] (INFO) Starting iteration 10 of 10 for the duration of 4h.
+[2022-03-29 09:36] (INFO) Starting the fuzzing process!
+[2022-03-29 09:36] Obtaining sudo permissions to mount tmpfs
+[2022-03-29 09:36] Building magma/aflplusplus/php
+[2022-03-29 09:55] Starting campaigns for json 
+[2022-03-29 09:55] Starting campaigns for exif 
+[2022-03-29 09:55] Container aflplusplus/php/json/0 started on CPU 0
+[2022-03-29 09:55] Starting campaigns for unserialize 
+[2022-03-29 09:55] Container aflplusplus/php/exif/0 started on CPU 1
+[2022-03-29 09:55] Starting campaigns for parser 
+[2022-03-29 09:55] Container aflplusplus/php/unserialize/0 started on CPU 2
+[2022-03-29 09:55] Building magma/honggfuzz/php
+[2022-03-29 09:55] Container aflplusplus/php/parser/0 started on CPU 3
+[2022-03-29 10:13] Container aflplusplus/php/parser/0 stopped
+mv: cannot create directory '/home/thijs/CometFuzz/tools/captain/workdir/ar/aflplusplus/php/parser/0': No space left on device
+./run.sh: line 154: cannot create temp file for here-document: No space left on device
+[2022-03-29 10:13] Starting campaigns for json 
+[2022-03-29 10:13] Starting campaigns for exif 
+[2022-03-29 10:13] Container honggfuzz/php/json/0 started on CPU 4
+[2022-03-29 10:13] Starting campaigns for unserialize 
+[2022-03-29 10:13] Container honggfuzz/php/exif/0 started on CPU 5
+[2022-03-29 10:13] Starting campaigns for parser 
+[2022-03-29 10:13] Container honggfuzz/php/unserialize/0 started on CPU 6
+[2022-03-29 10:13] Building magma/libfuzzer/php
+[2022-03-29 10:13] Container honggfuzz/php/parser/0 started on CPU 7
+[2022-03-29 10:17] Failed to build magma/libfuzzer/php. Check build log for info.
+[2022-03-29 10:17] Waiting for jobs to finish
+[2022-03-29 13:57] Container aflplusplus/php/unserialize/0 stopped
+[2022-03-29 13:58] Container aflplusplus/php/exif/0 stopped
+[2022-03-29 13:58] Container aflplusplus/php/json/0 stopped
+[2022-03-29 14:31] Container honggfuzz/php/json/0 stopped
+[2022-03-29 14:42] Container honggfuzz/php/unserialize/0 stopped
+[2022-03-29 14:51] Container honggfuzz/php/exif/0 stopped
+[2022-03-29 21:28] Container honggfuzz/php/parser/0 stopped
+[2022-03-29 21:28] Obtaining sudo permissions to umount tmpfs
+[2022-03-29 21:28] (INFO) The fuzzing process has finished.
+[2022-03-29 21:28] (INFO) Gathering results...
+[2022-03-29 21:28] (ERROR) list index out of range
+[2022-03-29 21:28] (ERROR) list index out of range
+[2022-03-29 21:28] (ERROR) list index out of range
+[2022-03-29 21:28] (ERROR) list index out of range
+[2022-03-29 21:28] (ERROR) [Errno 2] No such file or directory: './tools/captain/workdir/ar/aflplusplus/php/parser/0/findings/crashes/'
+[2022-03-29 21:28] (ERROR) [Errno 2] No such file or directory: './tools/captain/workdir/ar/libfuzzer/php/'
+[2022-03-29 21:29] (ERROR) [Errno 2] No such file or directory: './tools/captain/workdir/ar/libfuzzer/php/'
+cp: cannot stat './tools/captain/workdir/ar/aflplusplus/php/parser/0/findings/queue/.': No such file or directory
+[2022-03-29 21:29] (INFO) The results of this fuzzing campaign were stored in ../results/php/artificial/0020/.
+[2022-03-29 21:29] (INFO) Iteration 10 of 10 for the duration of 4h took 42753s.
