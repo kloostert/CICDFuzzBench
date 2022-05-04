@@ -1,0 +1,13 @@
+iteration=0 	 commit=64537a06 	 equal=0 	 total=0 	 percentage=0.0
+iteration=1 	 commit=6e25cb08 	 equal=0 	 total=1 	 percentage=0.0
+iteration=2 	 commit=85cb6014 	 equal=0 	 total=2 	 percentage=0.0
+iteration=3 	 commit=fa1b393b 	 equal=0 	 total=3 	 percentage=0.0
+iteration=4 	 commit=4565f711 	 equal=0 	 total=4 	 percentage=0.0
+iteration=5 	 commit=e97c6ad4 	 equal=0 	 total=5 	 percentage=0.0
+iteration=6 	 commit=eee6de19 	 equal=0 	 total=6 	 percentage=0.0
+iteration=7 	 commit=c006515a 	 equal=0 	 total=7 	 percentage=0.0
+iteration=8 	 commit=22cc55e8 	 equal=0 	 total=8 	 percentage=0.0
+iteration=9 	 commit=1269206d 	 equal=0 	 total=9 	 percentage=0.0
+iteration=10 	 commit=f815cf4a 	 equal=0 	 total=10 	 percentage=0.0
+^C
+INFO: Program was interrupted by the user.

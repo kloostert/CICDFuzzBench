@@ -1,0 +1,93 @@
+nohup: ignoring input
+iteration=0 	 commit=df8a4ee51e18a39f85568c4122e5edd8c03d61df 	 equal=0 	 total=0 	 percentage=0.0
+iteration=1 	 commit=bd9fb431941916174e1c3b2201bf5f422bcf61bd 	 equal=0 	 total=2 	 percentage=0.0
+iteration=2 	 commit=34a44e5b95230b1ed03bb030e9963d0187b01951 	 equal=2 	 total=4 	 percentage=50.0
+iteration=3 	 commit=bdd8db389c7b09cd9042267f36214f809e4c5f60 	 equal=4 	 total=6 	 percentage=66.66666666666666
+iteration=4 	 commit=ab72205dd14efe9c5c8d12e6b1ae538208bce168 	 equal=4 	 total=8 	 percentage=50.0
+iteration=5 	 commit=022ccd4e1c61f4e89c7ffad83d9a5a896f65dc40 	 equal=4 	 total=10 	 percentage=40.0
+iteration=6 	 commit=776257d0c20d4e3ae8d66683ab0f087bf6fc7b0f 	 equal=4 	 total=12 	 percentage=33.33333333333333
+iteration=7 	 commit=d80e7aac3366f93865581a783751abb528c120b3 	 equal=4 	 total=14 	 percentage=28.57142857142857
+iteration=8 	 commit=fee13e935e4c9eaadff434436eaceeb13afcfc13 	 equal=4 	 total=16 	 percentage=25.0
+iteration=9 	 commit=79c588912f41aa6ee81ea058e7e649199a252f90 	 equal=6 	 total=18 	 percentage=33.33333333333333
+iteration=10 	 commit=8c8c0034ae88c06616ace5e5ead71318f04311cf 	 equal=8 	 total=20 	 percentage=40.0
+iteration=11 	 commit=3e0408966ccdd713de7795ce7992888b3896b49c 	 equal=10 	 total=22 	 percentage=45.45454545454545
+iteration=12 	 commit=b4127fb1c45fe5dcabe3751f0b40029405224f49 	 equal=12 	 total=24 	 percentage=50.0
+iteration=13 	 commit=a8e93f46df9feb7f7241826307af51befdb25d9e 	 equal=12 	 total=26 	 percentage=46.15384615384615
+iteration=14 	 commit=07180b86786cce95df4e2433a7cf3e006749a0f5 	 equal=12 	 total=28 	 percentage=42.857142857142854
+iteration=15 	 commit=c4af5981ab2a5f42a9a1194bb5929c2151fc2674 	 equal=12 	 total=30 	 percentage=40.0
+iteration=16 	 commit=5fc6d9fcb41966b85dc67117531c81ec89f42f20 	 equal=12 	 total=32 	 percentage=37.5
+iteration=17 	 commit=a801b46e1e792b5d0a34f97de870c485e0ef312a 	 equal=12 	 total=34 	 percentage=35.294117647058826
+iteration=18 	 commit=eb6de58de5ef8c2ddeeed386e0b8b498b945797f 	 equal=14 	 total=36 	 percentage=38.88888888888889
+iteration=19 	 commit=853b2251d4e11f14cd891bf1b6095ee36683d161 	 equal=14 	 total=38 	 percentage=36.84210526315789
+iteration=20 	 commit=0a8311929ba599d7b0a35e83b1f5dec4a3c9da06 	 equal=14 	 total=40 	 percentage=35.0
+iteration=21 	 commit=0e35441513bdce2471113b937bccb8928c7c9d9f 	 equal=14 	 total=42 	 percentage=33.33333333333333
+iteration=22 	 commit=ba91b95f6e504cce08825e83a567a554ac846e39 	 equal=14 	 total=44 	 percentage=31.818181818181817
+iteration=23 	 commit=9bfe4b43216bce4e702d7d8f61fc7cb9acdbb8f6 	 equal=14 	 total=46 	 percentage=30.434782608695656
+iteration=24 	 commit=690ea9e5c900268556431df71bdac38f5e74dc36 	 equal=14 	 total=48 	 percentage=29.166666666666668
+iteration=25 	 commit=f3551055dab57eb0bc544070b15c6a7435585003 	 equal=14 	 total=50 	 percentage=28.000000000000004
+iteration=26 	 commit=4cc89c79f58cb416aae8396190a788e1398113ff 	 equal=14 	 total=52 	 percentage=26.923076923076923
+iteration=27 	 commit=8821c04f36cb737776cd9077a46f1a9f86ca54e7 	 equal=14 	 total=54 	 percentage=25.925925925925924
+iteration=28 	 commit=afb053d652cc1f670465d471f671652b112dbf51 	 equal=14 	 total=56 	 percentage=25.0
+iteration=29 	 commit=0a79dc3036111e86a11bd290057da6674da3b311 	 equal=14 	 total=58 	 percentage=24.137931034482758
+iteration=30 	 commit=b60de1700d95d022ec0d1676886b0442cb763473 	 equal=14 	 total=60 	 percentage=23.333333333333332
+iteration=31 	 commit=6bb508acd9a79671e5e9defc7b92a943fb880cda 	 equal=14 	 total=62 	 percentage=22.58064516129032
+iteration=32 	 commit=390109044bdef1ba67c2339bffaf11b38261854d 	 equal=14 	 total=64 	 percentage=21.875
+iteration=33 	 commit=f75c0f5c3f9d63334cc21e0ab68f1af45d0037cc 	 equal=16 	 total=66 	 percentage=24.242424242424242
+iteration=34 	 commit=a669ad5cfb28cdfcfe38bbce39fbf8c6fc3102d9 	 equal=16 	 total=68 	 percentage=23.52941176470588
+iteration=35 	 commit=4f9b3d8d8d17863873a8a399ff3fe212d247b236 	 equal=16 	 total=70 	 percentage=22.857142857142858
+iteration=36 	 commit=2bf6f2275c49f94e84f935653d6c42f6b5f9b364 	 equal=16 	 total=72 	 percentage=22.22222222222222
+iteration=37 	 commit=6f2bc64e09b7f5e5be6962840ede40369b78fd5e 	 equal=16 	 total=74 	 percentage=21.62162162162162
+iteration=38 	 commit=5e7931c4c9fdaba8b3343d04eda6e9eb2a2e3dcd 	 equal=16 	 total=76 	 percentage=21.052631578947366
+iteration=39 	 commit=3fdb7ea7b6a1ed4add2fbc6dca7a38b27fc79f45 	 equal=18 	 total=78 	 percentage=23.076923076923077
+iteration=40 	 commit=4b96c8399102a36e542c9da3b34650c26ccdda3c 	 equal=20 	 total=80 	 percentage=25.0
+iteration=41 	 commit=5804259f22d4d42ed7c37c9efb613910248cd1d4 	 equal=20 	 total=82 	 percentage=24.390243902439025
+iteration=42 	 commit=1eb06156855758e4b1da2adc0334d84d3f857fb1 	 equal=20 	 total=84 	 percentage=23.809523809523807
+iteration=43 	 commit=2a49511517678b7e05660bb9a35a614c83229b66 	 equal=20 	 total=86 	 percentage=23.25581395348837
+iteration=44 	 commit=e491e935ea355d48519cf0a14e4b060655850675 	 equal=20 	 total=88 	 percentage=22.727272727272727
+iteration=45 	 commit=c19469f2a80ebc09bef3fbd603034e43c4a707cd 	 equal=20 	 total=90 	 percentage=22.22222222222222
+iteration=46 	 commit=c7a317635cfc6934e975e846335e37a68d6b3876 	 equal=20 	 total=92 	 percentage=21.73913043478261
+iteration=47 	 commit=7a708ffd374cd18e9e4bfe8a8e95c02184a074ba 	 equal=22 	 total=94 	 percentage=23.404255319148938
+iteration=48 	 commit=5e7aef9df36a07c82b0ab40f80fd8464840f6424 	 equal=24 	 total=96 	 percentage=25.0
+iteration=49 	 commit=79789ed3d2798fb34f1c82d950e03a4d41e197de 	 equal=26 	 total=98 	 percentage=26.53061224489796
+iteration=50 	 commit=e34e187934e3654989b6af5177f345032623dd9b 	 equal=26 	 total=100 	 percentage=26.0
+iteration=51 	 commit=c14dfa44a70ce32bbe1268ddff6106cab3f33bc2 	 equal=27 	 total=102 	 percentage=26.47058823529412
+iteration=52 	 commit=92c51751a87b31c4bafa7b0146f745b3008ec9fc 	 equal=29 	 total=104 	 percentage=27.884615384615387
+iteration=53 	 commit=46543272dbe7655821e1c794ca3cc22e8cb4cef9 	 equal=29 	 total=106 	 percentage=27.358490566037734
+iteration=54 	 commit=327c342a932d8df731ec02a6b22792004206c2db 	 equal=29 	 total=108 	 percentage=26.851851851851855
+iteration=55 	 commit=4798ef5298bcfcfadf8e1d66f9200e3c9eee2248 	 equal=29 	 total=110 	 percentage=26.36363636363636
+iteration=56 	 commit=f26285f361478219ea9d3c6de1529ecd5ff96ac9 	 equal=31 	 total=112 	 percentage=27.67857142857143
+iteration=57 	 commit=8b2079b7250e037599f6640539f8107d93314919 	 equal=31 	 total=114 	 percentage=27.192982456140353
+iteration=58 	 commit=41321580f0a13309e5de44eb42851e3c82a5ef8f 	 equal=31 	 total=116 	 percentage=26.72413793103448
+iteration=59 	 commit=b14baefb406b8f08f0702edd686ebc7698cb7f15 	 equal=31 	 total=118 	 percentage=26.27118644067797
+iteration=60 	 commit=4afe2fb10ab969bfd9895c0ba9d4990c5881b451 	 equal=33 	 total=120 	 percentage=27.500000000000004
+iteration=61 	 commit=41c61811fdd6efe2bef34d2ce26520fc6b3c4237 	 equal=35 	 total=122 	 percentage=28.688524590163933
+iteration=62 	 commit=2740b3aca81a6a8c690540fc141e5923a1fff460 	 equal=37 	 total=124 	 percentage=29.838709677419356
+iteration=63 	 commit=42a6b8651f040f0960802e705b1aea82a956a63b 	 equal=39 	 total=126 	 percentage=30.952380952380953
+iteration=64 	 commit=e25d4af6ed9b254db3096a2e483798734296376d 	 equal=41 	 total=128 	 percentage=32.03125
+iteration=65 	 commit=e015ab97c1ee3a4ea386ccc86385aad458827d96 	 equal=43 	 total=130 	 percentage=33.07692307692307
+iteration=66 	 commit=732903ecf1bdb085cac36eb29d330a7970670064 	 equal=45 	 total=132 	 percentage=34.090909090909086
+iteration=67 	 commit=791e024656212c65d798cb69a134cdd3e30cc79e 	 equal=47 	 total=134 	 percentage=35.07462686567165
+iteration=68 	 commit=948d392d9acc3d82b86a260c952095a603fe767f 	 equal=49 	 total=136 	 percentage=36.029411764705884
+iteration=69 	 commit=73130ae1125c86ebd0ee504d0681d9911ff2cfbd 	 equal=51 	 total=138 	 percentage=36.95652173913043
+iteration=70 	 commit=37efb98d77c14c27a22806ec676c13f0a8b99490 	 equal=52 	 total=140 	 percentage=37.142857142857146
+iteration=71 	 commit=e3cece1bfc00083637f709f7647b4711b5c6a084 	 equal=53 	 total=142 	 percentage=37.32394366197183
+iteration=72 	 commit=8cfe91ae51fa50e66217c6bbcb236ec3a267e45e 	 equal=53 	 total=144 	 percentage=36.80555555555556
+iteration=73 	 commit=b1016f574ac63fa269ca5125827895220e1df883 	 equal=55 	 total=146 	 percentage=37.67123287671233
+iteration=74 	 commit=248aa0f5832ce063a9ae061dfcf54596e0ea5fba 	 equal=57 	 total=148 	 percentage=38.513513513513516
+iteration=75 	 commit=f93fa48839be2937cd7ce38c14884428416bcc4b 	 equal=59 	 total=150 	 percentage=39.33333333333333
+iteration=76 	 commit=f65f60e5d3f5e4109a79212a9994b5096a2a2a8d 	 equal=60 	 total=152 	 percentage=39.473684210526315
+iteration=77 	 commit=7342327039dfc750934f3ce7ff0bdb6bc585151c 	 equal=60 	 total=154 	 percentage=38.961038961038966
+iteration=78 	 commit=a89e7474fcd9e7e6dd1330c585130346aa862598 	 equal=60 	 total=156 	 percentage=38.46153846153847
+WARNING: Could not compile fuzz targets!
+iteration=79 	 commit=7f550e88d86482adcfab6e054ff14588b32b692a 	 equal=60 	 total=156 	 percentage=38.46153846153847
+WARNING: Could not compile fuzz targets!
+iteration=80 	 commit=4b237953b187f38c90b9a747f587cbc277db6d45 	 equal=60 	 total=156 	 percentage=38.46153846153847
+WARNING: Could not compile fuzz targets!
+iteration=81 	 commit=08f2cddf18b6ccdc13861b52821cbbf2d3e48472 	 equal=60 	 total=156 	 percentage=38.46153846153847
+WARNING: Could not compile fuzz targets!
+iteration=82 	 commit=10831921281f75b4b2c05ab85f4093331788e6a8 	 equal=60 	 total=156 	 percentage=38.46153846153847
+WARNING: Could not compile fuzz targets!
+iteration=83 	 commit=a59f61641fcb36859b625749afb4561557e419f6 	 equal=60 	 total=156 	 percentage=38.46153846153847
+WARNING: Could not compile fuzz targets!
+iteration=84 	 commit=00c1566e8cc0dacd899ec6dd267265f4b714eae4 	 equal=60 	 total=156 	 percentage=38.46153846153847
+ERROR: Could not checkout parent commit!
