@@ -72,10 +72,13 @@ git -C "./fuzzers/libfuzzer/repo" checkout 3d120b6f7be816d188bd05271fff17f0030db
 echo "Preparing fuzz duration experiment..."
 cp "./experiments/fuzz duration/common.py" .
 cp "./experiments/fuzz duration/fuzz-duration.py" .
-cp "./experiments/fuzz duration/run_experiments.sh" "./run_fuzz-duration.sh"
+cp -p "./experiments/fuzz duration/run_experiments.sh" "./run_fuzz-duration.sh"
 
 # Inject Magma bugs
 echo "Injecting Magma bugs..."
 export COMETFUZZ_INJECT_BUGS=1
 ./run_fuzz-duration.sh
 unset COMETFUZZ_INJECT_BUGS
+
+# Done!
+echo "...Done!"
