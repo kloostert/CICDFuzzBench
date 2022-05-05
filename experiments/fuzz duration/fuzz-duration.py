@@ -143,13 +143,15 @@ if __name__ == '__main__':
         SETUP_LOCATION = f'../CometFuzz/targets/{TARGET}/patches/setup/'
         PATCH_LOCATION = f'../CometFuzz/targets/{TARGET}/patches/bugs/'
         # checkout_base()  # disabled, otherwise it overrides manual checkout
-        # apply_setup_patches()  # disabled, otherwise it overrides manual set-up
-        # find_and_apply_patches()  # disabled, otherwise it overrides manual set-up
+        if "COMETFUZZ_INJECT_BUGS" in os.environ():
+            apply_setup_patches()
+            find_and_apply_patches()
+            sys.exit()
         for duration in DURATIONS:
             c.log_info('Cleaning up disk space.')
             c.run_cmd_disable_output(['docker', 'system', 'prune', '-af'])
             c.log_info(f'Starting the run with a duration of {duration}.')
-            # c.empty_seed_corpus()  # disabled, use seed corpus (this needs to be generalized before use as well)
+            # c.empty_seed_corpus()  # disabled, start with non-empty seed corpus
             c.initialize_seed_corpus(TARGET)
             for i in range(ITERATIONS):
                 c.log_info(f'Starting iteration {i + 1} of {ITERATIONS} for the duration of {duration}.')
