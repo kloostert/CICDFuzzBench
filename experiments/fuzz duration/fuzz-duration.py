@@ -143,7 +143,7 @@ if __name__ == '__main__':
         SETUP_LOCATION = f'../CometFuzz/targets/{TARGET}/patches/setup/'
         PATCH_LOCATION = f'../CometFuzz/targets/{TARGET}/patches/bugs/'
         # checkout_base()  # disabled, otherwise it overrides manual checkout
-        if "COMETFUZZ_INJECT_BUGS" in os.environ():
+        if "COMETFUZZ_INJECT_BUGS" in os.environ:
             apply_setup_patches()
             find_and_apply_patches()
             sys.exit()
