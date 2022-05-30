@@ -1,4 +1,4 @@
-# CometFuzz - Benchmarking Continuous Fuzzing
+# CICDFuzzBench - Benchmarking Continuous Fuzzing
 
 CometFuzz is a toolset that provides benchmarking for fuzzing in continuous integration practices. Several experiments are included that investigate the effectiveness and scalability of continuous fuzzing, by answering the following questions:
 
