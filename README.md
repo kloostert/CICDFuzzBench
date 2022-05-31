@@ -16,6 +16,8 @@ This repository contains the following subdirectories:
 | Directory | Description |
 | ----------- | ----------- |
 | [experiments](experiments) | Contains the source code, logs, and visualizations of the experiments. |
+| [fuzz-duration-data](experiments/fuzz%20duration/data/) | Contains the collected data of the fuzz duration experiment. |
+| [target-selection-data](experiments/target%20selection/logs/) | Contains the collected data of the target selection experiment. |
 | [fuzzers](fuzzers) | Contains the available fuzzers that can be used in the benchmark.  |
 | [magma](magma) | Contains the actual Magma benchmark source code. |
 | [targets](targets) | Contains the available target libraries that can be used in the benchmark.  |
